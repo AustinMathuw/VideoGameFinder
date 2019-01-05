@@ -1,0 +1,769 @@
+{
+    "document": {
+        "type": "APL",
+        "version": "1.0",
+        "theme": "dark",
+        "import": [
+            {
+                "name": "alexa-layouts",
+                "version": "1.0.0"
+            }
+        ],
+        "resources": [
+            {
+                "description": "Stock color for the light theme",
+                "colors": {
+                    "colorTextPrimary": "#151920"
+                }
+            },
+            {
+                "description": "Stock color for the dark theme",
+                "when": "${viewport.theme == 'dark'}",
+                "colors": {
+                    "colorTextPrimary": "#f0f1ef"
+                }
+            },
+            {
+                "description": "Standard font sizes",
+                "dimensions": {
+                    "textSizeBody": 48,
+                    "textSizePrimary": 27,
+                    "textSizeSecondary": 23,
+                    "textSizeDetails": 20,
+                    "textSizeSecondaryHint": 25
+                }
+            },
+            {
+                "description": "Common spacing values",
+                "dimensions": {
+                    "spacingThin": 6,
+                    "spacingSmall": 12,
+                    "spacingMedium": 24,
+                    "spacingLarge": 48,
+                    "spacingExtraLarge": 72
+                }
+            },
+            {
+                "description": "Common margins and padding",
+                "dimensions": {
+                    "marginTop": 40,
+                    "marginLeft": 60,
+                    "marginRight": 60,
+                    "marginBottom": 40
+                }
+            }
+        ],
+        "styles": {
+            "textStyleBase": {
+                "description": "Base font description; set color and core font family",
+                "values": [
+                    {
+                        "color": "@colorTextPrimary",
+                        "fontFamily": "Amazon Ember"
+                    }
+                ]
+            },
+            "textStyleBase0": {
+                "description": "Thin version of basic font",
+                "extend": "textStyleBase",
+                "values": {
+                    "fontWeight": "100"
+                }
+            },
+            "textStyleBase1": {
+                "description": "Light version of basic font",
+                "extend": "textStyleBase",
+                "values": {
+                    "fontWeight": "300"
+                }
+            },
+            "textStyleBase2": {
+                "description": "Regular version of basic font",
+                "extend": "textStyleBase",
+                "values": {
+                    "fontWeight": "500"
+                }
+            },
+            "mixinBody": {
+                "values": {
+                    "fontSize": "@textSizeBody"
+                }
+            },
+            "mixinPrimary": {
+                "values": {
+                    "fontSize": "@textSizePrimary"
+                }
+            },
+            "mixinDetails": {
+                "values": {
+                    "fontSize": "@textSizeDetails"
+                }
+            },
+            "mixinSecondary": {
+                "values": {
+                    "fontSize": "@textSizeSecondary"
+                }
+            },
+            "textStylePrimary": {
+                "extend": [
+                    "textStyleBase1",
+                    "mixinPrimary"
+                ]
+            },
+            "textStyleSecondary": {
+                "extend": [
+                    "textStyleBase0",
+                    "mixinSecondary"
+                ]
+            },
+            "textStyleBody": {
+                "extend": [
+                    "textStyleBase1",
+                    "mixinBody"
+                ]
+            },
+            "textStyleSecondaryHint": {
+                "values": {
+                    "fontFamily": "Bookerly",
+                    "fontStyle": "italic",
+                    "fontSize": "@textSizeSecondaryHint",
+                    "color": "@colorTextPrimary"
+                }
+            },
+            "textStyleDetails": {
+                "extend": [
+                    "textStyleBase2",
+                    "mixinDetails"
+                ]
+            }
+        },
+        "layouts": {
+            "gameInfo": {
+                "parameters": [
+                    "result"
+                ],
+                "items": [
+                    {
+                        "type": "Sequence",
+                        "scrollDirection": "vertical",
+                        "id": "entireDisplay",
+                        "height": "100vh",
+                        "width": "100vw",
+                        "numbered": false,
+                        "item": [
+                            {
+                                "type": "Container",
+                                "width": "100vw",
+                                "height": "100vh",
+                                "id": "${result.gameTitle}",
+                                "items": [
+                                    {
+                                        "type": "Container",
+                                        "direction": "column",
+                                        "width": "100vw",
+                                        "height": "100vh",
+                                        "position": "absolute",
+                                        "items": [
+                                            {
+                                                "type": "Image",
+                                                "source": "${result.screenshotImageUrl}",
+                                                "scale": "best-fill",
+                                                "width": "100vw",
+                                                "height": "35vh"
+                                            },
+                                            {
+                                                "type": "Image",
+                                                "source": "${result.backgroundImageUrl}",
+                                                "scale": "best-fill",
+                                                "width": "100vw",
+                                                "height": "70vh"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "AlexaHeader",
+                                        "headerTitle": "${result.resultNum}. ${result.gameTitle}"
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "position": "absolute",
+                                        "direction": "row",
+                                        "paddingTop": "10vh",
+                                        "width": "100vw",
+                                        "height": "100vh",
+                                        "grow": 1,
+                                        "items": [
+                                            {
+                                                "paddingTop": "30vh",
+                                                "paddingLeft": "5vh",
+                                                "paddingRight": "5vh",
+                                                "width": "20vw",
+                                                "height": "100vh",
+                                                "type": "Text",
+                                                "text": "<b>Release:</b><br />${result.infoText1}",
+                                                "style": "textStylePrimary",
+                                                "textAlign": "center"
+                                            },
+                                            {
+                                                "paddingTop": "30vh",
+                                                "paddingLeft": "5vh",
+                                                "paddingRight": "5vh",
+                                                "width": "20vw",
+                                                "height": "100vh",
+                                                "type": "Text",
+                                                "text": "<b>Ratings:</b><br />${result.infoText2}",
+                                                "style": "textStylePrimary",
+                                                "textAlign": "center"
+                                            },
+                                            {
+                                                "type": "Image",
+                                                "source": "${result.coverImageUrl}",
+                                                "width": "20vw",
+                                                "height": "40vh",
+                                                "scale": "best-fit",
+                                                "align": "center"
+                                            },
+                                            {
+                                                "paddingTop": "30vh",
+                                                "paddingLeft": "5vh",
+                                                "paddingRight": "5vh",
+                                                "width": "20vw",
+                                                "height": "100vh",
+                                                "type": "Text",
+                                                "text": "<b>Critic Score:</b><br />${result.infoText3}",
+                                                "style": "textStylePrimary",
+                                                "textAlign": "center"
+                                            },
+                                            {
+                                                "paddingTop": "30vh",
+                                                "paddingLeft": "5vh",
+                                                "paddingRight": "5vh",
+                                                "width": "20vw",
+                                                "height": "100vh",
+                                                "type": "Text",
+                                                "text": "<b>Company:</b><br />${result.infoText4}",
+                                                "style": "textStylePrimary",
+                                                "textAlign": "center"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "position": "absolute",
+                                        "direction": "row",
+                                        "paddingTop": "70vh",
+                                        "paddingBottom": "10vh",
+                                        "paddingRight": "10vw",
+                                        "paddingLeft": "10vw",
+                                        "width": "100vw",
+                                        "height": "100vh",
+                                        "alignItems": "center",
+                                        "grow": 1,
+                                        "items": [
+                                            {
+                                                "type": "TouchWrapper",
+                                                "id": "ItemView",
+                                                "onPress": {
+                                                    "type": "SendEvent",
+                                                    "arguments": [
+                                                        "SearchItem",
+                                                        "${result}",
+                                                        "${result.resultNum}"
+                                                    ]
+                                                },
+                                                "item": [
+                                                    {
+                                                        "type": "ScrollView",
+                                                        "width": "80vw",
+                                                        "height": "30vh",
+                                                        "item": {
+                                                            "type": "Text",
+                                                            "id": "${result.gameTitle}-summary",
+                                                            "text": "${result.summaryText}",
+                                                            "speech": "${result.summarySpeech}",
+                                                            "style": "textStylePrimary",
+                                                            "textAlign": "center"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "TouchWrapper",
+                        "id": "PlayVideo",
+                        "onPress": {
+                            "type": "SendEvent",
+                            "arguments": [
+                                "PlayVideo",
+                                "${result}"
+                            ]
+                        },
+                        "item": [
+                            {
+                                "type": "Video",
+                                "id": "{result.videoID}",
+                                "autoplay": false
+                            }
+                        ]
+                        
+                    }
+                      
+                ]
+            },
+            "fullResultsListItem": {
+                "parameters": [
+                    "result",
+                    "listLength"
+                ],
+                "items": [
+                    {
+                        "type": "TouchWrapper",
+                        "id": "SearchItem",
+                        "onPress": {
+                            "type": "SendEvent",
+                            "arguments": [
+                                "SearchItem",
+                                "${result}",
+                                "${ordinal}"
+                            ]
+                        },
+                        "item": [
+                            {
+                                "type": "Container",
+                                "height": "100vh",
+                                "width": "100vw",
+                                "alignItems": "center",
+                                "justifyContent": "end",
+                                "items": [
+                                    {
+                                        "type": "Image",
+                                        "position": "absolute",
+                                        "height": "100vh",
+                                        "width": "100vw",
+                                        "overlayColor": "rgba(0, 0, 0, 0.6)",
+                                        "source": "${result.coverImageUrl}",
+                                        "scale": "best-fill"
+                                    },
+                                    {
+                                        "type": "AlexaHeader",
+                                        "grow": 1
+                                    },
+                                    {
+                                        "type": "Text",
+                                        "text": "${result.gameTitle}",
+                                        "style": "textStyleBody",
+                                        "maxLines": 1
+                                    },
+                                    {
+                                        "type": "Text",
+                                        "text": "${result.infoText1}",
+                                        "style": "textStyleDetails"
+                                    },
+                                    {
+                                        "type": "Text",
+                                        "text": "${ordinal} | ${listLength}",
+                                        "paddingBottom": "20dp",
+                                        "color": "white",
+                                        "spacing": "5dp"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "resultsListItem": {
+                "parameters": [
+                    "result"
+                ],
+                "items": [
+                    {
+                        "type": "TouchWrapper",
+                        "id": "SearchItem",
+                        "onPress": {
+                            "type": "SendEvent",
+                            "arguments": [
+                                "SearchItem",
+                                "${result}",
+                                "${ordinal}"
+                            ]
+                        },
+                        "item": {
+                            "type": "Container",
+                            "maxWidth": 528,
+                            "minWidth": 312,
+                            "paddingLeft": 16,
+                            "paddingRight": 16,
+                            "height": "100%",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "source": "${result.coverImageUrl}",
+                                    "height": "50vh",
+                                    "width": "50vh"
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "<b>${ordinal}.</b> ${result.gameTitle}",
+                                    "style": "textStyleSecondary",
+                                    "maxLines": 1,
+                                    "spacing": 12
+                                },
+                                {
+                                    "type": "Text",
+                                    "text": "${result.infoText1}",
+                                    "style": "textStyleDetails",
+                                    "spacing": 4
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "resultsList": {
+                "parameters": [
+                    "backgroundImageUrl",
+                    "pageTitle",
+                    "skillLogo",
+                    "hintText",
+                    "results"
+                ],
+                "items": [
+                    {
+                        "when": "${viewport.shape == 'round'}",
+                        "type": "Container",
+                        "height": "100%",
+                        "width": "100%",
+                        "items": [
+                            {
+                                "type": "Sequence",
+                                "scrollDirection": "horizontal",
+                                "data": "${results}",
+                                "height": "100%",
+                                "width": "100%",
+                                "numbered": true,
+                                "item": [
+                                    {
+                                        "type": "fullResultsListItem",
+                                        "result": "${data}",
+                                        "listLength": "${results.length}"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Container",
+                        "height": "100vh",
+                        "width": "100vw",
+                        "items": [
+                            {
+                                "type": "Image",
+                                "source": "${backgroundImageUrl}",
+                                "scale": "best-fill",
+                                "width": "100vw",
+                                "height": "100vh",
+                                "position": "absolute"
+                            },
+                            {
+                                "type": "AlexaHeader",
+                                "headerTitle": "${pageTitle}",
+                                "headerAttributionImage": "${skillLogo}"
+                            },
+                            {
+                                "type": "Sequence",
+                                "scrollDirection": "horizontal",
+                                "paddingLeft": "@marginLeft",
+                                "paddingRight": "@marginRight",
+                                "data": "${results}",
+                                "height": "70vh",
+                                "width": "100%",
+                                "numbered": true,
+                                "item": [
+                                    {
+                                        "type": "resultsListItem",
+                                        "result": "${data}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "AlexaFooter",
+                                "footerHint": "${hintText}"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "resultsPager": {
+                "parameters": [
+                    "results"
+                ],
+                "items": [
+                    {
+                        "type": "Sequence",
+                        "scrollDirection": "vertical",
+                        "id": "entireDisplay",
+                        "height": "100vh",
+                        "width": "100vw",
+                        "numbered": false,
+                        "data": "${results}",
+                        "item": [
+                            {
+                                "type": "gameInfo",
+                                "id": "${data.gameTitle}-Page",
+                                "result": "${data}"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "entireDisplay": {
+                "parameters": [
+                    "backgroundImageUrl",
+                    "pageTitle",
+                    "skillLogo",
+                    "hintText",
+                    "results"
+                ],
+                "items": [
+                    {
+                        "type": "Sequence",
+                        "scrollDirection": "vertical",
+                        "id": "entireDisplay",
+                        "height": "100vh",
+                        "width": "100vw",
+                        "numbered": false,
+                        "item": [
+                            {
+                                "type": "resultsList",
+                                "backgroundImageUrl": "${backgroundImageUrl}",
+                                "pageTitle": "${pageTitle}",
+                                "skillLogo": "${skillLogo}",
+                                "hintText": "${hintText}",
+                                "results": "${results}"
+                            },
+                            {
+                                "type": "Container",
+                                "height": "100vh",
+                                "width": "100vw",
+                                "items": [
+                                    
+                                    {
+                                        "type": "resultsPager",
+                                        "results": "${results}"
+                                    },
+                                    {
+                                        "type": "Frame",
+                                        "position": "absolute",
+                                        "bottom": 25,
+                                        "right": 25,
+                                        "borderRadius": 25,
+                                        "backgroundColor": "grey",
+                                        "item": {
+                                            "type": "Text",
+                                            "text": "↑",
+                                            "width": "50",
+                                            "height": "50",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center"
+                                        }
+                                    }
+                                ]
+                            }
+                            
+                        ]
+                    }
+                ]
+            }
+        },
+        "mainTemplate": {
+                "parameters": [
+                    "payload"
+                ],
+                "item": [
+                    "${payload.data.properties}"
+                ]
+        }
+    },
+    "dataSources": {
+        "data": {
+            "transformers": [
+                {
+                    "inputPath": "results[*].summarySSML",
+                    "outputName": "summarySpeech",
+                    "transformer": "ssmlToSpeech"
+                },
+                {
+                    "inputPath": "results[*].summarySSML",
+                    "outputName": "summaryText",
+                    "transformer": "ssmlToText"
+                }
+            ],
+            "type": "object",
+            "properties": {
+                "hintText": "Try, \"Alexa, select option 1\"",
+                "pageTitle": "Video Game Finder - Search: battlefield",
+                "skillLogo": "https://s3.amazonaws.com/austinmatthuw/VideoGameFinder/icon_512.png",
+                "type": "entireDisplay",
+                "results": [
+                    {
+                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/rkp2kggnoid6bthpuv2n.jpeg",
+                        "summarySSML": "<speak>A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.</speak>",
+                        "resultNum": 1,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/vkdea0wwyn0zx8fjs1kt.jpeg",
+                        "gameTitle": "Battlefield V",
+                        "infoText2": "N/A",
+                        "infoText1": "November 20th 2018",
+                        "summaryText": "A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.",
+                        "skillLogo": "",
+                        "summarySpeech": "https://kopytko.amazon.com/3/9f8a4c93-1011-11e9-93cf-658c9464f178-418334/8/1546686748855/6aba52458b82516d821816efaea11eee1eed428d0e6910294ade767d9d566333/resource.mp3",
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "68.83"
+                    },
+                    {
+                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/yq7owbqrj09mgfqg3ac3.jpeg",
+                        "summarySSML": "<speak>Battlefield 4™ is the genre-defining action blockbuster created by DICE, and made from moments that blur the line between game and glory – moments found only in Battlefield. Go to Boot Camp to learn the basics of Battlefield 4's engaging single player and intense multiplayer mode. Here you'll also find intel on Levolution, Commander Mode, Naval Warfare and many more exciting game features.</speak>",
+                        "resultNum": 2,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ejcbrblr9aj12b8ihgfj.jpeg",
+                        "gameTitle": "Battlefield 4",
+                        "infoText2": "ESRB RP<br />PGEI 18",
+                        "infoText1": "October 29th 2013",
+                        "summaryText": "Battlefield 4™ is the genre-defining action blockbuster created by DICE, and made from moments that blur the line between game and glory – moments found only in Battlefield. Go to Boot Camp to learn the basics of Battlefield 4's engaging single player and intense multiplayer mode. Here you'll also find intel on Levolution, Commander Mode, Naval Warfare and many more exciting game features.",
+                        "skillLogo": "",
+                        "summarySpeech": "https://kopytko.amazon.com/3/9f8c6f59-1011-11e9-87e7-5168af1350f9-06cf9c/8/1546686748878/43f06aab1d7775b17fc869d36d2156d373ce5fb9f11c895d2324ae0296e0b999/resource.mp3",
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "78.31"
+                    },
+                    {
+                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/wfj4uguuur5idlyw6o1r.jpeg",
+                        "summarySSML": "<speak>In Battlefield 3, players step into the role of the elite U.S. Marines. As the first boots on the ground, players will experience heart-pounding missions across diverse locations including Paris, Tehran and New York. As a U.S. Marine in the field, periods of tension and anticipation are punctuated by moments of complete chaos. As bullets whiz by, as walls crumble, as explosions force players to the ground, the battlefield feels more alive and interactive than ever before.</speak>",
+                        "resultNum": 3,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/z84romyc73p8xoqgwt7c.jpeg",
+                        "gameTitle": "Battlefield 3",
+                        "infoText2": "ESRB RP<br />PGEI 16",
+                        "infoText1": "October 25th 2011",
+                        "summaryText": "In Battlefield 3, players step into the role of the elite U.S. Marines. As the first boots on the ground, players will experience heart-pounding missions across diverse locations including Paris, Tehran and New York. As a U.S. Marine in the field, periods of tension and anticipation are punctuated by moments of complete chaos. As bullets whiz by, as walls crumble, as explosions force players to the ground, the battlefield feels more alive and interactive than ever before.",
+                        "skillLogo": "",
+                        "summarySpeech": "https://kopytko.amazon.com/3/9f8e43bf-1011-11e9-a2ec-f9b948f51877-f3fc77/8/1546686748890/c3a0efe8ea291b4b1450c50c0811dfd2026ee34774757f4a651973b8ef86d526/resource.mp3",
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "83.34"
+                    },
+                    {
+                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/ez6qfdwknjwshjkf5cvo.jpeg",
+                        "summarySSML": "<speak>Discover classic Battlefield gameplay with epic multiplayer and an adventure-filled campaign. Experience the Dawn of All-Out War, Only in Battlefield 1. \n \nFight your way through epic battles going from tight urban combat in a besieged French city to big open spaces in the Italian Alps or frantic combats in the Arabic sand dunes. Experience large-scale battles as infantry or piloting vehicles on land, air and sea, from the tanks and bikes on the ground, to bi-planes and gigantic battleships. \n \nDiscover a new world at war through an adventure-filled campaign, or join in epic multiplayer battles with up to 64 players. Adapt your tactics and strategy to the earth-shattering, dynamic environments and destruction.</speak>",
+                        "resultNum": 4,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ts6ceuy9nu1sgwpeabmo.jpeg",
+                        "gameTitle": "Battlefield 1",
+                        "infoText2": "ESRB RP<br />PGEI 18",
+                        "infoText1": "October 21st 2016",
+                        "summaryText": "Discover classic Battlefield gameplay with epic multiplayer and an adventure-filled campaign. Experience the Dawn of All-Out War, Only in Battlefield 1. Fight your way through epic battles going from tight urban combat in a besieged French city to big open spaces in the Italian Alps or frantic combats in the Arabic sand dunes. Experience large-scale battles as infantry or piloting vehicles on land, air and sea, from the tanks and bikes on the ground, to bi-planes and gigantic battleships. Discover a new world at war through an adventure-filled campaign, or join in epic multiplayer battles with up to 64 players. Adapt your tactics and strategy to the earth-shattering, dynamic environments and destruction.",
+                        "skillLogo": "",
+                        "summarySpeech": "https://kopytko.amazon.com/3/9f904051-1011-11e9-a1de-25b19a8c7f06-3b4f1b/8/1546686748901/a3886f992af05f4c5d0229ef71d822a3cfd31bea608f1b9e63ab84cdd0d2397e/resource.mp3",
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "82.88"
+                    },
+                    {
+                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/s0moeyvaasjdhtzlzqjm.jpeg",
+                        "summarySSML": "<speak>In Battlefield 2, players will choose to fight for one of three military superpowers: the United States, the Chinese, or the newly formed Middle East Coalition. Armed with the latest modern weaponry, players can take control of any of the game’s 30+ vehicles to engage in major conflicts with over 64 players in some of the largest online battles on the PC. Additionally, persistent character growth allows players to rise through the ranks and attain the ultimate rank of General.</speak>",
+                        "resultNum": 5,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/xzv586ab8qpehq4kslri.jpeg",
+                        "gameTitle": "Battlefield 2",
+                        "infoText2": "ESRB 18<br />PGEI 16",
+                        "infoText1": "June 21st 2005",
+                        "summaryText": "In Battlefield 2, players will choose to fight for one of three military superpowers: the United States, the Chinese, or the newly formed Middle East Coalition. Armed with the latest modern weaponry, players can take control of any of the game’s 30+ vehicles to engage in major conflicts with over 64 players in some of the largest online battles on the PC. Additionally, persistent character growth allows players to rise through the ranks and attain the ultimate rank of General.",
+                        "skillLogo": "",
+                        "summarySpeech": "https://kopytko.amazon.com/3/9f91ed43-1011-11e9-aef6-7f0590d15421-a695b8/8/1546686748913/19ed7497d1dd015d5421d427b46e13ee94a49e2b72557615ff2a8f8fce1ee344/resource.mp3",
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "87.23"
+                    },
+                    {
+                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/ohmqa8lcyzfjrewwzaoa.jpeg",
+                        "summarySSML": "<speak>Having placed their previous online shooters in WWII, the Vietnam War, and modern day settings, Battlefield 2142 took place in a future where a new ice age had thrown the world into a panic. \n \nThe soil not covered by ice can only feed a fraction of the Earth’s population, and players choose to fight for one of two military super powers in an epic battle for survival: The European Union or the newly formed Pan Asian Coalition. Introducing a futuristic art style, science fiction weaponry, and the asymmetric game mode Titan, Battlefield 2142 still has a hardcore following that doesn’t want to leave the future behind.</speak>",
+                        "resultNum": 6,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ox05tdvjookghbqkgbsy.jpeg",
+                        "gameTitle": "Battlefield 2142",
+                        "infoText2": "ESRB 18<br />PGEI 16",
+                        "infoText1": "October 17th 2006",
+                        "summaryText": "Having placed their previous online shooters in WWII, the Vietnam War, and modern day settings, Battlefield 2142 took place in a future where a new ice age had thrown the world into a panic. The soil not covered by ice can only feed a fraction of the Earth’s population, and players choose to fight for one of two military super powers in an epic battle for survival: The European Union or the newly formed Pan Asian Coalition. Introducing a futuristic art style, science fiction weaponry, and the asymmetric game mode Titan, Battlefield 2142 still has a hardcore following that doesn’t want to leave the future behind.",
+                        "skillLogo": "",
+                        "summarySpeech": "https://kopytko.amazon.com/3/9f93e9ba-1011-11e9-82de-ad0303e4fe31-6b4606/8/1546686748927/07033959d2dc4a21a577e64edad9255a59ce61436ead037ec076a3f50dda7761/resource.mp3",
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "77.78"
+                    },
+                    {
+                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/z2gjkv5usmmgapjdq8de.jpeg",
+                        "summarySSML": "<speak>Using the Frostbite engine, Battlefield 1943 takes players back to WWII. The game offers hours of 24 player multiplayer action over three classic and tropic locations; Wake Island, Guadalcanal and Iwo Jima. Delivering the award-winning through-the-gun and vehicle warfare online experience DICE is best recognized for, Battlefield 1943 has players battling in ruthless aerial dog fights and intense trench combat.</speak>",
+                        "resultNum": 7,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/w0ldq6laan9ymxjx7nhh.jpeg",
+                        "gameTitle": "Battlefield 1943",
+                        "infoText2": "N/A",
+                        "infoText1": "July 8th 2009",
+                        "summaryText": "Using the Frostbite engine, Battlefield 1943 takes players back to WWII. The game offers hours of 24 player multiplayer action over three classic and tropic locations; Wake Island, Guadalcanal and Iwo Jima. Delivering the award-winning through-the-gun and vehicle warfare online experience DICE is best recognized for, Battlefield 1943 has players battling in ruthless aerial dog fights and intense trench combat.",
+                        "skillLogo": "",
+                        "summarySpeech": "https://kopytko.amazon.com/3/9f95bdc6-1011-11e9-b210-21d9a765028b-fa522e/8/1546686748938/babc587e5686fdca6405c185c67c56c34a9dcbb3a5ec66c671a57bc3193888bf/resource.mp3",
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "78.01"
+                    },
+                    {
+                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/sc5dvctnt695tqwiwfnb.jpeg",
+                        "summarySSML": "<speak>Building upon and vastly refining the ideas from Codename Eagle, Battlefield 1942 let players engage in infantry combat and get behind the wheel of a variety of vehicles from submarines to battleships and bombers. The game introduced the signature Battlefield rock-paper-scissors gameplay, as well as the exciting “Battlefield Moments” people refer to when talking about their unique and unscripted experiences within the multiplayer game.</speak>",
+                        "resultNum": 8,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/oyzjxd6h3jwabgakeffx.jpeg",
+                        "gameTitle": "Battlefield 1942",
+                        "infoText2": "ESRB 18<br />PGEI 16",
+                        "infoText1": "September 10th 2002",
+                        "summaryText": "Building upon and vastly refining the ideas from Codename Eagle, Battlefield 1942 let players engage in infantry combat and get behind the wheel of a variety of vehicles from submarines to battleships and bombers. The game introduced the signature Battlefield rock-paper-scissors gameplay, as well as the exciting “Battlefield Moments” people refer to when talking about their unique and unscripted experiences within the multiplayer game.",
+                        "skillLogo": "",
+                        "summarySpeech": "https://kopytko.amazon.com/3/9f98089b-1011-11e9-befd-b5c6e44737fa-a99ca9/8/1546686748951/c57ec740a151b267527cece52832fa7f78693808718b74fc012ab78a01bccf5f/resource.mp3",
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "83.85"
+                    },
+                    {
+                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/acew48fzaytqqqqrbtkt.jpeg",
+                        "summarySSML": "<speak>A cartoon-style Play 4 Free shooter that brings classic Battlefield gameplay to an all new mass audience. Developed by DICE in Stockholm, the game's fun cartoon-style graphics and gameplay caters to players of all skill levels.</speak>",
+                        "resultNum": 9,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/wvqhxyz7lmlsaa1uap6p.jpeg",
+                        "gameTitle": "Battlefield Heroes",
+                        "infoText2": "ESRB 18<br />PGEI 16",
+                        "infoText1": "June 25th 2009",
+                        "summaryText": "A cartoon-style Play 4 Free shooter that brings classic Battlefield gameplay to an all new mass audience. Developed by DICE in Stockholm, the game's fun cartoon-style graphics and gameplay caters to players of all skill levels.",
+                        "skillLogo": "",
+                        "summarySpeech": "https://kopytko.amazon.com/3/9f99b569-1011-11e9-b1c0-dd5f48a7198a-4ee4fe/8/1546686748965/64b73fff150fee2eead4d36d4412766f1debda15b2adda0d0ce6a28094504f98/resource.mp3",
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "74.84"
+                    },
+                    {
+                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/lllbxcbnjnwdtjxpa16n.jpeg",
+                        "summarySSML": "<speak>The Battlefield franchise entered a new era equipped with more firepower, modernized weaponry and vehicles, and a deeper infantry experience from the jungles to the beaches of Vietnam. In Battlefield Vietnam, players selected from a variety of characters within the different soldier classes. \n \nThe game introduced new dramatic battle scenarios including leading a squadron of helicopters in an all-out attack on an enemy compound, executing an ambush of enemy soldiers from dense foliage, captaining a PT boat through a dangerous jungle river passage, and more.</speak>",
+                        "resultNum": 10,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/b5mr3to1pmmkdhwf6m39.jpeg",
+                        "gameTitle": "Battlefield Vietnam",
+                        "infoText2": "ESRB 18<br />PGEI 16",
+                        "infoText1": "March 14th 2004",
+                        "summaryText": "The Battlefield franchise entered a new era equipped with more firepower, modernized weaponry and vehicles, and a deeper infantry experience from the jungles to the beaches of Vietnam. In Battlefield Vietnam, players selected from a variety of characters within the different soldier classes. The game introduced new dramatic battle scenarios including leading a squadron of helicopters in an all-out attack on an enemy compound, executing an ambush of enemy soldiers from dense foliage, captaining a PT boat through a dangerous jungle river passage, and more.",
+                        "skillLogo": "",
+                        "summarySpeech": "https://kopytko.amazon.com/3/9f9d5ee8-1011-11e9-9d93-25f1988e5efb-e2b2ca/8/1546686748980/bca18ff888c36ca516473cbf9f7801e87e8256b1577a725edb47f05620b63b80/resource.mp3",
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "75.05"
+                    }
+                ],
+                "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg"
+            }
+        }
+    }
+}

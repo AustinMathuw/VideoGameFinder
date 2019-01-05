@@ -1,0 +1,22 @@
+{
+  "name": "video-game-finder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ask-sdk": "^2.0.5",
+    "ask-sdk-core": "^2.0.0",
+    "ask-sdk-dynamodb-persistence-adapter": "^2.0.5",
+    "ask-sdk-model": "^1.0.0",
+    "axios": "^0.18.0",
+    "i18next": "^11.10.0",
+    "moment": "^2.23.0",
+    "request": "^2.88.0",
+    "string-similarity": "^2.0.0"
+  }
+}
