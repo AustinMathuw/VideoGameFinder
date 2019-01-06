@@ -22,8 +22,12 @@ const CustomHandlers = require('./handlers/customHandlers');
 exports.handler = function (event, context) {
   let factory = Alexa.SkillBuilders.standard()
     .addRequestHandlers(
+      APLHandlers.NavigateToItem,
       APLHandlers.PlayVideo,
       APLHandlers.SearchItemSelected,
+      APLHandlers.ItemViewSelected,
+      APLHandlers.VideoStoped,
+      APLHandlers.GoBackToResults,
       CustomHandlers.InProgressSearchIntent,
       CustomHandlers.CompletedSearchIntent,
       DefaultHandlers.LaunchHandler,

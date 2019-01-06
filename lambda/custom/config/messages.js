@@ -60,6 +60,10 @@ const messages = {
         speech: 'Now showing the overall results. Let me know if you want to know information for a specific game.',
         reprompt: "Sorry, I didn't catch that, what would you like to do next?"
       },
+      'VIDEO_END': {
+        speech: 'What else would you like to do?',
+        reprompt: "What else would you like to do?"
+      },
       'API_CALL_ERROR': "I'm having difficulty accessing that part of my memory... Please try again later!"
     }
   }

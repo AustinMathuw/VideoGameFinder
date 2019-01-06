@@ -163,7 +163,7 @@ const helpers = {
                 });
         });
     },
-    buildPayload: async function(incomingData) {
+    buildPayload: function(incomingData) {
         var results = [];
         var resultNum = 1;
         incomingData.forEach(element => {
@@ -171,8 +171,9 @@ const helpers = {
             var data = {
                 "gameTitle": "",
                 "resultNum": resultNum,
+                "resultTotal": incomingData.length,
                 "skillLogo": "",
-                "screenshotImageUrl": "",
+                "screenshotImageUrls": [],
                 "backgroundImageUrl": "",
                 "coverImageUrl": "",
                 "infoText1": "",
@@ -183,8 +184,20 @@ const helpers = {
                 "videoName": "",
                 "videoID": ""
             };
-            data.videoName = element.game.videos[0].name;
-            data.videoID = element.game.videos[0].video_id;
+            var videoToShow = element.game.videos.find(video => {
+                if(settings.VIDEO_NAME == video.name){
+                    return true;
+                } else  {
+                    return false;
+                }
+            });
+            if(videoToShow){
+                data.videoName = videoToShow.name;
+                data.videoID = videoToShow.video_id;
+            } else {
+                data.videoName = element.game.videos[0].name;
+                data.videoID = element.game.videos[0].video_id;
+            }
 
             resultNum++;
             data.backgroundImageUrl = "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg";
@@ -226,10 +239,16 @@ const helpers = {
                 });
                 data.infoText4 = mostInvolved.company.name;
             }
+            element.game.screenshots.forEach(screenshot => {
+                data.screenshotImageUrls.push("https://images.igdb.com/igdb/image/upload/t_original/" + screenshot.image_id + ".jpeg");
+            });
             
-            data.screenshotImageUrl = "https://images.igdb.com/igdb/image/upload/t_original/" + element.game.screenshots[0].image_id + ".jpeg";
             data.skillLogo = "";
-            data.summarySSML = "<speak>" + element.game.summary + "</speak>";
+            if(element.game.summary.indexOf("\n") > -1){
+                data.summarySSML = "<speak>" + element.game.summary.substring(0, element.game.summary.indexOf("\n")) + "</speak>";
+            } else {
+                data.summarySSML = "<speak>" + element.game.summary + "</speak>";
+            }
             results.push(data);
         });
         return results;
@@ -261,7 +280,8 @@ const helpers = {
                     "game.cover != null",
                     "game.screenshots != null",
                     "game.videos != null"
-                ]);
+                ])
+                .limit(8);
         
             const data = queryParams.getFormattedParams();
             const url = settings.API_URL;
@@ -269,6 +289,7 @@ const helpers = {
             axios({
                 url: url,
                 method: 'POST',
+                timeout: settings.API_TIMEOUT,
                 headers: {
                     'Accept': 'application/json',
                     'user-key': settings.API_KEY
@@ -320,7 +341,7 @@ const Finder = {
             ctx.openMicrophone = false;
         });
     },
-    getGameInfoFromSearchItem: async function (handlerInput) {
+    getGameInfoFromSearchItem: function (handlerInput) {
         let {
             requestEnvelope,
             attributesManager
@@ -330,37 +351,38 @@ const Finder = {
         var itemPosition = requestEnvelope.request.arguments[2];
         var commands = [
             {
-                "type": "Sequential",
+                "type": "Parallel",
                 "commands": [
                     {
-                        "type": "Parallel",
-                        "commands": [
-                            {
-                                "type": "SetPage",
-                                "componentId": "resultsPager",
-                                "value": itemPosition - 1
-                            },
-                            {
-                                "type": "ScrollToIndex",
-                                "componentId": "entireDisplay",
-                                "index": 1,
-                                "align": "center"
-                            },
-                            {
-                                "type": "Idle",
-                                "delay": 3000
-                            },
-                            {
-                                "type": "SpeakItem",
-                                "componentId": itemToShow.gameTitle + "-summary",
-                                "highlightMode": "line",
-                                "align": "center"
-                            }
-                        ]
+                        "type": "ScrollToIndex",
+                        "componentId": "entireDisplay",
+                        "index": 1,
+                        "align": "center"
+                    },
+                    {
+                        "type": "ScrollToIndex",
+                        "componentId": "resultsSequence",
+                        "index": itemPosition - 1,
+                        "align": "first"
+                    },
+                    {
+                        "type": "ScrollToIndex",
+                        "componentId": itemPosition,
+                        "index": 1,
+                        "align": "first"
+                    },
+                    {
+                        "type": "Idle",
+                        "delay": 3000
+                    },
+                    {
+                        "type": "SpeakItem",
+                        "componentId": itemPosition + "-summary",
+                        "highlightMode": "line",
+                        "align": "center"
                     }
                 ]
-              }
-            
+            }
         ];
         var outputSpeech = ctx.t('SEARCH_RESULT_ITEM_INFO', {
             gameTitle: itemToShow.gameTitle
@@ -370,7 +392,7 @@ const Finder = {
         ctx.sendAPLCommands(handlerInput, commands, "token");
         ctx.openMicrophone = true;
     },
-    getGameInfoFromItemView: async function (handlerInput) {
+    getGameInfoFromOtherItem: function (handlerInput) {
         let {
             requestEnvelope,
             attributesManager
@@ -383,7 +405,25 @@ const Finder = {
                 "type": "Sequential",
                 "commands": [
                     {
-                        "type": "Parallel",
+                        "type": "ScrollToIndex",
+                        "componentId": "entireDisplay",
+                        "index": 1,
+                        "align": "center"
+                    },
+                    {
+                        "type": "ScrollToIndex",
+                        "componentId": "resultsSequence",
+                        "index": itemPosition - 1,
+                        "align": "first"
+                    },
+                    {
+                        "type": "ScrollToIndex",
+                        "componentId": itemPosition,
+                        "index": 1,
+                        "align": "first"
+                    },
+                    {
+                        "type": "Sequential",
                         "commands": [
                             {
                                 "type": "Idle",
@@ -391,11 +431,42 @@ const Finder = {
                             },
                             {
                                 "type": "SpeakItem",
-                                "componentId": itemToShow.gameTitle + "-summary",
+                                "componentId": itemPosition + "-summary",
                                 "highlightMode": "line",
                                 "align": "center"
                             }
                         ]
+                    }
+                ]
+            }
+        ];
+        var outputSpeech = ctx.t('SEARCH_RESULT_ITEM_INFO', {
+            gameTitle: itemToShow.gameTitle
+        });
+        ctx.reprompt.push(outputSpeech.reprompt);
+        ctx.sendAPLCommands(handlerInput, commands, "token");
+        ctx.openMicrophone = true;
+    },
+    getGameInfoFromItemView: function (handlerInput) {
+        let {
+            requestEnvelope,
+            attributesManager
+        } = handlerInput;
+        let ctx = attributesManager.getRequestAttributes();
+        var itemToShow = requestEnvelope.request.arguments[1];
+        var commands = [
+            {
+                "type": "Parallel",
+                "commands": [
+                    {
+                        "type": "Idle",
+                        "delay": 3000
+                    },
+                    {
+                        "type": "SpeakItem",
+                        "componentId": itemToShow.resultNum + "-summary",
+                        "highlightMode": "line",
+                        "align": "center"
                     }
                 ]
             }
@@ -412,21 +483,12 @@ const Finder = {
         let ctx = attributesManager.getRequestAttributes();
         var commands = [
             {
-                "type": "Sequential",
-                "commands": [
-                    {
-                        "type": "Parallel",
-                        "commands": [
-                            {
-                                "type": "ScrollToIndex",
-                                "componentId": "entireDisplay",
-                                "index": 0,
-                                "align": "center"
-                            }
-                        ]
-                    }
-                ]
+                "type": "ScrollToIndex",
+                "componentId": "entireDisplay",
+                "index": 0,
+                "align": "center"
             }
+                        
         ];
     
         var outputSpeech = ctx.t('RE_SHOW_RESULTS');
@@ -442,14 +504,18 @@ const Finder = {
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
         var itemToShowOn = requestEnvelope.request.arguments[1].videoID;
+        var outputSpeech;
         await helpers.getVideoURL(itemToShowOn).then(videoURL => {
             var commands = [
                 {
                     "type": "PlayMedia",
-                    "componentId": "itemToShowOn",
+                    "componentId": itemToShowOn,
                     "source": videoURL
                 }
             ];
+            outputSpeech = "Playing video...";
+            ctx.outputSpeech.push(outputSpeech);
+            ctx.openMicrophone = false;
             ctx.sendAPLCommands(handlerInput, commands, "token");
         }).catch(err => {
             outputSpeech = ctx.t('API_CALL_ERROR');
@@ -457,6 +523,47 @@ const Finder = {
             ctx.outputSpeech.push(outputSpeech);
             ctx.openMicrophone = false;
         })
+    },
+    onVideoEnd: function (handlerInput) {
+        let {
+            requestEnvelope,
+            attributesManager
+        } = handlerInput;
+        let ctx = attributesManager.getRequestAttributes();
+        var result = requestEnvelope.request.arguments[1];
+        var commands = [
+            {
+                "type": "ScrollToIndex",
+                "componentId": result.resultNum,
+                "index": 1,
+                "align": "first"
+              }
+        ];
+    
+        var outputSpeech = ctx.t('VIDEO_END');
+        ctx.outputSpeech.push(outputSpeech.speech);
+        ctx.reprompt.push(outputSpeech.reprompt);
+        ctx.sendAPLCommands(handlerInput, commands, "token");
+        ctx.openMicrophone = true;
+    },
+    changeGameInfoView: function (handlerInput, index) {
+        let {
+            requestEnvelope,
+            attributesManager
+        } = handlerInput;
+        let ctx = attributesManager.getRequestAttributes();
+        var itemToShow = requestEnvelope.request.arguments[1];
+        var commands = [
+            {
+                "type": "ScrollToIndex",
+                "componentId": itemToShow.resultNum,
+                "index": index,
+                "align": "first"
+            }
+        ];
+
+        ctx.sendAPLCommands(handlerInput, commands, "token");
+        ctx.openMicrophone = true;
     }
 };
 module.exports = Finder;

@@ -144,175 +144,405 @@
                 ],
                 "items": [
                     {
-                        "type": "Sequence",
-                        "scrollDirection": "vertical",
-                        "id": "entireDisplay",
+                        "type": "Container",
                         "height": "100vh",
                         "width": "100vw",
-                        "numbered": false,
-                        "item": [
+                        "items": [
                             {
-                                "type": "Container",
-                                "width": "100vw",
+                                "type": "Pager",
+                                "scrollDirection": "horizontal",
+                                "id": "${result.resultNum}",
                                 "height": "100vh",
-                                "id": "${result.gameTitle}",
-                                "items": [
+                                "width": "100vw",
+                                "numbered": false,
+                                "item": [
                                     {
                                         "type": "Container",
-                                        "direction": "column",
                                         "width": "100vw",
                                         "height": "100vh",
-                                        "position": "absolute",
+                                        "id": "${result.resultNum}-Screenshots",
                                         "items": [
                                             {
-                                                "type": "Image",
-                                                "source": "${result.screenshotImageUrl}",
-                                                "scale": "best-fill",
+                                                "type": "Pager",
+                                                "id": "${result.resultNum}-Screenshots-Pager",
                                                 "width": "100vw",
-                                                "height": "35vh"
-                                            },
-                                            {
-                                                "type": "Image",
-                                                "source": "${result.backgroundImageUrl}",
-                                                "scale": "best-fill",
-                                                "width": "100vw",
-                                                "height": "70vh"
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "type": "AlexaHeader",
-                                        "headerTitle": "${result.resultNum}. ${result.gameTitle}"
-                                    },
-                                    {
-                                        "type": "Container",
-                                        "position": "absolute",
-                                        "direction": "row",
-                                        "paddingTop": "10vh",
-                                        "width": "100vw",
-                                        "height": "100vh",
-                                        "grow": 1,
-                                        "items": [
-                                            {
-                                                "paddingTop": "30vh",
-                                                "paddingLeft": "5vh",
-                                                "paddingRight": "5vh",
-                                                "width": "20vw",
                                                 "height": "100vh",
-                                                "type": "Text",
-                                                "text": "<b>Release:</b><br />${result.infoText1}",
-                                                "style": "textStylePrimary",
-                                                "textAlign": "center"
+                                                "data": "${result.screenshotImageUrls}",
+                                                "navigation": "wrap",
+                                                "items": [
+                                                    {
+                                                        "type": "Image",
+                                                        "source": "${data}",
+                                                        "scale": "fill",
+                                                        "width": "100vw",
+                                                        "height": "100vh"
+                                                    }
+                                                ]
                                             },
                                             {
-                                                "paddingTop": "30vh",
-                                                "paddingLeft": "5vh",
-                                                "paddingRight": "5vh",
-                                                "width": "20vw",
-                                                "height": "100vh",
-                                                "type": "Text",
-                                                "text": "<b>Ratings:</b><br />${result.infoText2}",
-                                                "style": "textStylePrimary",
-                                                "textAlign": "center"
-                                            },
-                                            {
-                                                "type": "Image",
-                                                "source": "${result.coverImageUrl}",
-                                                "width": "20vw",
-                                                "height": "40vh",
-                                                "scale": "best-fit",
-                                                "align": "center"
-                                            },
-                                            {
-                                                "paddingTop": "30vh",
-                                                "paddingLeft": "5vh",
-                                                "paddingRight": "5vh",
-                                                "width": "20vw",
-                                                "height": "100vh",
-                                                "type": "Text",
-                                                "text": "<b>Critic Score:</b><br />${result.infoText3}",
-                                                "style": "textStylePrimary",
-                                                "textAlign": "center"
-                                            },
-                                            {
-                                                "paddingTop": "30vh",
-                                                "paddingLeft": "5vh",
-                                                "paddingRight": "5vh",
-                                                "width": "20vw",
-                                                "height": "100vh",
-                                                "type": "Text",
-                                                "text": "<b>Company:</b><br />${result.infoText4}",
-                                                "style": "textStylePrimary",
-                                                "textAlign": "center"
+                                                "type": "Frame",
+                                                "position": "absolute",
+                                                "bottom": 25,
+                                                "right": 25,
+                                                "borderRadius": 25,
+                                                "backgroundColor": "grey",
+                                                "item": {
+                                                    "type": "Text",
+                                                    "text": "→",
+                                                    "width": "50",
+                                                    "height": "50",
+                                                    "textAlign": "center",
+                                                    "textAlignVertical": "center"
+                                                }
                                             }
                                         ]
                                     },
                                     {
                                         "type": "Container",
-                                        "position": "absolute",
-                                        "direction": "row",
-                                        "paddingTop": "70vh",
-                                        "paddingBottom": "10vh",
-                                        "paddingRight": "10vw",
-                                        "paddingLeft": "10vw",
                                         "width": "100vw",
                                         "height": "100vh",
-                                        "alignItems": "center",
-                                        "grow": 1,
+                                        "id": "${result.gameTitle}-Info",
+                                        "items": [
+                                            {
+                                                "type": "Container",
+                                                "direction": "column",
+                                                "width": "100vw",
+                                                "height": "100vh",
+                                                "position": "absolute",
+                                                "items": [
+                                                    {
+                                                        "type": "Image",
+                                                        "source": "${result.screenshotImageUrls[0]}",
+                                                        "scale": "best-fill",
+                                                        "width": "100vw",
+                                                        "height": "35vh"
+                                                    },
+                                                    {
+                                                        "type": "Image",
+                                                        "source": "${result.backgroundImageUrl}",
+                                                        "scale": "best-fill",
+                                                        "width": "100vw",
+                                                        "height": "70vh"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "Frame",
+                                                "position": "absolute",
+                                                "top": 25,
+                                                "right": 25,
+                                                "borderRadius": 25,
+                                                "backgroundColor": "grey",
+                                                "item": {
+                                                    "type": "TouchWrapper",
+                                                    "id": "GoBackToResults",
+                                                    "onPress": {
+                                                        "type": "SendEvent",
+                                                        "arguments": [
+                                                            "GoBackToResults"
+                                                        ]
+                                                    },
+                                                    "item": [
+                                                        {
+                                                            "type": "Text",
+                                                            "text": "↥ Go Back ↥",
+                                                            "fontSize": "20dp",
+                                                            "width": "150",
+                                                            "height": "40",
+                                                            "textAlign": "center",
+                                                            "textAlignVertical": "center"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "type": "AlexaHeader",
+                                                "headerTitle": "${result.resultNum}. ${result.gameTitle}"
+                                            },
+                                            {
+                                                "type": "Container",
+                                                "position": "absolute",
+                                                "direction": "row",
+                                                "paddingTop": "10vh",
+                                                "width": "100vw",
+                                                "height": "100vh",
+                                                "grow": 1,
+                                                "items": [
+                                                    {
+                                                        "paddingTop": "30vh",
+                                                        "paddingLeft": "5vh",
+                                                        "paddingRight": "5vh",
+                                                        "width": "20vw",
+                                                        "height": "100vh",
+                                                        "type": "Text",
+                                                        "text": "<b>Release:</b><br />${result.infoText1}",
+                                                        "style": "textStylePrimary",
+                                                        "textAlign": "center"
+                                                    },
+                                                    {
+                                                        "paddingTop": "30vh",
+                                                        "paddingLeft": "5vh",
+                                                        "paddingRight": "5vh",
+                                                        "width": "20vw",
+                                                        "height": "100vh",
+                                                        "type": "Text",
+                                                        "text": "<b>Ratings:</b><br />${result.infoText2}",
+                                                        "style": "textStylePrimary",
+                                                        "textAlign": "center"
+                                                    },
+                                                    {
+                                                        "type": "Image",
+                                                        "source": "${result.coverImageUrl}",
+                                                        "width": "20vw",
+                                                        "height": "40vh",
+                                                        "scale": "best-fit",
+                                                        "align": "center"
+                                                    },
+                                                    {
+                                                        "paddingTop": "30vh",
+                                                        "paddingLeft": "5vh",
+                                                        "paddingRight": "5vh",
+                                                        "width": "20vw",
+                                                        "height": "100vh",
+                                                        "type": "Text",
+                                                        "text": "<b>Critic Score:</b><br />${result.infoText3}",
+                                                        "style": "textStylePrimary",
+                                                        "textAlign": "center"
+                                                    },
+                                                    {
+                                                        "paddingTop": "30vh",
+                                                        "paddingLeft": "5vh",
+                                                        "paddingRight": "5vh",
+                                                        "width": "20vw",
+                                                        "height": "100vh",
+                                                        "type": "Text",
+                                                        "text": "<b>Company:</b><br />${result.infoText4}",
+                                                        "style": "textStylePrimary",
+                                                        "textAlign": "center"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "Container",
+                                                "position": "absolute",
+                                                "direction": "row",
+                                                "paddingTop": "70vh",
+                                                "paddingBottom": "10vh",
+                                                "paddingRight": "10vw",
+                                                "paddingLeft": "10vw",
+                                                "width": "100vw",
+                                                "height": "100vh",
+                                                "alignItems": "center",
+                                                "grow": 1,
+                                                "items": [
+                                                    {
+                                                        "type": "TouchWrapper",
+                                                        "id": "ItemView",
+                                                        "onPress": {
+                                                            "type": "SendEvent",
+                                                            "arguments": [
+                                                                "ItemView",
+                                                                "${result}",
+                                                                "${result.resultNum}"
+                                                            ]
+                                                        },
+                                                        "item": [
+                                                            {
+                                                                "type": "ScrollView",
+                                                                "width": "80vw",
+                                                                "height": "30vh",
+                                                                "item": {
+                                                                    "type": "Text",
+                                                                    "id": "${result.resultNum}-summary",
+                                                                    "text": "${result.summaryText}",
+                                                                    "speech": "${result.summarySpeech}",
+                                                                    "style": "textStylePrimary",
+                                                                    "textAlign": "center"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "Frame",
+                                                "when": "${result.resultNum != 1}",
+                                                "position": "absolute",
+                                                "bottom": 175,
+                                                "right": 25,
+                                                "borderRadius": 25,
+                                                "backgroundColor": "grey",
+                                                "item": {
+                                                    "type": "TouchWrapper",
+                                                    "id": "GoToPrevItem",
+                                                    "onPress": {
+                                                        "type": "SendEvent",
+                                                        "arguments": [
+                                                            "GoToPrevItem",
+                                                            "${result}",
+                                                            "${result.resultNum - 1}"
+                                                        ]
+                                                    },
+                                                    "item": [
+                                                        {
+                                                            "type": "Text",
+                                                            "text": "↑",
+                                                            "width": "50",
+                                                            "height": "50",
+                                                            "textAlign": "center",
+                                                            "textAlignVertical": "center"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "type": "Frame",
+                                                "when": "${result.resultNum != result.resultTotal}",
+                                                "position": "absolute",
+                                                "bottom": 100,
+                                                "right": 25,
+                                                "borderRadius": 25,
+                                                "backgroundColor": "grey",
+                                                "item": {
+                                                    "type": "TouchWrapper",
+                                                    "id": "GoToNextItem",
+                                                    "onPress": {
+                                                        "type": "SendEvent",
+                                                        "arguments": [
+                                                            "GoToNextItem",
+                                                            "${result}",
+                                                            "${result.resultNum + 1}"
+                                                        ]
+                                                    },
+                                                    "item": [
+                                                        {
+                                                            "type": "Text",
+                                                            "text": "↓",
+                                                            "width": "50",
+                                                            "height": "50",
+                                                            "textAlign": "center",
+                                                            "textAlignVertical": "center"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "type": "Frame",
+                                                "position": "absolute",
+                                                "bottom": 25,
+                                                "left": 25,
+                                                "borderRadius": 25,
+                                                "backgroundColor": "grey",
+                                                "item": {
+                                                    "type": "TouchWrapper",
+                                                    "id": "GoToItemScreenshots",
+                                                    "onPress": {
+                                                        "type": "SendEvent",
+                                                        "arguments": [
+                                                            "GoToItemScreenshots",
+                                                            "${result}"
+                                                        ]
+                                                    },
+                                                    "item": [
+                                                        {
+                                                            "type": "Text",
+                                                            "text": "←",
+                                                            "width": "50",
+                                                            "height": "50",
+                                                            "textAlign": "center",
+                                                            "textAlignVertical": "center"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "type": "Frame",
+                                                "position": "absolute",
+                                                "bottom": 25,
+                                                "right": 25,
+                                                "borderRadius": 25,
+                                                "backgroundColor": "grey",
+                                                "item": {
+                                                    "type": "TouchWrapper",
+                                                    "id": "GoToItemVideo",
+                                                    "onPress": {
+                                                        "type": "SendEvent",
+                                                        "arguments": [
+                                                            "GoToItemVideo",
+                                                            "${result}"
+                                                        ]
+                                                    },
+                                                    "item": [
+                                                        {
+                                                            "type": "Text",
+                                                            "text": "→",
+                                                            "width": "50",
+                                                            "height": "50",
+                                                            "textAlign": "center",
+                                                            "textAlignVertical": "center"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Container",
+                                        "width": "100vw",
+                                        "height": "100vh",
+                                        "id": "${result.gameTitle}-Video",
                                         "items": [
                                             {
                                                 "type": "TouchWrapper",
-                                                "id": "ItemView",
+                                                "id": "PlayVideo",
                                                 "onPress": {
                                                     "type": "SendEvent",
                                                     "arguments": [
-                                                        "SearchItem",
-                                                        "${result}",
-                                                        "${result.resultNum}"
+                                                        "PlayVideo",
+                                                        "${result}"
                                                     ]
                                                 },
                                                 "item": [
                                                     {
-                                                        "type": "ScrollView",
-                                                        "width": "80vw",
-                                                        "height": "30vh",
-                                                        "item": {
-                                                            "type": "Text",
-                                                            "id": "${result.gameTitle}-summary",
-                                                            "text": "${result.summaryText}",
-                                                            "speech": "${result.summarySpeech}",
-                                                            "style": "textStylePrimary",
-                                                            "textAlign": "center"
-                                                        }
+                                                        "type": "Video",
+                                                        "id": "${result.videoID}",
+                                                        "height": "100vh",
+                                                        "width": "100vw",
+                                                        "source": "",
+                                                        "onEnd":{
+                                                            "type": "SendEvent",
+                                                            "arguments": [
+                                                                "StopVideo",
+                                                                "${result}"
+                                                            ]
+                                                        },
+                                                        "autoplay": false
                                                     }
                                                 ]
+                                            },
+                                            {
+                                                "type": "Frame",
+                                                "position": "absolute",
+                                                "bottom": 25,
+                                                "right": 25,
+                                                "borderRadius": 25,
+                                                "backgroundColor": "grey",
+                                                "item": {
+                                                    "type": "Text",
+                                                    "text": "←",
+                                                    "width": "50",
+                                                    "height": "50",
+                                                    "textAlign": "center",
+                                                    "textAlignVertical": "center"
+                                                }
                                             }
                                         ]
                                     }
                                 ]
                             }
+                            
                         ]
-                    },
-                    {
-                        "type": "TouchWrapper",
-                        "id": "PlayVideo",
-                        "onPress": {
-                            "type": "SendEvent",
-                            "arguments": [
-                                "PlayVideo",
-                                "${result}"
-                            ]
-                        },
-                        "item": [
-                            {
-                                "type": "Video",
-                                "id": "{result.videoID}",
-                                "autoplay": false
-                            }
-                        ]
-                        
                     }
-                      
                 ]
             },
             "fullResultsListItem": {
@@ -499,7 +729,7 @@
                     }
                 ]
             },
-            "resultsPager": {
+            "resultsSequence": {
                 "parameters": [
                     "results"
                 ],
@@ -507,7 +737,7 @@
                     {
                         "type": "Sequence",
                         "scrollDirection": "vertical",
-                        "id": "entireDisplay",
+                        "id": "resultsSequence",
                         "height": "100vh",
                         "width": "100vw",
                         "numbered": false,
@@ -554,24 +784,8 @@
                                 "items": [
                                     
                                     {
-                                        "type": "resultsPager",
+                                        "type": "resultsSequence",
                                         "results": "${results}"
-                                    },
-                                    {
-                                        "type": "Frame",
-                                        "position": "absolute",
-                                        "bottom": 25,
-                                        "right": 25,
-                                        "borderRadius": 25,
-                                        "backgroundColor": "grey",
-                                        "item": {
-                                            "type": "Text",
-                                            "text": "↑",
-                                            "width": "50",
-                                            "height": "50",
-                                            "textAlign": "center",
-                                            "textAlignVertical": "center"
-                                        }
                                     }
                                 ]
                             }
@@ -612,154 +826,233 @@
                 "type": "entireDisplay",
                 "results": [
                     {
-                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/rkp2kggnoid6bthpuv2n.jpeg",
-                        "summarySSML": "<speak>A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.</speak>",
-                        "resultNum": 1,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/vkdea0wwyn0zx8fjs1kt.jpeg",
                         "gameTitle": "Battlefield V",
-                        "infoText2": "N/A",
-                        "infoText1": "November 20th 2018",
-                        "summaryText": "A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.",
+                        "resultNum": 1,
+                        "resultTotal": 10,
                         "skillLogo": "",
-                        "summarySpeech": "https://kopytko.amazon.com/3/9f8a4c93-1011-11e9-93cf-658c9464f178-418334/8/1546686748855/6aba52458b82516d821816efaea11eee1eed428d0e6910294ade767d9d566333/resource.mp3",
-                        "infoText4": "Electronic Arts",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/rkp2kggnoid6bthpuv2n.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/oteswqhfmfxjcu41sug0.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/xdjjufkmte3ntonkigs5.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/cdlqzmwub64eokzm7cdt.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/lxeavjeryfvcj2jtzpu5.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/enrem5i1bj7kcgx0qx6n.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/pjqit6egebe8affgfxey.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/b8aivuwxxtgojaguczad.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/xokasjrbubfkqtnvy9p3.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/w3yuy5qbpbdhmbd4ggu1.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/pmozz7tpzfwiprzjzokc.jpeg"
+                        ],
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "68.83"
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/vkdea0wwyn0zx8fjs1kt.jpeg",
+                        "infoText1": "November 19th 2018",
+                        "infoText2": "N/A",
+                        "infoText3": "68.83",
+                        "infoText4": "Electronic Arts",
+                        "summarySSML": "<speak>A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.</speak>",
+                        "videoName": "Trailer",
+                        "videoID": "fb1MR85XFOc"
                     },
                     {
-                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/yq7owbqrj09mgfqg3ac3.jpeg",
-                        "summarySSML": "<speak>Battlefield 4™ is the genre-defining action blockbuster created by DICE, and made from moments that blur the line between game and glory – moments found only in Battlefield. Go to Boot Camp to learn the basics of Battlefield 4's engaging single player and intense multiplayer mode. Here you'll also find intel on Levolution, Commander Mode, Naval Warfare and many more exciting game features.</speak>",
-                        "resultNum": 2,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ejcbrblr9aj12b8ihgfj.jpeg",
                         "gameTitle": "Battlefield 4",
+                        "resultNum": 2,
+                        "resultTotal": 10,
+                        "skillLogo": "",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/yq7owbqrj09mgfqg3ac3.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/gkvbblwscco4eaiquxfw.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/gvixjdrjylwi4kifgc4r.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/o80vh3ztviwbrkedbvjs.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/chkphyps9bwrxoau9hen.jpeg"
+                        ],
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ejcbrblr9aj12b8ihgfj.jpeg",
+                        "infoText1": "October 28th 2013",
                         "infoText2": "ESRB RP<br />PGEI 18",
-                        "infoText1": "October 29th 2013",
-                        "summaryText": "Battlefield 4™ is the genre-defining action blockbuster created by DICE, and made from moments that blur the line between game and glory – moments found only in Battlefield. Go to Boot Camp to learn the basics of Battlefield 4's engaging single player and intense multiplayer mode. Here you'll also find intel on Levolution, Commander Mode, Naval Warfare and many more exciting game features.",
-                        "skillLogo": "",
-                        "summarySpeech": "https://kopytko.amazon.com/3/9f8c6f59-1011-11e9-87e7-5168af1350f9-06cf9c/8/1546686748878/43f06aab1d7775b17fc869d36d2156d373ce5fb9f11c895d2324ae0296e0b999/resource.mp3",
+                        "infoText3": "78.31",
                         "infoText4": "Electronic Arts",
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "78.31"
+                        "summarySSML": "<speak>Battlefield 4™ is the genre-defining action blockbuster created by DICE, and made from moments that blur the line between game and glory – moments found only in Battlefield. Go to Boot Camp to learn the basics of Battlefield 4's engaging single player and intense multiplayer mode. Here you'll also find intel on Levolution, Commander Mode, Naval Warfare and many more exciting game features.</speak>",
+                        "videoName": "Trailer",
+                        "videoID": "ZjSykcTGrNc"
                     },
                     {
-                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/wfj4uguuur5idlyw6o1r.jpeg",
-                        "summarySSML": "<speak>In Battlefield 3, players step into the role of the elite U.S. Marines. As the first boots on the ground, players will experience heart-pounding missions across diverse locations including Paris, Tehran and New York. As a U.S. Marine in the field, periods of tension and anticipation are punctuated by moments of complete chaos. As bullets whiz by, as walls crumble, as explosions force players to the ground, the battlefield feels more alive and interactive than ever before.</speak>",
-                        "resultNum": 3,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/z84romyc73p8xoqgwt7c.jpeg",
-                        "gameTitle": "Battlefield 3",
-                        "infoText2": "ESRB RP<br />PGEI 16",
-                        "infoText1": "October 25th 2011",
-                        "summaryText": "In Battlefield 3, players step into the role of the elite U.S. Marines. As the first boots on the ground, players will experience heart-pounding missions across diverse locations including Paris, Tehran and New York. As a U.S. Marine in the field, periods of tension and anticipation are punctuated by moments of complete chaos. As bullets whiz by, as walls crumble, as explosions force players to the ground, the battlefield feels more alive and interactive than ever before.",
-                        "skillLogo": "",
-                        "summarySpeech": "https://kopytko.amazon.com/3/9f8e43bf-1011-11e9-a2ec-f9b948f51877-f3fc77/8/1546686748890/c3a0efe8ea291b4b1450c50c0811dfd2026ee34774757f4a651973b8ef86d526/resource.mp3",
-                        "infoText4": "Electronic Arts",
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "83.34"
-                    },
-                    {
-                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/ez6qfdwknjwshjkf5cvo.jpeg",
-                        "summarySSML": "<speak>Discover classic Battlefield gameplay with epic multiplayer and an adventure-filled campaign. Experience the Dawn of All-Out War, Only in Battlefield 1. \n \nFight your way through epic battles going from tight urban combat in a besieged French city to big open spaces in the Italian Alps or frantic combats in the Arabic sand dunes. Experience large-scale battles as infantry or piloting vehicles on land, air and sea, from the tanks and bikes on the ground, to bi-planes and gigantic battleships. \n \nDiscover a new world at war through an adventure-filled campaign, or join in epic multiplayer battles with up to 64 players. Adapt your tactics and strategy to the earth-shattering, dynamic environments and destruction.</speak>",
-                        "resultNum": 4,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ts6ceuy9nu1sgwpeabmo.jpeg",
-                        "gameTitle": "Battlefield 1",
-                        "infoText2": "ESRB RP<br />PGEI 18",
-                        "infoText1": "October 21st 2016",
-                        "summaryText": "Discover classic Battlefield gameplay with epic multiplayer and an adventure-filled campaign. Experience the Dawn of All-Out War, Only in Battlefield 1. Fight your way through epic battles going from tight urban combat in a besieged French city to big open spaces in the Italian Alps or frantic combats in the Arabic sand dunes. Experience large-scale battles as infantry or piloting vehicles on land, air and sea, from the tanks and bikes on the ground, to bi-planes and gigantic battleships. Discover a new world at war through an adventure-filled campaign, or join in epic multiplayer battles with up to 64 players. Adapt your tactics and strategy to the earth-shattering, dynamic environments and destruction.",
-                        "skillLogo": "",
-                        "summarySpeech": "https://kopytko.amazon.com/3/9f904051-1011-11e9-a1de-25b19a8c7f06-3b4f1b/8/1546686748901/a3886f992af05f4c5d0229ef71d822a3cfd31bea608f1b9e63ab84cdd0d2397e/resource.mp3",
-                        "infoText4": "Electronic Arts",
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "82.88"
-                    },
-                    {
-                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/s0moeyvaasjdhtzlzqjm.jpeg",
-                        "summarySSML": "<speak>In Battlefield 2, players will choose to fight for one of three military superpowers: the United States, the Chinese, or the newly formed Middle East Coalition. Armed with the latest modern weaponry, players can take control of any of the game’s 30+ vehicles to engage in major conflicts with over 64 players in some of the largest online battles on the PC. Additionally, persistent character growth allows players to rise through the ranks and attain the ultimate rank of General.</speak>",
-                        "resultNum": 5,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/xzv586ab8qpehq4kslri.jpeg",
                         "gameTitle": "Battlefield 2",
+                        "resultNum": 3,
+                        "resultTotal": 10,
+                        "skillLogo": "",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/s0moeyvaasjdhtzlzqjm.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/cgqoxefpdoljhk7etaqz.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/jfy3ju7dwgwjwjuyqs5b.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/gujamu6mgufkf8izkfpf.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/ub6bbsdznpv8rcmzlnmx.jpeg"
+                        ],
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/xzv586ab8qpehq4kslri.jpeg",
+                        "infoText1": "June 20th 2005",
                         "infoText2": "ESRB 18<br />PGEI 16",
-                        "infoText1": "June 21st 2005",
-                        "summaryText": "In Battlefield 2, players will choose to fight for one of three military superpowers: the United States, the Chinese, or the newly formed Middle East Coalition. Armed with the latest modern weaponry, players can take control of any of the game’s 30+ vehicles to engage in major conflicts with over 64 players in some of the largest online battles on the PC. Additionally, persistent character growth allows players to rise through the ranks and attain the ultimate rank of General.",
-                        "skillLogo": "",
-                        "summarySpeech": "https://kopytko.amazon.com/3/9f91ed43-1011-11e9-aef6-7f0590d15421-a695b8/8/1546686748913/19ed7497d1dd015d5421d427b46e13ee94a49e2b72557615ff2a8f8fce1ee344/resource.mp3",
+                        "infoText3": "87.23",
                         "infoText4": "Electronic Arts",
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "87.23"
+                        "summarySSML": "<speak>In Battlefield 2, players will choose to fight for one of three military superpowers: the United States, the Chinese, or the newly formed Middle East Coalition. Armed with the latest modern weaponry, players can take control of any of the game’s 30+ vehicles to engage in major conflicts with over 64 players in some of the largest online battles on the PC. Additionally, persistent character growth allows players to rise through the ranks and attain the ultimate rank of General.</speak>",
+                        "videoName": "Trailer",
+                        "videoID": "sv1qbuNA1ys"
                     },
                     {
-                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/ohmqa8lcyzfjrewwzaoa.jpeg",
-                        "summarySSML": "<speak>Having placed their previous online shooters in WWII, the Vietnam War, and modern day settings, Battlefield 2142 took place in a future where a new ice age had thrown the world into a panic. \n \nThe soil not covered by ice can only feed a fraction of the Earth’s population, and players choose to fight for one of two military super powers in an epic battle for survival: The European Union or the newly formed Pan Asian Coalition. Introducing a futuristic art style, science fiction weaponry, and the asymmetric game mode Titan, Battlefield 2142 still has a hardcore following that doesn’t want to leave the future behind.</speak>",
-                        "resultNum": 6,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ox05tdvjookghbqkgbsy.jpeg",
-                        "gameTitle": "Battlefield 2142",
-                        "infoText2": "ESRB 18<br />PGEI 16",
-                        "infoText1": "October 17th 2006",
-                        "summaryText": "Having placed their previous online shooters in WWII, the Vietnam War, and modern day settings, Battlefield 2142 took place in a future where a new ice age had thrown the world into a panic. The soil not covered by ice can only feed a fraction of the Earth’s population, and players choose to fight for one of two military super powers in an epic battle for survival: The European Union or the newly formed Pan Asian Coalition. Introducing a futuristic art style, science fiction weaponry, and the asymmetric game mode Titan, Battlefield 2142 still has a hardcore following that doesn’t want to leave the future behind.",
+                        "gameTitle": "Battlefield 1",
+                        "resultNum": 4,
+                        "resultTotal": 10,
                         "skillLogo": "",
-                        "summarySpeech": "https://kopytko.amazon.com/3/9f93e9ba-1011-11e9-82de-ad0303e4fe31-6b4606/8/1546686748927/07033959d2dc4a21a577e64edad9255a59ce61436ead037ec076a3f50dda7761/resource.mp3",
-                        "infoText4": "Electronic Arts",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/ez6qfdwknjwshjkf5cvo.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/jm9kereghangms42rrp3.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/fsgtjoqvpwpcb7kbdayb.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/qtw7wt4lzftyuadu7h8j.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/njrtwbrbluzscozfzsac.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/sc5inc.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/sc5ind.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/sc5ine.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/sc5inf.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/sc5ing.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/sc5inh.jpeg"
+                        ],
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "77.78"
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ts6ceuy9nu1sgwpeabmo.jpeg",
+                        "infoText1": "October 20th 2016",
+                        "infoText2": "ESRB RP<br />PGEI 18",
+                        "infoText3": "82.88",
+                        "infoText4": "Electronic Arts",
+                        "summarySSML": "<speak>Discover classic Battlefield gameplay with epic multiplayer and an adventure-filled campaign. Experience the Dawn of All-Out War, Only in Battlefield 1. </speak>",
+                        "videoName": "Trailer",
+                        "videoID": "ymwXbF1VTKU"
                     },
                     {
-                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/z2gjkv5usmmgapjdq8de.jpeg",
-                        "summarySSML": "<speak>Using the Frostbite engine, Battlefield 1943 takes players back to WWII. The game offers hours of 24 player multiplayer action over three classic and tropic locations; Wake Island, Guadalcanal and Iwo Jima. Delivering the award-winning through-the-gun and vehicle warfare online experience DICE is best recognized for, Battlefield 1943 has players battling in ruthless aerial dog fights and intense trench combat.</speak>",
-                        "resultNum": 7,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/w0ldq6laan9ymxjx7nhh.jpeg",
-                        "gameTitle": "Battlefield 1943",
-                        "infoText2": "N/A",
-                        "infoText1": "July 8th 2009",
-                        "summaryText": "Using the Frostbite engine, Battlefield 1943 takes players back to WWII. The game offers hours of 24 player multiplayer action over three classic and tropic locations; Wake Island, Guadalcanal and Iwo Jima. Delivering the award-winning through-the-gun and vehicle warfare online experience DICE is best recognized for, Battlefield 1943 has players battling in ruthless aerial dog fights and intense trench combat.",
+                        "gameTitle": "Battlefield 3",
+                        "resultNum": 5,
+                        "resultTotal": 10,
                         "skillLogo": "",
-                        "summarySpeech": "https://kopytko.amazon.com/3/9f95bdc6-1011-11e9-b210-21d9a765028b-fa522e/8/1546686748938/babc587e5686fdca6405c185c67c56c34a9dcbb3a5ec66c671a57bc3193888bf/resource.mp3",
-                        "infoText4": "Electronic Arts",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/wfj4uguuur5idlyw6o1r.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/hlu3aizx7iybhlbdgwwb.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/vp5xovezrke5ndk5c1tq.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/dmaijjdq8os2g50klrq8.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/fog4gznwpq1ea1qbe0ni.jpeg"
+                        ],
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "78.01"
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/z84romyc73p8xoqgwt7c.jpeg",
+                        "infoText1": "October 24th 2011",
+                        "infoText2": "ESRB RP<br />PGEI 16",
+                        "infoText3": "83.34",
+                        "infoText4": "Electronic Arts",
+                        "summarySSML": "<speak>In Battlefield 3, players step into the role of the elite U.S. Marines. As the first boots on the ground, players will experience heart-pounding missions across diverse locations including Paris, Tehran and New York. As a U.S. Marine in the field, periods of tension and anticipation are punctuated by moments of complete chaos. As bullets whiz by, as walls crumble, as explosions force players to the ground, the battlefield feels more alive and interactive than ever before.</speak>",
+                        "videoName": "Trailer",
+                        "videoID": "wi2tae2PmmU"
                     },
                     {
-                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/sc5dvctnt695tqwiwfnb.jpeg",
-                        "summarySSML": "<speak>Building upon and vastly refining the ideas from Codename Eagle, Battlefield 1942 let players engage in infantry combat and get behind the wheel of a variety of vehicles from submarines to battleships and bombers. The game introduced the signature Battlefield rock-paper-scissors gameplay, as well as the exciting “Battlefield Moments” people refer to when talking about their unique and unscripted experiences within the multiplayer game.</speak>",
-                        "resultNum": 8,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/oyzjxd6h3jwabgakeffx.jpeg",
                         "gameTitle": "Battlefield 1942",
-                        "infoText2": "ESRB 18<br />PGEI 16",
-                        "infoText1": "September 10th 2002",
-                        "summaryText": "Building upon and vastly refining the ideas from Codename Eagle, Battlefield 1942 let players engage in infantry combat and get behind the wheel of a variety of vehicles from submarines to battleships and bombers. The game introduced the signature Battlefield rock-paper-scissors gameplay, as well as the exciting “Battlefield Moments” people refer to when talking about their unique and unscripted experiences within the multiplayer game.",
+                        "resultNum": 6,
+                        "resultTotal": 10,
                         "skillLogo": "",
-                        "summarySpeech": "https://kopytko.amazon.com/3/9f98089b-1011-11e9-befd-b5c6e44737fa-a99ca9/8/1546686748951/c57ec740a151b267527cece52832fa7f78693808718b74fc012ab78a01bccf5f/resource.mp3",
-                        "infoText4": "Electronic Arts",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/sc5dvctnt695tqwiwfnb.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/ubvhxnmshoao287xvool.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/t8reggdvdnzhb4w95xkp.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/jotobwlm4bgaoa95hrqn.jpeg"
+                        ],
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "83.85"
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/oyzjxd6h3jwabgakeffx.jpeg",
+                        "infoText1": "September 9th 2002",
+                        "infoText2": "ESRB 18<br />PGEI 16",
+                        "infoText3": "83.85",
+                        "infoText4": "Electronic Arts",
+                        "summarySSML": "<speak>Building upon and vastly refining the ideas from Codename Eagle, Battlefield 1942 let players engage in infantry combat and get behind the wheel of a variety of vehicles from submarines to battleships and bombers. The game introduced the signature Battlefield rock-paper-scissors gameplay, as well as the exciting “Battlefield Moments” people refer to when talking about their unique and unscripted experiences within the multiplayer game.</speak>",
+                        "videoName": "Trailer",
+                        "videoID": "AjUGC2QkO9k"
                     },
                     {
-                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/acew48fzaytqqqqrbtkt.jpeg",
-                        "summarySSML": "<speak>A cartoon-style Play 4 Free shooter that brings classic Battlefield gameplay to an all new mass audience. Developed by DICE in Stockholm, the game's fun cartoon-style graphics and gameplay caters to players of all skill levels.</speak>",
-                        "resultNum": 9,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/wvqhxyz7lmlsaa1uap6p.jpeg",
+                        "gameTitle": "Battlefield 2142",
+                        "resultNum": 7,
+                        "resultTotal": 10,
+                        "skillLogo": "",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/ohmqa8lcyzfjrewwzaoa.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/yenk3jy37oh5eelqgdq9.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/bxe4cmpzugebdkod49ut.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/b67vj6myt6lryfnghfxh.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/vfcseimn1ywyn9zlcehv.jpeg"
+                        ],
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ox05tdvjookghbqkgbsy.jpeg",
+                        "infoText1": "October 16th 2006",
+                        "infoText2": "ESRB 18<br />PGEI 16",
+                        "infoText3": "77.78",
+                        "infoText4": "Electronic Arts",
+                        "summarySSML": "<speak>Having placed their previous online shooters in WWII, the Vietnam War, and modern day settings, Battlefield 2142 took place in a future where a new ice age had thrown the world into a panic. </speak>",
+                        "videoName": "Trailer",
+                        "videoID": "_XNskEiShMA"
+                    },
+                    {
                         "gameTitle": "Battlefield Heroes",
-                        "infoText2": "ESRB 18<br />PGEI 16",
-                        "infoText1": "June 25th 2009",
-                        "summaryText": "A cartoon-style Play 4 Free shooter that brings classic Battlefield gameplay to an all new mass audience. Developed by DICE in Stockholm, the game's fun cartoon-style graphics and gameplay caters to players of all skill levels.",
+                        "resultNum": 8,
+                        "resultTotal": 10,
                         "skillLogo": "",
-                        "summarySpeech": "https://kopytko.amazon.com/3/9f99b569-1011-11e9-b1c0-dd5f48a7198a-4ee4fe/8/1546686748965/64b73fff150fee2eead4d36d4412766f1debda15b2adda0d0ce6a28094504f98/resource.mp3",
-                        "infoText4": "Electronic Arts",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/acew48fzaytqqqqrbtkt.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/q2phc215jyop4ztyuy2l.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/v6tw7q2y0cv7p4otkmee.jpeg"
+                        ],
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "74.84"
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/wvqhxyz7lmlsaa1uap6p.jpeg",
+                        "infoText1": "June 24th 2009",
+                        "infoText2": "ESRB 18<br />PGEI 16",
+                        "infoText3": "74.84",
+                        "infoText4": "Electronic Arts",
+                        "summarySSML": "<speak>A cartoon-style Play 4 Free shooter that brings classic Battlefield gameplay to an all new mass audience. Developed by DICE in Stockholm, the game's fun cartoon-style graphics and gameplay caters to players of all skill levels.</speak>",
+                        "videoName": "Trailer",
+                        "videoID": "_u9xG09Ejk0"
                     },
                     {
-                        "screenshotImageUrl": "https://images.igdb.com/igdb/image/upload/t_original/lllbxcbnjnwdtjxpa16n.jpeg",
-                        "summarySSML": "<speak>The Battlefield franchise entered a new era equipped with more firepower, modernized weaponry and vehicles, and a deeper infantry experience from the jungles to the beaches of Vietnam. In Battlefield Vietnam, players selected from a variety of characters within the different soldier classes. \n \nThe game introduced new dramatic battle scenarios including leading a squadron of helicopters in an all-out attack on an enemy compound, executing an ambush of enemy soldiers from dense foliage, captaining a PT boat through a dangerous jungle river passage, and more.</speak>",
-                        "resultNum": 10,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/b5mr3to1pmmkdhwf6m39.jpeg",
                         "gameTitle": "Battlefield Vietnam",
-                        "infoText2": "ESRB 18<br />PGEI 16",
-                        "infoText1": "March 14th 2004",
-                        "summaryText": "The Battlefield franchise entered a new era equipped with more firepower, modernized weaponry and vehicles, and a deeper infantry experience from the jungles to the beaches of Vietnam. In Battlefield Vietnam, players selected from a variety of characters within the different soldier classes. The game introduced new dramatic battle scenarios including leading a squadron of helicopters in an all-out attack on an enemy compound, executing an ambush of enemy soldiers from dense foliage, captaining a PT boat through a dangerous jungle river passage, and more.",
+                        "resultNum": 9,
+                        "resultTotal": 10,
                         "skillLogo": "",
-                        "summarySpeech": "https://kopytko.amazon.com/3/9f9d5ee8-1011-11e9-9d93-25f1988e5efb-e2b2ca/8/1546686748980/bca18ff888c36ca516473cbf9f7801e87e8256b1577a725edb47f05620b63b80/resource.mp3",
-                        "infoText4": "Electronic Arts",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/lllbxcbnjnwdtjxpa16n.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/iputhrachavaorhw95oi.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/nhpwrjyne8pqute0jbsh.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/xbqeunra9radrziwlan0.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/kglumupggmpm5kosbrjb.jpeg"
+                        ],
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "75.05"
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/b5mr3to1pmmkdhwf6m39.jpeg",
+                        "infoText1": "March 13th 2004",
+                        "infoText2": "ESRB 18<br />PGEI 16",
+                        "infoText3": "75.05",
+                        "infoText4": "Electronic Arts",
+                        "summarySSML": "<speak>The Battlefield franchise entered a new era equipped with more firepower, modernized weaponry and vehicles, and a deeper infantry experience from the jungles to the beaches of Vietnam. In Battlefield Vietnam, players selected from a variety of characters within the different soldier classes. </speak>",
+                        "videoName": "Trailer",
+                        "videoID": "EVei65jUozc"
+                    },
+                    {
+                        "gameTitle": "Battlefield Hardline",
+                        "resultNum": 10,
+                        "resultTotal": 10,
+                        "skillLogo": "",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/szyh2jb0vrzkv7ppj9ao.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/x9lvwlci1vu4mpia5qrq.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/h6g4yiyc5rjaclidup4w.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/iz2kcgydb1xkq9wi6n0a.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/htkgytjxatmodetyayxp.jpeg"
+                        ],
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/u0avsydlgq1nsf7ordkp.jpeg",
+                        "infoText1": "March 16th 2015",
+                        "infoText2": "ESRB 18<br />PGEI RP",
+                        "infoText3": "69.72",
+                        "infoText4": "Electronic Arts",
+                        "summarySSML": "<speak>Battlefield: Hardline features a whole new variety of gameplay that breaks away from the traditional Battlefield game modes. The new game modes are Heist Mode, Rescue Mode, Hotwire Mode and Bloodmoney Mode. The focus of the game has been shifted to police rather than the millitary background that has spanned the whole series up to now. Players will have access to various millitary grade weapons and vehicles as well as having police equipment such as tasers and handcuffs.</speak>",
+                        "videoName": "E3 Multiplayer Trailer",
+                        "videoID": "gciurrO3eI0"
                     }
                 ],
                 "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg"
