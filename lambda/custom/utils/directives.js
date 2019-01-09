@@ -7,15 +7,17 @@
 'use strict';
 
 // Require our APL templates
-var searchResultsTemplete = require('../apl/searchResultsTemplete.json');
+var resultsOverallTemplate = require('../apl/resultsOverallTemplate.json');
+var resultsInfoTemplate = require('../apl/resultsInfoTemplate.json');
 var defaultTemplate = require('../apl/defaultTemplate.json');
 
 // Alexa Presentation Language (APL) Directives
 const APL = {
-  // returns a APL directive for game search w/ results
-  setSearchDisplay: function (games, backgroundImage, pageTitle, logoUrl, hintText) {
+  // returns a APL directive for game search w/ results (OVERALL)
+  setSearchOverallDisplay: function (games, searchedGame, backgroundImage, pageTitle, logoUrl, hintText) {
     let payload = {
-      "type": "entireDisplay",
+      "type": "resultsDisplay",
+      "searchedGame": searchedGame,
       "backgroundImageUrl": backgroundImage,
       "pageTitle": pageTitle,
       "skillLogo": logoUrl,
@@ -46,7 +48,39 @@ const APL = {
       "type": 'Alexa.Presentation.APL.RenderDocument',
       "version": '1.0',
       "token": "search",
-      "document": searchResultsTemplete.document,
+      "document": resultsOverallTemplate.document,
+      "datasources": {data}
+    };
+  },
+
+  // returns a APL directive for game search w/ results (INFO)
+  setSearchInfoDisplay: function (games, searchedGame) {
+    let payload = {
+      "type": "resultsPager",
+      "searchedGame": searchedGame,
+      "results": games
+    }
+    let data = {
+      "type": "object",
+      "properties": payload,
+      "transformers": [
+        {
+          "inputPath": "results[*].summarySSML",
+          "outputName": "summarySpeech",
+          "transformer": "ssmlToSpeech"
+        },
+        {
+          "inputPath": "results[*].summarySSML",
+          "outputName": "summaryText",
+          "transformer": "ssmlToText"
+        }
+      ]
+    }
+    return {
+      "type": 'Alexa.Presentation.APL.RenderDocument',
+      "version": '1.0',
+      "token": "search",
+      "document": resultsInfoTemplate.document,
       "datasources": {data}
     };
   },

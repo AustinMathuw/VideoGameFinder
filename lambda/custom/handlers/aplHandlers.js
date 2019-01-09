@@ -34,20 +34,21 @@ const aplHandlers = {
             } = handlerInput;
             return (requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent'
                 && (requestEnvelope.request.arguments[0] === 'GoToNextItem' || requestEnvelope.request.arguments[0] === 'GoToPrevItem'
-                || requestEnvelope.request.arguments[0] === 'GoToItemScreenshots' || requestEnvelope.request.arguments[0] === 'GoToItemVideo'));
+                || requestEnvelope.request.arguments[0] === 'GoToItemScreenshots' || requestEnvelope.request.arguments[0] === 'GoToItemVideo' || requestEnvelope.request.arguments[0] === "GoToItemInfo"));
         },
-        handle(handlerInput) {
-            logger.debug('APL.NavigateToItem: handle');
+        async handle(handlerInput) {
             let {
                 requestEnvelope
             } = handlerInput;
+            logger.debug('APL.NavigateToItem: handle: ' + requestEnvelope.request.arguments[0]);
             if(requestEnvelope.request.arguments[0] === 'GoToNextItem' || requestEnvelope.request.arguments[0] === 'GoToPrevItem') {
                 Finder.getGameInfoFromOtherItem(handlerInput);
             } else if (requestEnvelope.request.arguments[0] === 'GoToItemScreenshots') {
-                Finder.changeGameInfoView(handlerInput, 0);
+                await Finder.changeGameInfoView(handlerInput, 0);
             } else if (requestEnvelope.request.arguments[0] === 'GoToItemVideo') {
-                Finder.changeGameInfoView(handlerInput, 2);
-                Finder.playVideo(handlerInput)
+                await Finder.changeGameInfoView(handlerInput, 2, true);
+            } else if (requestEnvelope.request.arguments[0] === 'GoToItemInfo') {
+                await Finder.changeGameInfoView(handlerInput, 1);
             }
             return handlerInput.responseBuilder.getResponse();
         },
@@ -82,9 +83,9 @@ const aplHandlers = {
             return handlerInput.responseBuilder.getResponse();
         },
     },
-    VideoStoped: {
+    StopVideo: {
         canHandle(handlerInput) {
-            logger.debug('APL.VideoStoped: canHandle');
+            logger.debug('APL.StopVideo: canHandle');
             let {
                 requestEnvelope
             } = handlerInput;
@@ -92,8 +93,8 @@ const aplHandlers = {
                 && requestEnvelope.request.arguments[0] === 'StopVideo');
         },
         async handle(handlerInput) {
-            logger.debug('APL.VideoStoped: handle');
-            Finder.onVideoEnd(handlerInput);
+            logger.debug('APL.StopVideo: handle');
+            Finder.stopVideo(handlerInput);
             return handlerInput.responseBuilder.getResponse();
         },
     },

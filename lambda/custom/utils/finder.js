@@ -10,65 +10,10 @@ var settings = require('../config/settings.js');
 var display = require('../utils/display.js');
 var axios = require('axios');
 const moment = require('moment');
+const Params = require('../utils/paramsBuilder.js');
+const ParamsMap = require('../utils/paramsMapper.js');
 
-class Params {
-    constructor() {
-      this.filterArray = [];
-    }
-  
-    fields(fields) {
-        if (fields) {
-            let fieldsString =
-                fields && fields.constructor === Array ? fields.join(",") : fields;
-            fieldsString = fieldsString ? fieldsString.replace(/\s/g, "") : "";
-            this.filterArray.push(`fields ${fieldsString}`);
-        }
-        return this;
-    }
-  
-    sort(field, direction) {
-        if (field) {
-            this.filterArray.push(`sort ${field} ${direction || "asc"}`);
-        }
-        return this;
-    }
-  
-    limit(limit) {
-        if (limit) {
-            this.filterArray.push(`limit ${limit}`);
-        }
-        return this;
-    }
-  
-    offset(offset) {
-        if (offset) {
-            this.filterArray.push(`offset ${offset}`);
-        }
-        return this;
-    }
-  
-    search(search) {
-        if (search) {
-            this.filterArray.push(`search ${search}`);
-        }
-        return this;
-    }
-  
-    where(filters) {
-        if (filters) {
-            if (filters.constructor === Array) {
-                this.filterArray.push(`where ${filters.join(" & ")}`);
-            } else {
-                this.filterArray.push(`where ${filters.trim()}`);
-            }
-        }
-        return this;
-    }
 
-    getFormattedParams() {
-        return this.filterArray ? this.filterArray.join(";") + ";" : "";
-    }
-};
 
 const helpers = {
     getSlotValues: function(filledSlots) {
@@ -253,6 +198,20 @@ const helpers = {
         });
         return results;
     },
+    buildParams: function(slotValues) {   
+        let params = {};
+        for(var index in slotValues){
+            if(slotValues[index] && slotValues[index].resolved && IGDBParams.encode[index]) {
+                console.log(index);
+                params[IGDBParams.encode.filterType[index]] = IGDBParams.encode[index][slotValues[index].resolved];
+            } else if(slotValues[index] && slotValues[index].resolved) {
+                params[IGDBParams.encode.filterType[index]] = slotValues[index].resolved;
+            } else {
+                console.log(index + " not requested in discovery."); //Should never hit
+            }
+        }
+        return params;
+    },
     search: async function(itemToSearch) {
         return new Promise((resolve, reject) => {
             var queryParams = new Params();
@@ -281,18 +240,70 @@ const helpers = {
                     "game.screenshots != null",
                     "game.videos != null"
                 ])
-                .limit(8);
+                .limit(settings.API.RESULTS_LIMIT);
         
             const data = queryParams.getFormattedParams();
-            const url = settings.API_URL;
+            const url = settings.API.URL;
         
             axios({
                 url: url,
                 method: 'POST',
-                timeout: settings.API_TIMEOUT,
+                timeout: settings.API.TIMEOUT,
                 headers: {
                     'Accept': 'application/json',
-                    'user-key': settings.API_KEY
+                    'user-key': settings.API.KEY
+                },
+                data: data
+            })
+                .then(response => {
+                    var results = helpers.buildPayload(response.data);
+                    resolve(results);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
+    },
+    discover: async function(itemToSearch) {
+        return new Promise((resolve, reject) => {
+            var queryParams = new Params();
+            queryParams
+                .fields([
+                    "game.involved_companies.company.name",
+                    "game.age_ratings.rating",
+                    "game.age_ratings.rating_cover_url",
+                    "game.name",
+                    "game.first_release_date",
+                    "game.platforms.name",
+                    "game.screenshots.image_id",
+                    "game.similar_games",
+                    "game.summary",
+                    "game.cover.image_id",
+                    "game.videos.name",
+                    "game.videos.video_id",
+                    "game.total_rating"
+                ])
+                .search('"' + itemToSearch + '"')
+                .where([
+                    "game != null",
+                    "game.version_parent = null",
+                    "game.category = 0",
+                    "game.cover != null",
+                    "game.screenshots != null",
+                    "game.videos != null"
+                ])
+                .limit(settings.API.RESULTS_LIMIT);
+        
+            const data = queryParams.getFormattedParams();
+            const url = settings.API.URL;
+        
+            axios({
+                url: url,
+                method: 'POST',
+                timeout: settings.API.TIMEOUT,
+                headers: {
+                    'Accept': 'application/json',
+                    'user-key': settings.API.KEY
                 },
                 data: data
             })
@@ -327,8 +338,8 @@ const Finder = {
             outputSpeech = ctx.t('SEARCH_RESULTS', {
                 keyword: gameToSearch
             });
-            if(display.isAPLCapatable(handlerInput)) {
-                ctx.renderSearchResults(handlerInput, results, outputSpeech.pageTitle);
+            if(ctx.isAPLCapatable(handlerInput)) {
+                ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitle, gameToSearch);
             }
             logger.debug(outputSpeech.speech);
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -346,50 +357,49 @@ const Finder = {
             requestEnvelope,
             attributesManager
         } = handlerInput;
+        let sessionAttributes = attributesManager.getSessionAttributes();
         let ctx = attributesManager.getRequestAttributes();
-        var itemToShow = requestEnvelope.request.arguments[1];
-        var itemPosition = requestEnvelope.request.arguments[2];
+        var itemPosition = requestEnvelope.request.arguments[1];
+        var gameToSearch = requestEnvelope.request.arguments[2];
+        var results = requestEnvelope.request.arguments.slice(3);
         var commands = [
             {
-                "type": "Parallel",
+                "type": "Sequential",
                 "commands": [
                     {
-                        "type": "ScrollToIndex",
-                        "componentId": "entireDisplay",
-                        "index": 1,
-                        "align": "center"
+                        "type": "SetPage",
+                        "componentId": "resultsPager",
+                        "value": itemPosition - 1
                     },
                     {
-                        "type": "ScrollToIndex",
-                        "componentId": "resultsSequence",
-                        "index": itemPosition - 1,
-                        "align": "first"
-                    },
-                    {
-                        "type": "ScrollToIndex",
+                        "type": "SetPage",
                         "componentId": itemPosition,
-                        "index": 1,
-                        "align": "first"
+                        "value": 1
                     },
                     {
-                        "type": "Idle",
-                        "delay": 3000
-                    },
-                    {
-                        "type": "SpeakItem",
-                        "componentId": itemPosition + "-summary",
-                        "highlightMode": "line",
-                        "align": "center"
+                        "type": "Parallel",
+                        "commands": [
+                            {
+                                "type": "Idle",
+                                "delay": 3000
+                            },
+                            {
+                                "type": "SpeakItem",
+                                "componentId": itemPosition + "-summary",
+                                "highlightMode": "line",
+                                "align": "center"
+                            }
+                        ]
                     }
                 ]
             }
         ];
-        var outputSpeech = ctx.t('SEARCH_RESULT_ITEM_INFO', {
-            gameTitle: itemToShow.gameTitle
-        });
-        ctx.outputSpeech.push(outputSpeech.speech);
+        var outputSpeech = ctx.t('GENERAL_REPROMPT');
+        ctx.reprompt.push("Here is what I found");
+        var outputSpeech = ctx.t('GENERAL_REPROMPT');
         ctx.reprompt.push(outputSpeech.reprompt);
-        ctx.sendAPLCommands(handlerInput, commands, "token");
+        ctx.renderSearchResultsInfo(handlerInput, results, gameToSearch);
+        ctx.addAPLCommands(commands);
         ctx.openMicrophone = true;
     },
     getGameInfoFromOtherItem: function (handlerInput) {
@@ -405,25 +415,22 @@ const Finder = {
                 "type": "Sequential",
                 "commands": [
                     {
-                        "type": "ScrollToIndex",
+                        "type": "SetPage",
                         "componentId": "entireDisplay",
-                        "index": 1,
-                        "align": "center"
+                        "value": 1
                     },
                     {
-                        "type": "ScrollToIndex",
-                        "componentId": "resultsSequence",
-                        "index": itemPosition - 1,
-                        "align": "first"
+                        "type": "SetPage",
+                        "componentId": "resultsPager",
+                        "value": itemPosition - 1
                     },
                     {
-                        "type": "ScrollToIndex",
+                        "type": "SetPage",
                         "componentId": itemPosition,
-                        "index": 1,
-                        "align": "first"
+                        "value": 1
                     },
                     {
-                        "type": "Sequential",
+                        "type": "Parallel",
                         "commands": [
                             {
                                 "type": "Idle",
@@ -444,7 +451,7 @@ const Finder = {
             gameTitle: itemToShow.gameTitle
         });
         ctx.reprompt.push(outputSpeech.reprompt);
-        ctx.sendAPLCommands(handlerInput, commands, "token");
+        ctx.addAPLCommands(commands);
         ctx.openMicrophone = true;
     },
     getGameInfoFromItemView: function (handlerInput) {
@@ -472,7 +479,7 @@ const Finder = {
             }
         ];
 
-        ctx.sendAPLCommands(handlerInput, commands, "token");
+        ctx.addAPLCommands(commands);
         ctx.openMicrophone = true;
     },
     showGeneralResults: async function (handlerInput) {
@@ -481,20 +488,19 @@ const Finder = {
             attributesManager
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
-        var commands = [
-            {
-                "type": "ScrollToIndex",
-                "componentId": "entireDisplay",
-                "index": 0,
-                "align": "center"
-            }
-                        
-        ];
-    
-        var outputSpeech = ctx.t('RE_SHOW_RESULTS');
+
+        var gameToSearch = requestEnvelope.request.arguments[1];
+        var results = requestEnvelope.request.arguments.slice(2);
+
+        var outputSpeech = ctx.t('RE_SHOW_RESULTS', {
+            keyword: gameToSearch
+        });
+        if(ctx.isAPLCapatable(handlerInput)) {
+            ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitle, gameToSearch);
+        }
+        logger.debug(outputSpeech.speech);
         ctx.outputSpeech.push(outputSpeech.speech);
         ctx.reprompt.push(outputSpeech.reprompt);
-        ctx.sendAPLCommands(handlerInput, commands, "token");
         ctx.openMicrophone = true;
     },
     playVideo: async function (handlerInput) {
@@ -513,10 +519,8 @@ const Finder = {
                     "source": videoURL
                 }
             ];
-            outputSpeech = "Playing video...";
-            ctx.outputSpeech.push(outputSpeech);
-            ctx.openMicrophone = false;
-            ctx.sendAPLCommands(handlerInput, commands, "token");
+            ctx.addAPLCommands(commands);
+            ctx.openMicrophone = true;
         }).catch(err => {
             outputSpeech = ctx.t('API_CALL_ERROR');
             logger.debug(err);
@@ -524,29 +528,24 @@ const Finder = {
             ctx.openMicrophone = false;
         })
     },
-    onVideoEnd: function (handlerInput) {
+    stopVideo: async function (handlerInput) {
         let {
             requestEnvelope,
             attributesManager
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
-        var result = requestEnvelope.request.arguments[1];
+        var itemToShowOn = requestEnvelope.request.arguments[1].videoID;
         var commands = [
             {
-                "type": "ScrollToIndex",
-                "componentId": result.resultNum,
-                "index": 1,
-                "align": "first"
-              }
+                "type": "ControlMedia",
+                "componentId": itemToShowOn,
+                "command": "pause"
+            }  
         ];
-    
-        var outputSpeech = ctx.t('VIDEO_END');
-        ctx.outputSpeech.push(outputSpeech.speech);
-        ctx.reprompt.push(outputSpeech.reprompt);
-        ctx.sendAPLCommands(handlerInput, commands, "token");
+        ctx.addAPLCommands(commands);
         ctx.openMicrophone = true;
     },
-    changeGameInfoView: function (handlerInput, index) {
+    changeGameInfoView: async function (handlerInput, index, playVideo = false) {
         let {
             requestEnvelope,
             attributesManager
@@ -555,15 +554,19 @@ const Finder = {
         var itemToShow = requestEnvelope.request.arguments[1];
         var commands = [
             {
-                "type": "ScrollToIndex",
+                "type": "SetPage",
                 "componentId": itemToShow.resultNum,
-                "index": index,
-                "align": "first"
+                "value": index
             }
         ];
+        ctx.addAPLCommands(commands);
 
-        ctx.sendAPLCommands(handlerInput, commands, "token");
-        ctx.openMicrophone = true;
+        if(playVideo) {
+            await Finder.playVideo(handlerInput);
+        } else {
+            await Finder.stopVideo(handlerInput)
+            ctx.openMicrophone = true;
+        }
     }
 };
 module.exports = Finder;

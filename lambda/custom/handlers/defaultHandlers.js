@@ -50,6 +50,8 @@ const defaultHandlers = {
       ctx.outputSpeech = [];
       ctx.reprompt = [];
 
+      ctx.APLCommands = [];
+
       /**
        * For ease of use we'll attach the utilities for handling localized tts to the request attributes.
        */
@@ -66,11 +68,25 @@ const defaultHandlers = {
       ctx.renderDefault = function (...args) {
         return display.renderDefault(...args);
       }
-      ctx.renderSearchResults = function (...args) {
-        return display.renderSearchResults(...args);
+      ctx.renderSearchResultsOverall = function (...args) {
+        return display.renderSearchResultsOverall(...args);
       }
-      ctx.sendAPLCommands = function (...args) {
+      ctx.renderSearchResultsInfo = function (...args) {
+        return display.renderSearchResultsInfo(...args);
+      }
+      ctx.createAPLCommandDirective = function (...args) {
         return display.sendAPLCommands(...args);
+      }
+      ctx.isAPLCapatable = function (...args) {
+        return display.isAPLCapatable(...args);
+      }
+      ctx.addAPLCommand = function (command) {
+        ctx.APLCommands.push(command);
+      }
+      ctx.addAPLCommands = function (commands) {
+        commands.forEach(command => {
+          ctx.APLCommands.push(command);
+        });
       }
       logger.debug('Global.RequestInterceptor: pre-processing response complete');
     }
@@ -113,9 +129,16 @@ const defaultHandlers = {
       }
       if (ctx.reprompt.length > 0) {
         logger.debug('Global.ResponseInterceptor: adding ' +
-          ctx.outputSpeech.length + ' speech reprompt parts');
+          ctx.reprompt.length + ' speech reprompt parts');
         let reprompt = ctx.reprompt.join(' ');
         responseBuilder.reprompt(reprompt);
+      }
+      if(ctx.isAPLCapatable(handlerInput)) {
+        if (ctx.APLCommands.length > 0) {
+          logger.debug('Global.ResponseInterceptor: adding ' +
+            ctx.APLCommands.length + ' APLCommands');
+          ctx.createAPLCommandDirective(handlerInput, ctx.APLCommands, "token");
+        }
       }
 
       let response = responseBuilder.getResponse();

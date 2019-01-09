@@ -65,20 +65,33 @@ const Display = {
     ));
   },
 
-  renderSearchResults: function (
+  renderSearchResultsOverall: function (
     /* The Alexa request and attributes */
-    handlerInput, games, pageTitle) {
+    handlerInput, games, pageTitle, searchedGame) {
     let ctx = handlerInput.attributesManager.getRequestAttributes();
     let sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
 
     const background = settings.pickRandom(settings.IMAGES.BACKGROUND_IMAGES);
 
-    ctx.directives.push(directives.APL.setSearchDisplay(
+    ctx.directives.push(directives.APL.setSearchOverallDisplay(
       games,
+      searchedGame,
       background,
       pageTitle,
       settings.IMAGES.LOGO,
       settings.pickRandom(ctx.t('SEARCH_HINT'))
+    ));
+  },
+
+  renderSearchResultsInfo: function (
+    /* The Alexa request and attributes */
+    handlerInput, games, searchedGame) {
+    let ctx = handlerInput.attributesManager.getRequestAttributes();
+    let sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+
+    ctx.directives.push(directives.APL.setSearchInfoDisplay(
+      games,
+      searchedGame
     ));
   },
 

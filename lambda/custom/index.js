@@ -26,7 +26,7 @@ exports.handler = function (event, context) {
       APLHandlers.PlayVideo,
       APLHandlers.SearchItemSelected,
       APLHandlers.ItemViewSelected,
-      APLHandlers.VideoStoped,
+      APLHandlers.StopVideo,
       APLHandlers.GoBackToResults,
       CustomHandlers.InProgressSearchIntent,
       CustomHandlers.CompletedSearchIntent,

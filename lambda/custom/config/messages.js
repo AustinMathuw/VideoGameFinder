@@ -47,6 +47,9 @@ const messages = {
       'SEARCH_HINT': [
         'select option 1'
       ],
+      'GENERAL_REPROMPT': {
+        reprompt: "Sorry, I didn't catch that, what would you like to do next?"
+      },
       'SEARCH_RESULTS': {
         speech: "Here are some games I found...",
         reprompt: 'What\'s next?',
@@ -58,7 +61,8 @@ const messages = {
       },
       'RE_SHOW_RESULTS': {
         speech: 'Now showing the overall results. Let me know if you want to know information for a specific game.',
-        reprompt: "Sorry, I didn't catch that, what would you like to do next?"
+        reprompt: "Sorry, I didn't catch that, what would you like to do next?",
+        pageTitle: SKILL_TITLE + ' - Search: {{keyword}}'
       },
       'VIDEO_END': {
         speech: 'What else would you like to do?',

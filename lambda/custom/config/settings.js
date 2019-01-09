@@ -15,9 +15,12 @@ module.exports = (function () {
 
   const APP_ID = '';
 
-  const API_URL = "https://api-v3.igdb.com/search/";
-  const API_KEY = "af3fe2351343ef7dd1171ef25b018685";
-  const API_TIMEOUT = 2000;
+  const API = {
+    URL: "https://api-v3.igdb.com/search/",
+    KEY: "af3fe2351343ef7dd1171ef25b018685",
+    TIMEOUT: 2500,
+    RESULTS_LIMIT: 8
+  }
 
   const VIDEO_CONVERTER_URL = "https://you-link.herokuapp.com/?url=https://www.youtube.com/watch?v=";
   const VIDEO_NAME = "Trailer";
@@ -57,9 +60,7 @@ module.exports = (function () {
     SKILL_TITLE: 'Video Game Finder',
     VIDEO_CONVERTER_URL: VIDEO_CONVERTER_URL,
     VIDEO_NAME: VIDEO_NAME,
-    API_URL: API_URL,
-    API_KEY: API_KEY,
-    API_TIMEOUT: API_TIMEOUT,
+    API: API,
     APP_ID: APP_ID,
     APL_ENABLED: APL_ENABLED,
     STORAGE: STORAGE,

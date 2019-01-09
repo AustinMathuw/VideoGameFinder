@@ -150,11 +150,11 @@
                         "items": [
                             {
                                 "type": "Pager",
-                                "scrollDirection": "horizontal",
                                 "id": "${result.resultNum}",
+                                "initialPage": 1,
+                                "navigation": "none",
                                 "height": "100vh",
                                 "width": "100vw",
-                                "numbered": false,
                                 "item": [
                                     {
                                         "type": "Container",
@@ -187,12 +187,26 @@
                                                 "borderRadius": 25,
                                                 "backgroundColor": "grey",
                                                 "item": {
-                                                    "type": "Text",
-                                                    "text": "→",
-                                                    "width": "50",
-                                                    "height": "50",
-                                                    "textAlign": "center",
-                                                    "textAlignVertical": "center"
+                                                    "type": "TouchWrapper",
+                                                    "id": "GoToItemInfo",
+                                                    "onPress": {
+                                                        "type": "SendEvent",
+                                                        "arguments": [
+                                                            "GoToItemInfo",
+                                                            "${result}"
+                                                        ]
+                                                    },
+                                                    "item": [
+                                                        {
+                                                            "type": "Text",
+                                                            "text": "Info",
+                                                            "fontSize": "20dp",
+                                                            "width": "120",
+                                                            "height": "50",
+                                                            "textAlign": "center",
+                                                            "textAlignVertical": "center"
+                                                        }
+                                                    ]
                                                 }
                                             }
                                         ]
@@ -239,13 +253,15 @@
                                                     "onPress": {
                                                         "type": "SendEvent",
                                                         "arguments": [
-                                                            "GoBackToResults"
+                                                            "GoBackToResults",
+                                                            "${payload.data.properties.searchedGame}",
+                                                            "${payload.data.properties.results}"
                                                         ]
                                                     },
                                                     "item": [
                                                         {
                                                             "type": "Text",
-                                                            "text": "↥ Go Back ↥",
+                                                            "text": "Show Results",
                                                             "fontSize": "20dp",
                                                             "width": "150",
                                                             "height": "40",
@@ -368,8 +384,9 @@
                                                 "type": "Frame",
                                                 "when": "${result.resultNum != 1}",
                                                 "position": "absolute",
-                                                "bottom": 175,
-                                                "right": 25,
+                                                "top": -25,
+                                                "left": "40vw",
+                                                "right": "40vw",
                                                 "borderRadius": 25,
                                                 "backgroundColor": "grey",
                                                 "item": {
@@ -386,8 +403,9 @@
                                                     "item": [
                                                         {
                                                             "type": "Text",
-                                                            "text": "↑",
-                                                            "width": "50",
+                                                            "text": "<br />Previous Game",
+                                                            "fontSize": "20dp",
+                                                            "width": "100%",
                                                             "height": "50",
                                                             "textAlign": "center",
                                                             "textAlignVertical": "center"
@@ -399,8 +417,9 @@
                                                 "type": "Frame",
                                                 "when": "${result.resultNum != result.resultTotal}",
                                                 "position": "absolute",
-                                                "bottom": 100,
-                                                "right": 25,
+                                                "bottom": -25,
+                                                "left": "40vw",
+                                                "right": "40vw",
                                                 "borderRadius": 25,
                                                 "backgroundColor": "grey",
                                                 "item": {
@@ -417,8 +436,9 @@
                                                     "item": [
                                                         {
                                                             "type": "Text",
-                                                            "text": "↓",
-                                                            "width": "50",
+                                                            "text": "Next Game<br />.",
+                                                            "fontSize": "20dp",
+                                                            "width": "100%",
                                                             "height": "50",
                                                             "textAlign": "center",
                                                             "textAlignVertical": "center"
@@ -446,8 +466,9 @@
                                                     "item": [
                                                         {
                                                             "type": "Text",
-                                                            "text": "←",
-                                                            "width": "50",
+                                                            "text": "Screenshot",
+                                                            "fontSize": "20dp",
+                                                            "width": "120",
                                                             "height": "50",
                                                             "textAlign": "center",
                                                             "textAlignVertical": "center"
@@ -475,8 +496,9 @@
                                                     "item": [
                                                         {
                                                             "type": "Text",
-                                                            "text": "→",
-                                                            "width": "50",
+                                                            "text": "Video",
+                                                            "fontSize": "20dp",
+                                                            "width": "120",
                                                             "height": "50",
                                                             "textAlign": "center",
                                                             "textAlignVertical": "center"
@@ -494,11 +516,11 @@
                                         "items": [
                                             {
                                                 "type": "TouchWrapper",
-                                                "id": "PlayVideo",
+                                                "id": "StopVideo",
                                                 "onPress": {
                                                     "type": "SendEvent",
                                                     "arguments": [
-                                                        "PlayVideo",
+                                                        "StopVideo",
                                                         "${result}"
                                                     ]
                                                 },
@@ -509,12 +531,10 @@
                                                         "height": "100vh",
                                                         "width": "100vw",
                                                         "source": "",
-                                                        "onEnd":{
-                                                            "type": "SendEvent",
-                                                            "arguments": [
-                                                                "StopVideo",
-                                                                "${result}"
-                                                            ]
+                                                        "onPause": {
+                                                            "type": "SetPage",
+                                                            "componentId": "${result.resultNum}",
+                                                            "value": 1
                                                         },
                                                         "autoplay": false
                                                     }
@@ -524,223 +544,52 @@
                                                 "type": "Frame",
                                                 "position": "absolute",
                                                 "bottom": 25,
-                                                "right": 25,
+                                                "left": 25,
                                                 "borderRadius": 25,
                                                 "backgroundColor": "grey",
                                                 "item": {
-                                                    "type": "Text",
-                                                    "text": "←",
-                                                    "width": "50",
-                                                    "height": "50",
-                                                    "textAlign": "center",
-                                                    "textAlignVertical": "center"
+                                                    "type": "TouchWrapper",
+                                                    "id": "GoToItemInfo",
+                                                    "onPress": {
+                                                        "type": "SendEvent",
+                                                        "arguments": [
+                                                            "GoToItemInfo",
+                                                            "${result}"
+                                                        ]
+                                                    },
+                                                    "item": [
+                                                        {
+                                                            "type": "Text",
+                                                            "text": "Info",
+                                                            "fontSize": "20dp",
+                                                            "width": "120",
+                                                            "height": "50",
+                                                            "textAlign": "center",
+                                                            "textAlignVertical": "center"
+                                                        }
+                                                    ]
                                                 }
                                             }
                                         ]
                                     }
                                 ]
                             }
-                            
                         ]
                     }
                 ]
             },
-            "fullResultsListItem": {
-                "parameters": [
-                    "result",
-                    "listLength"
-                ],
-                "items": [
-                    {
-                        "type": "TouchWrapper",
-                        "id": "SearchItem",
-                        "onPress": {
-                            "type": "SendEvent",
-                            "arguments": [
-                                "SearchItem",
-                                "${result}",
-                                "${ordinal}"
-                            ]
-                        },
-                        "item": [
-                            {
-                                "type": "Container",
-                                "height": "100vh",
-                                "width": "100vw",
-                                "alignItems": "center",
-                                "justifyContent": "end",
-                                "items": [
-                                    {
-                                        "type": "Image",
-                                        "position": "absolute",
-                                        "height": "100vh",
-                                        "width": "100vw",
-                                        "overlayColor": "rgba(0, 0, 0, 0.6)",
-                                        "source": "${result.coverImageUrl}",
-                                        "scale": "best-fill"
-                                    },
-                                    {
-                                        "type": "AlexaHeader",
-                                        "grow": 1
-                                    },
-                                    {
-                                        "type": "Text",
-                                        "text": "${result.gameTitle}",
-                                        "style": "textStyleBody",
-                                        "maxLines": 1
-                                    },
-                                    {
-                                        "type": "Text",
-                                        "text": "${result.infoText1}",
-                                        "style": "textStyleDetails"
-                                    },
-                                    {
-                                        "type": "Text",
-                                        "text": "${ordinal} | ${listLength}",
-                                        "paddingBottom": "20dp",
-                                        "color": "white",
-                                        "spacing": "5dp"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            "resultsListItem": {
-                "parameters": [
-                    "result"
-                ],
-                "items": [
-                    {
-                        "type": "TouchWrapper",
-                        "id": "SearchItem",
-                        "onPress": {
-                            "type": "SendEvent",
-                            "arguments": [
-                                "SearchItem",
-                                "${result}",
-                                "${ordinal}"
-                            ]
-                        },
-                        "item": {
-                            "type": "Container",
-                            "maxWidth": 528,
-                            "minWidth": 312,
-                            "paddingLeft": 16,
-                            "paddingRight": 16,
-                            "height": "100%",
-                            "items": [
-                                {
-                                    "type": "Image",
-                                    "source": "${result.coverImageUrl}",
-                                    "height": "50vh",
-                                    "width": "50vh"
-                                },
-                                {
-                                    "type": "Text",
-                                    "text": "<b>${ordinal}.</b> ${result.gameTitle}",
-                                    "style": "textStyleSecondary",
-                                    "maxLines": 1,
-                                    "spacing": 12
-                                },
-                                {
-                                    "type": "Text",
-                                    "text": "${result.infoText1}",
-                                    "style": "textStyleDetails",
-                                    "spacing": 4
-                                }
-                            ]
-                        }
-                    }
-                ]
-            },
-            "resultsList": {
-                "parameters": [
-                    "backgroundImageUrl",
-                    "pageTitle",
-                    "skillLogo",
-                    "hintText",
-                    "results"
-                ],
-                "items": [
-                    {
-                        "when": "${viewport.shape == 'round'}",
-                        "type": "Container",
-                        "height": "100%",
-                        "width": "100%",
-                        "items": [
-                            {
-                                "type": "Sequence",
-                                "scrollDirection": "horizontal",
-                                "data": "${results}",
-                                "height": "100%",
-                                "width": "100%",
-                                "numbered": true,
-                                "item": [
-                                    {
-                                        "type": "fullResultsListItem",
-                                        "result": "${data}",
-                                        "listLength": "${results.length}"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "type": "Container",
-                        "height": "100vh",
-                        "width": "100vw",
-                        "items": [
-                            {
-                                "type": "Image",
-                                "source": "${backgroundImageUrl}",
-                                "scale": "best-fill",
-                                "width": "100vw",
-                                "height": "100vh",
-                                "position": "absolute"
-                            },
-                            {
-                                "type": "AlexaHeader",
-                                "headerTitle": "${pageTitle}",
-                                "headerAttributionImage": "${skillLogo}"
-                            },
-                            {
-                                "type": "Sequence",
-                                "scrollDirection": "horizontal",
-                                "paddingLeft": "@marginLeft",
-                                "paddingRight": "@marginRight",
-                                "data": "${results}",
-                                "height": "70vh",
-                                "width": "100%",
-                                "numbered": true,
-                                "item": [
-                                    {
-                                        "type": "resultsListItem",
-                                        "result": "${data}"
-                                    }
-                                ]
-                            },
-                            {
-                                "type": "AlexaFooter",
-                                "footerHint": "${hintText}"
-                            }
-                        ]
-                    }
-                ]
-            },
-            "resultsSequence": {
+            "resultsPager": {
                 "parameters": [
                     "results"
                 ],
                 "items": [
                     {
-                        "type": "Sequence",
-                        "scrollDirection": "vertical",
-                        "id": "resultsSequence",
+                        "type": "Pager",
+                        "id": "resultsPager",
+                        "initialPage": 0,
+                        "navigation": "none",
                         "height": "100vh",
                         "width": "100vw",
-                        "numbered": false,
                         "data": "${results}",
                         "item": [
                             {
@@ -751,57 +600,15 @@
                         ]
                     }
                 ]
-            },
-            "entireDisplay": {
-                "parameters": [
-                    "backgroundImageUrl",
-                    "pageTitle",
-                    "skillLogo",
-                    "hintText",
-                    "results"
-                ],
-                "items": [
-                    {
-                        "type": "Sequence",
-                        "scrollDirection": "vertical",
-                        "id": "entireDisplay",
-                        "height": "100vh",
-                        "width": "100vw",
-                        "numbered": false,
-                        "item": [
-                            {
-                                "type": "resultsList",
-                                "backgroundImageUrl": "${backgroundImageUrl}",
-                                "pageTitle": "${pageTitle}",
-                                "skillLogo": "${skillLogo}",
-                                "hintText": "${hintText}",
-                                "results": "${results}"
-                            },
-                            {
-                                "type": "Container",
-                                "height": "100vh",
-                                "width": "100vw",
-                                "items": [
-                                    
-                                    {
-                                        "type": "resultsSequence",
-                                        "results": "${results}"
-                                    }
-                                ]
-                            }
-                            
-                        ]
-                    }
-                ]
             }
         },
         "mainTemplate": {
-                "parameters": [
-                    "payload"
-                ],
-                "item": [
-                    "${payload.data.properties}"
-                ]
+            "parameters": [
+                "payload"
+            ],
+            "item": [
+                "${payload.data.properties}"
+            ]
         }
     },
     "dataSources": {
@@ -820,10 +627,7 @@
             ],
             "type": "object",
             "properties": {
-                "hintText": "Try, \"Alexa, select option 1\"",
-                "pageTitle": "Video Game Finder - Search: battlefield",
-                "skillLogo": "https://s3.amazonaws.com/austinmatthuw/VideoGameFinder/icon_512.png",
-                "type": "entireDisplay",
+                "type": "resultsPager",
                 "results": [
                     {
                         "gameTitle": "Battlefield V",
@@ -1054,8 +858,7 @@
                         "videoName": "E3 Multiplayer Trailer",
                         "videoID": "gciurrO3eI0"
                     }
-                ],
-                "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg"
+                ]
             }
         }
     }
