@@ -194,10 +194,10 @@ const helpers = {
                 });
                 data.infoText4 = mostInvolved.company.name;
             }
-            data.screenshotImageUrls.push("https://images.igdb.com/igdb/image/upload/t_original/" + element.game.screenshots[0].image_id + ".jpeg");
-            /* element.game.screenshots.forEach(screenshot => {
+            //data.screenshotImageUrls.push("https://images.igdb.com/igdb/image/upload/t_original/" + element.game.screenshots[0].image_id + ".jpeg");
+            element.game.screenshots.forEach(screenshot => {
                 data.screenshotImageUrls.push("https://images.igdb.com/igdb/image/upload/t_original/" + screenshot.image_id + ".jpeg");
-            }); */
+            });
             
             data.skillLogo = "";
             if(element.game.summary.indexOf("\n") > -1){
@@ -362,6 +362,8 @@ const Finder = {
             attributesManager
         } = handlerInput;
         let sessionAttributes = attributesManager.getSessionAttributes();
+        sessionAttributes.state = settings.SKILL_STATES.GENERAL_RESULTS_STATE;
+        
         let ctx = attributesManager.getRequestAttributes();
 
         const filledSlots = handlerInput.requestEnvelope.request.intent.slots;
@@ -404,6 +406,8 @@ const Finder = {
             attributesManager
         } = handlerInput;
         let sessionAttributes = attributesManager.getSessionAttributes();
+        sessionAttributes.state = settings.SKILL_STATES.GENERAL_RESULTS_STATE;
+
         let ctx = attributesManager.getRequestAttributes();
 
         const filledSlots = handlerInput.requestEnvelope.request.intent.slots;
@@ -430,12 +434,14 @@ const Finder = {
             ctx.openMicrophone = false;
         });
     },
-    getGameInfoFromSearchItem: function (handlerInput) {
+    getGameInfoFromSearchItem: function (handlerInput, fromTap) {
         let {
             requestEnvelope,
             attributesManager
         } = handlerInput;
         let sessionAttributes = attributesManager.getSessionAttributes();
+        sessionAttributes.state = settings.SKILL_STATES.DETAILED_RESULTS_STATE;
+
         let ctx = attributesManager.getRequestAttributes();
         var itemPosition = requestEnvelope.request.arguments[1];
         var gameToSearch = requestEnvelope.request.arguments[2];
@@ -480,7 +486,7 @@ const Finder = {
         ctx.addAPLCommands(commands);
         ctx.openMicrophone = true;
     },
-    getGameInfoFromOtherItem: function (handlerInput) {
+    getGameInfoFromOtherItem: function (handlerInput, fromTap) {
         let {
             requestEnvelope,
             attributesManager
@@ -532,7 +538,7 @@ const Finder = {
         ctx.addAPLCommands(commands);
         ctx.openMicrophone = true;
     },
-    getGameInfoFromItemView: function (handlerInput) {
+    getGameInfoFromItemView: function (handlerInput, fromTap) {
         let {
             requestEnvelope,
             attributesManager
@@ -639,6 +645,16 @@ const Finder = {
                 "type": "SetPage",
                 "componentId": itemToShow.resultNum,
                 "value": index
+            },
+            {
+                "type": "SetPage",
+                "componentId": itemToShow.resultNum + "-Screenshots-Pager",
+                "value": 0
+            },
+            {
+                "type": "AutoPage",
+                "componentId": itemToShow.resultNum + "-Screenshots-Pager",
+                "duration": 5000
             }
         ];
         ctx.addAPLCommands(commands);
@@ -646,8 +662,7 @@ const Finder = {
         if(playVideo) {
             await Finder.playVideo(handlerInput);
         } else {
-            await Finder.stopVideo(handlerInput)
-            ctx.openMicrophone = true;
+            await Finder.stopVideo(handlerInput);
         }
     }
 };

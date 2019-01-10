@@ -7,6 +7,7 @@ const display = require('../utils/display.js');
 const i18n = require('i18next');
 const logger = require('../utils/logger.js');
 const messages = require('../config/messages.js');
+const settings = require('../config/settings.js')
 
 const defaultHandlers = {
   /**
@@ -256,6 +257,9 @@ const defaultHandlers = {
         responseBuilder,
         requestEnvelope
       } = handlerInput;
+      let sessionAttributes = attributesManager.getSessionAttributes();
+      sessionAttributes.state = settings.SKILL_STATES.IDLE_STATE;
+
       let ctx = attributesManager.getRequestAttributes();
       let messageKey = "";
       messageKey = 'WELCOME';

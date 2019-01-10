@@ -57,10 +57,10 @@ const messages = {
         pageTitleSearch: SKILL_TITLE + ' - Search: {{keyword}}'
       },
       'NO_SEARCH_RESULTS': {
-        outputSpeech: 'I\m sorry, but I cannot find any games matching that criteria.',
+        outputSpeech: 'I\'m sorry, but I cannot find any games matching that criteria.',
         reprompt: "Sorry, I didn't catch that, what would you like to do next?",
-        displayTitle: SKILL_TITLE + ' - Welcome',
-        displayText: 'Which station are you intrested in?'
+        displayTitle: SKILL_TITLE + ' - No Results',
+        displayText: 'I\'m sorry, but I cannot find any games matching that criteria.'
       },
       'SEARCH_RESULT_ITEM_INFO': {
         speech: 'Here is some information for {{gameTitle}}',

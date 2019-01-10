@@ -99,16 +99,6 @@ const APL = {
       "properties": payload,
       "transformers": [
         {
-          "inputPath": "results[*].summarySSML",
-          "outputName": "summarySpeech",
-          "transformer": "ssmlToSpeech"
-        },
-        {
-          "inputPath": "results[*].summarySSML",
-          "outputName": "summaryText",
-          "transformer": "ssmlToText"
-        },
-        {
           "inputPath": "hintText",
           "transformer": "textToHint"
         }
