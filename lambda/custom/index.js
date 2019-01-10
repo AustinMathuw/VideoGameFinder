@@ -30,6 +30,8 @@ exports.handler = function (event, context) {
       APLHandlers.GoBackToResults,
       CustomHandlers.InProgressSearchIntent,
       CustomHandlers.CompletedSearchIntent,
+      CustomHandlers.InProgressDiscoverIntent,
+      CustomHandlers.CompletedDiscoverIntent,
       DefaultHandlers.LaunchHandler,
       DefaultHandlers.HelpHandler,
       DefaultHandlers.StopCancelHandler,

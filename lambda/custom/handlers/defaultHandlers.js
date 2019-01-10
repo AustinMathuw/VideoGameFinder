@@ -357,6 +357,9 @@ const defaultHandlers = {
         attributesManager,
         responseBuilder
       } = handlerInput;
+
+      let sessionAttributes = attributesManager.getSessionAttributes();
+      delete sessionAttributes.state;
       /**
        *  setting shouldEndSession = true  -  lets Alexa know that the skill is done
        *  see: https://developer.amazon.com/docs/gadget-skills/receive-voice-input.html

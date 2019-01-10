@@ -54,35 +54,40 @@ const helpers = {
             };
           }
         }, this);
-      
+        console.log(`The formatted slots: ${JSON.stringify(slotValues)}`);
         return slotValues;
     },
-    getRating: function(ratingEnum) {
-        switch(ratingEnum){
-            case 1:
-                return "3";
-            case 2:
-                return "7";
-            case 3:
-                return "12";
-            case 4:
-                return "16";
-            case 5:
-                return "18";
-            case 6:
-                return "RP";
-            case 7:
-                return "EC";
-            case 8:
-                return "E";
-            case 9:
-                return "E 10+";
-            case 10:
-                return "T";
-            case 11:
-                return "M";
-            case 12:
-                return "A";
+    getRating: function(ratingEnum, isESRB) {
+        if(isESRB) {
+            switch(ratingEnum){
+                case 1:
+                    return "RP";
+                case 2:
+                    return "EC";
+                case 3:
+                    return "E";
+                case 4:
+                    return "E 10+";
+                case 5:
+                    return "T";
+                case 6:
+                    return "M";
+                case 7:
+                    return "A";
+            }
+        } else {
+            switch(ratingEnum){
+                case 1:
+                    return "3";
+                case 2:
+                    return "7";
+                case 3:
+                    return "12";
+                case 4:
+                    return "16";
+                case 5:
+                    return "18";
+            }
         }
     },
     getVideoURL: function(videoID) {
@@ -157,12 +162,17 @@ const helpers = {
             //Get Ratings
             if(element.game.age_ratings == null) {
                 data.infoText2 = "N/A";
-            } else if(element.game.age_ratings[0] == null) {
-                data.infoText2 = "ESRB N/A<br />PGEI " + helpers.getRating(element.game.age_ratings[1].rating);
-            } else if(element.game.age_ratings[1] == null) {
-                data.infoText2 = "ESRB " + helpers.getRating(element.game.age_ratings[0].rating) + "<br />PGEI N/A";
             } else {
-                data.infoText2 = "ESRB " + helpers.getRating(element.game.age_ratings[0].rating) + "<br />PGEI " + helpers.getRating(element.game.age_ratings[1].rating);
+                var ESRB = "N/A"
+                var PEGI = "N/A"
+                element.game.age_ratings.forEach(rating => {
+                    if(rating.category == 1) {
+                        ESRB = helpers.getRating(rating.rating, true);
+                    } else {
+                        PEGI = helpers.getRating(rating.rating, false);
+                    }
+                });
+                data.infoText2 = "ESRB " + ESRB + "<br />PEGI " + PEGI;
             }
     
             //Get Ratings
@@ -184,9 +194,10 @@ const helpers = {
                 });
                 data.infoText4 = mostInvolved.company.name;
             }
-            element.game.screenshots.forEach(screenshot => {
+            data.screenshotImageUrls.push("https://images.igdb.com/igdb/image/upload/t_original/" + element.game.screenshots[0].image_id + ".jpeg");
+            /* element.game.screenshots.forEach(screenshot => {
                 data.screenshotImageUrls.push("https://images.igdb.com/igdb/image/upload/t_original/" + screenshot.image_id + ".jpeg");
-            });
+            }); */
             
             data.skillLogo = "";
             if(element.game.summary.indexOf("\n") > -1){
@@ -198,16 +209,25 @@ const helpers = {
         });
         return results;
     },
-    buildParams: function(slotValues) {   
-        let params = {};
+    buildDiscoveryParams: function(slotValues) {   
+        let params = [];
         for(var index in slotValues){
-            if(slotValues[index] && slotValues[index].resolved && IGDBParams.encode[index]) {
+            var findRating = (index == "ageRating");
+            if(slotValues[index] && slotValues[index].resolved && ParamsMap.encode[index]) {
                 console.log(index);
-                params[IGDBParams.encode.filterType[index]] = IGDBParams.encode[index][slotValues[index].resolved];
+                params.push(ParamsMap.encode.filterType[index].replace("{{value}}", ParamsMap.encode[index][slotValues[index].resolved]));
+                if(findRating) {
+                    var cat = "esrb"
+                    if(slotValues[index].resolved.indexOf("pegi") > -1) {
+                        cat = "pegi";
+                    }
+                    params.push(ParamsMap.encode.filterType["ageRatingCategory"].replace("{{value}}", ParamsMap.encode["ageRatingCategory"][cat]));
+                }
             } else if(slotValues[index] && slotValues[index].resolved) {
-                params[IGDBParams.encode.filterType[index]] = slotValues[index].resolved;
+                console.log(index);
+                params.push(ParamsMap.encode.filterType[index].replace("{{value}}", slotValues[index].resolved));
             } else {
-                console.log(index + " not requested in discovery."); //Should never hit
+                console.log(index + " not requested in discovery."); //Should only hit in incomplete discovery
             }
         }
         return params;
@@ -229,7 +249,8 @@ const helpers = {
                     "game.cover.image_id",
                     "game.videos.name",
                     "game.videos.video_id",
-                    "game.total_rating"
+                    "game.total_rating",
+                    "game.age_ratings.category"
                 ])
                 .search('"' + itemToSearch + '"')
                 .where([
@@ -264,8 +285,18 @@ const helpers = {
                 });
         });
     },
-    discover: async function(itemToSearch) {
+    discover: async function(slotValues) {
         return new Promise((resolve, reject) => {
+            var discoverFilters = helpers.buildDiscoveryParams(slotValues);
+            var defaultFilters = [
+                "game != null",
+                "game.version_parent = null",
+                "game.category = 0",
+                "game.cover != null",
+                "game.screenshots != null",
+                "game.videos != null"
+            ];
+            var filters =  defaultFilters.concat(discoverFilters);
             var queryParams = new Params();
             queryParams
                 .fields([
@@ -281,17 +312,11 @@ const helpers = {
                     "game.cover.image_id",
                     "game.videos.name",
                     "game.videos.video_id",
-                    "game.total_rating"
+                    "game.total_rating",
+                    "game.age_ratings.category"
                 ])
-                .search('"' + itemToSearch + '"')
-                .where([
-                    "game != null",
-                    "game.version_parent = null",
-                    "game.category = 0",
-                    "game.cover != null",
-                    "game.screenshots != null",
-                    "game.videos != null"
-                ])
+                .where(filters)
+                .sort("popularity", "desc")
                 .limit(settings.API.RESULTS_LIMIT);
         
             const data = queryParams.getFormattedParams();
@@ -300,7 +325,7 @@ const helpers = {
             axios({
                 url: url,
                 method: 'POST',
-                timeout: settings.API.TIMEOUT,
+                timeout: 5000,
                 headers: {
                     'Accept': 'application/json',
                     'user-key': settings.API.KEY
@@ -312,6 +337,18 @@ const helpers = {
                     resolve(results);
                 })
                 .catch(err => {
+                    if (err.response) {
+                        console.log(err.response.data);
+                        console.log(err.response.status);
+                        console.log(err.response.headers);
+                        if(err.response.data && err.response.status == 500) {
+                            var response = JSON.stringify(err.response.data);
+                            response = response.substring(0, response.indexOf("][") + 1) + "\"";
+                            response = JSON.parse(JSON.parse(response));
+                            var results = helpers.buildPayload(response);
+                            resolve(results);
+                        }
+                    }
                     reject(err);
                 });
         });
@@ -335,11 +372,52 @@ const Finder = {
         var gameToSearch = slotValues.videogame.resolved;
 
         await helpers.search(gameToSearch).then(results => {
+            if(!(results.length > -1)) {
+                let responseMessage = ctx.t('NO_SEARCH_RESULTS');
+                if(display.isAPLCapatable(handlerInput)) {
+                    ctx.renderDefault(handlerInput, responseMessage);
+                }
+                ctx.outputSpeech.push(responseMessage.outputSpeech);
+                ctx.reprompt.push(responseMessage.reprompt);
+                ctx.openMicrophone = true;
+            }
             outputSpeech = ctx.t('SEARCH_RESULTS', {
                 keyword: gameToSearch
             });
             if(ctx.isAPLCapatable(handlerInput)) {
-                ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitle, gameToSearch);
+                ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitleSearch, gameToSearch);
+            }
+            logger.debug(outputSpeech.speech);
+            ctx.outputSpeech.push(outputSpeech.speech);
+            ctx.reprompt.push(outputSpeech.reprompt);
+            ctx.openMicrophone = true;
+        }).catch(err => {
+            outputSpeech = ctx.t('API_CALL_ERROR');
+            logger.debug(err);
+            ctx.outputSpeech.push(outputSpeech);
+            ctx.openMicrophone = false;
+        });
+    },
+    discover: async function (handlerInput) {
+        let {
+            requestEnvelope,
+            attributesManager
+        } = handlerInput;
+        let sessionAttributes = attributesManager.getSessionAttributes();
+        let ctx = attributesManager.getRequestAttributes();
+
+        const filledSlots = handlerInput.requestEnvelope.request.intent.slots;
+        const slotValues = helpers.getSlotValues(filledSlots);
+
+        var outputSpeech = "";
+        var gameToSearch = "discoverGamePlaceholder";
+
+        await helpers.discover(slotValues).then(results => {
+            outputSpeech = ctx.t('SEARCH_RESULTS', {
+                keyword: gameToSearch
+            });
+            if(ctx.isAPLCapatable(handlerInput)) {
+                ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitleDiscover, gameToSearch);
             }
             logger.debug(outputSpeech.speech);
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -395,7 +473,7 @@ const Finder = {
             }
         ];
         var outputSpeech = ctx.t('GENERAL_REPROMPT');
-        ctx.reprompt.push("Here is what I found");
+        ctx.outputSpeech.push("Here is what I found...");
         var outputSpeech = ctx.t('GENERAL_REPROMPT');
         ctx.reprompt.push(outputSpeech.reprompt);
         ctx.renderSearchResultsInfo(handlerInput, results, gameToSearch);
@@ -482,7 +560,7 @@ const Finder = {
         ctx.addAPLCommands(commands);
         ctx.openMicrophone = true;
     },
-    showGeneralResults: async function (handlerInput) {
+    reShowResults: async function (handlerInput) {
         let {
             requestEnvelope,
             attributesManager
@@ -496,7 +574,11 @@ const Finder = {
             keyword: gameToSearch
         });
         if(ctx.isAPLCapatable(handlerInput)) {
-            ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitle, gameToSearch);
+            if(gameToSearch == "discoverGamePlaceholder") {
+                ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitleDiscover, gameToSearch);
+            } else {
+                ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitleSearch, gameToSearch);
+            }
         }
         logger.debug(outputSpeech.speech);
         ctx.outputSpeech.push(outputSpeech.speech);

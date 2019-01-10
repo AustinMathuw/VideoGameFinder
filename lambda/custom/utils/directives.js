@@ -25,20 +25,20 @@ const APL = {
       "results": games
     }
     let data = {
-        "type": "object",
-        "properties": payload,
-        "transformers": [
-          {
-            "inputPath": "results[*].summarySSML",
-            "outputName": "summarySpeech",
-            "transformer": "ssmlToSpeech"
-          },
-          {
-            "inputPath": "results[*].summarySSML",
-            "outputName": "summaryText",
-            "transformer": "ssmlToText"
-          },
-          {
+      "type": "object",
+      "properties": payload,
+      "transformers": [
+        {
+          "inputPath": "results[*].summarySSML",
+          "outputName": "summarySpeech",
+          "transformer": "ssmlToSpeech"
+        },
+        {
+          "inputPath": "results[*].summarySSML",
+          "outputName": "summaryText",
+          "transformer": "ssmlToText"
+        },
+        {
           "inputPath": "hintText",
           "transformer": "textToHint"
         }
@@ -87,12 +87,32 @@ const APL = {
 
   // returns a RenderDocument directive for all visuals, except for song displaying
   setDefaultDisplay: function (backgroundImageUrl, skillTitle, message, logoUrl, hintText) {
-    let data = {
+    let payload = {
       "backgroundImageUrl": backgroundImageUrl,
       "skillTitle": skillTitle,
       "message": message,
       "logoUrl": logoUrl,
       "hintText": hintText
+    }
+    let data = {
+      "type": "object",
+      "properties": payload,
+      "transformers": [
+        {
+          "inputPath": "results[*].summarySSML",
+          "outputName": "summarySpeech",
+          "transformer": "ssmlToSpeech"
+        },
+        {
+          "inputPath": "results[*].summarySSML",
+          "outputName": "summaryText",
+          "transformer": "ssmlToText"
+        },
+        {
+          "inputPath": "hintText",
+          "transformer": "textToHint"
+        }
+      ]
     }
     console.log(data);
     return {

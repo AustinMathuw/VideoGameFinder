@@ -130,7 +130,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "source": "${payload.data.backgroundImageUrl}",
+                            "source": "${payload.data.properties.backgroundImageUrl}",
                             "scale": "best-fill",
                             "width": "100vw",
                             "height": "100vh",
@@ -138,8 +138,8 @@
                         },
                         {
                             "type": "AlexaHeader",
-                            "headerAttributionImage": "${payload.data.logoUrl}",
-                            "headerTitle": "${payload.data.skillTitle}"
+                            "headerAttributionImage": "${payload.data.properties.logoUrl}",
+                            "headerTitle": "${payload.data.properties.skillTitle}"
                         },
                         {
                             "type": "Container",
@@ -150,7 +150,7 @@
                                     "paddingLeft": "@marginLeft",
                                     "paddingRight": "@marginRight",
                                     "type": "Text",
-                                    "text": "${payload.data.message}",
+                                    "text": "${payload.data.properties.message}",
                                     "style": "textStyleBody",
                                     "align": "${viewport.shape == 'round' ? 'center' : 'left'}"
                                 }
@@ -159,7 +159,7 @@
                         {
                             "when": "${viewport.shape != 'round'}",
                             "type": "AlexaFooter",
-                            "footerHint": "${payload.data.hintText}"
+                            "footerHint": "${payload.data.properties.hintText}"
                         }
                     ]
                 }
@@ -168,11 +168,30 @@
     },
     "dataSources": {
         "data": {
-            "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-            "skillTitle": "What's that Song",
-            "message": "Welcome to What's that Song!",
-            "logoUrl": "",
-            "hintText": "Try, \"Alexa, start a new game\""
+            "type": "object",
+            "properties": {
+                "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                "skillTitle": "What's that Song",
+                "message": "Welcome to What's that Song!",
+                "logoUrl": "",
+                "hintText": "Try, \"Alexa, start a new game\""
+            },
+            "transformers": [
+                {
+                    "inputPath": "results[*].summarySSML",
+                    "outputName": "summarySpeech",
+                    "transformer": "ssmlToSpeech"
+                },
+                {
+                    "inputPath": "results[*].summarySSML",
+                    "outputName": "summaryText",
+                    "transformer": "ssmlToText"
+                },
+                {
+                    "inputPath": "hintText",
+                    "transformer": "textToHint"
+                }
+            ]
         }
     }
 }

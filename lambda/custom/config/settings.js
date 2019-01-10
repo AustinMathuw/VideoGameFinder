@@ -40,6 +40,12 @@ module.exports = (function () {
       
   });
 
+  const SKILL_STATES = {
+    IDLE_STATE: '_IDLE',
+    GENERAL_RESULTS_STATE: '_GENERAL_RESULTS_STATE',
+    DETAILED_RESULTS_STATE: '_DETAILED_RESULTS_STATE'
+  };
+
   /**
    * A set of images to show on backgrounds and in display templates when the skill
    * is used with a device with a screen like the Echo Show or Echo Spot
@@ -60,6 +66,7 @@ module.exports = (function () {
     SKILL_TITLE: 'Video Game Finder',
     VIDEO_CONVERTER_URL: VIDEO_CONVERTER_URL,
     VIDEO_NAME: VIDEO_NAME,
+    SKILL_STATES: SKILL_STATES,
     API: API,
     APP_ID: APP_ID,
     APL_ENABLED: APL_ENABLED,

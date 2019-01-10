@@ -109,7 +109,7 @@ const aplHandlers = {
         },
         async handle(handlerInput) {
             logger.debug('APL.GoBackToResults: handle');
-            Finder.showGeneralResults(handlerInput);
+            Finder.reShowResults(handlerInput);
             return handlerInput.responseBuilder.getResponse();
         },
     }

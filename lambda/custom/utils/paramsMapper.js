@@ -1,14 +1,15 @@
+// https://api-docs.igdb.com/?javascript#filters
 module.exports = {
     "encode": {
         "filterType": {
-            "platform": "platforms-in",
-            "genre": "genres-in",
-            "theme": "themes-in",
-            "gamemode": "game_modes-in",
-            "perspective": "player_perspectives-in",
-            "esrb": "esrb.rating-lte",
-            "pegi": "pegi.rating-lte",
-            "rating": "rating-gte",
+            "platform": "game.platforms = ({{value}})", //
+            "genre": "game.genres = ({{value}})",
+            "theme": "game.themes = ({{value}})",
+            "gamemode": "game.game_modes = ({{value}})",
+            "perspective": "game.player_perspectives = ({{value}})",
+            "ageRating": "game.age_ratings.rating = {{value}}",
+            "ageRatingCategory": "game.age_ratings.category = ({{value}})",
+            "rating": "game.total_rating >= {{value}}"
         },
         "platform": {
             "linux": 3,
@@ -80,7 +81,12 @@ module.exports = {
             "third person": 2,
             "virtual reality": 7
         },
-        "esrb": {
+        "ageRating": {
+            "pegi 3": 1,
+            "pegi 7": 2,
+            "pegi 12": 3,
+            "pegi 16": 4,
+            "pegi 18": 5,
             "rating pending": 1,
             "early childhood": 2,
             "everyone": 3,
@@ -89,100 +95,9 @@ module.exports = {
             "mature": 6,
             "adults only": 7
         },
-        "pegi": {
-            "pegi 3": 1,
-            "pegi 7": 2,
-            "pegi 12": 3,
-            "pegi 16": 4,
-            "pegi 18": 5
-        }
-    },
-    "decode": {
-        "platforms": { 
-            '3': 'linux',
-            '6': 'pc',
-            '9': 'playstation three',
-            '12': 'xbox three sixty',
-            '14': 'mac',
-            '48': 'playstation four',
-            '49': 'xbox one',
-            '130': 'nitendo switch' 
-        },
-        "genres": {
-            '2': 'point and click',
-            '4': 'fighting',
-            '5': 'shooter',
-            '7': 'music',
-            '8': 'platform',
-            '9': 'puzzle',
-            '10': 'racing',
-            '11': 'real time strategy',
-            '12': 'role playing',
-            '13': 'simulator',
-            '14': 'sport',
-            '15': 'strategy',
-            '16': 'turn based strategy',
-            '24': 'tactical',
-            '25': 'hack and slash',
-            '26': 'trivia',
-            '30': 'pinball',
-            '31': 'adventure',
-            '32': 'indie',
-            '33': 'arcade'
-        },
-        "themes": {
-            '1': 'action',
-            '17': 'fantasy',
-            '18': 'science fiction',
-            '19': 'horror',
-            '20': 'thriller',
-            '21': 'survival',
-            '22': 'historical',
-            '23': 'stealth',
-            '27': 'comedy',
-            '28': 'business',
-            '31': 'drama',
-            '32': 'non fiction',
-            '33': 'sandbox',
-            '34': 'educational',
-            '35': 'kids',
-            '38': 'open world',
-            '39': 'warfare',
-            '40': 'party',
-            '42': 'erotic',
-            '43': 'mystery'
-        },
-        "game_modes": {
-            '1': 'single player',
-            '2': 'multiplayer',
-            '3': 'co-operative',
-            '4': 'split screen',
-            '5': 'massively muiltiplayer'
-        },
-        "player_perspectives": {
-            '1': 'first person',
-            '2': 'third person',
-            '3': 'bird view',
-            '4': 'side view',
-            '5': 'text',
-            '6': 'aural',
-            '7': 'virtual reality'
-        },
-        "esrb": {
-            '1': 'rating pending',
-            '2': 'early childhood',
-            '3': 'everyone',
-            '4': 'everyone ten and up',
-            '5': 'teen',
-            '6': 'mature',
-            '7': 'adults only' 
-        },
-        "pegi": {
-            '1': 'pegi 3',
-            '2': 'pegi 7',
-            '3': 'pegi 12',
-            '4': 'pegi 16',
-            '5': 'pegi 18'
+        "ageRatingCategory": {
+            "esrb": 1,
+            "pegi": 2
         }
     }
 };

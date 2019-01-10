@@ -52,6 +52,48 @@ const customHandlers = {
       await Finder.search(handlerInput);
       return handlerInput.responseBuilder.getResponse();
     }
+  },
+  InProgressDiscoverIntent: {
+    canHandle(handlerInput) {
+      logger.debug('CUSTOM.InProgressSearchIntent: canHandle');
+      let {
+        requestEnvelope
+      } = handlerInput;
+      return requestEnvelope.request.type === 'IntentRequest'
+        && requestEnvelope.request.intent.name === 'CompleteDiscoverIntent'
+        && requestEnvelope.request.dialogState !== 'COMPLETED';
+    },
+    handle(handlerInput) {
+      logger.debug('CUSTOM.InProgressSearchIntent: handle');
+      let { responseBuilder, requestEnvelope } = handlerInput;
+      const currentIntent = requestEnvelope.request.intent;
+  
+      return responseBuilder
+        .addDelegateDirective(currentIntent)
+        .getResponse();
+    },
+  },
+  CompletedDiscoverIntent: {
+    canHandle(handlerInput) {
+      logger.debug('CUSTOM.CompletedDiscoverIntent: canHandle');
+      let {
+        requestEnvelope
+      } = handlerInput;
+      return requestEnvelope.request.type === 'IntentRequest'
+        && ((requestEnvelope.request.intent.name === 'CompleteDiscoverIntent' && requestEnvelope.request.dialogState === 'COMPLETED')
+        || requestEnvelope.request.intent.name === 'DiscoverIntent');
+    },
+    async handle(handlerInput) {
+      logger.debug('CUSTOM.CompletedDiscoverIntent: handle');
+      
+      let {
+        attributesManager,
+        requestEnvelope
+      } = handlerInput;
+
+      await Finder.discover(handlerInput);
+      return handlerInput.responseBuilder.getResponse();
+    }
   }
 }
 

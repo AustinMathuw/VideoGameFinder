@@ -24,7 +24,7 @@ const messages = {
         outputSpeech: 'Welcome to ' + SKILL_TITLE + '! What are you intrested in doing today?',
         reprompt: "Sorry, I didn't catch that, what would you like to do next?",
         displayTitle: SKILL_TITLE + ' - Welcome',
-        displayText: 'Which station are you intrested in?'
+        displayText: 'What would you like to do?'
       },
       'GENERAL_HELP': {
         outputSpeech: 'Try asking me to find you a game, or say "search" to search for a game. ' +
@@ -53,7 +53,14 @@ const messages = {
       'SEARCH_RESULTS': {
         speech: "Here are some games I found...",
         reprompt: 'What\'s next?',
-        pageTitle: SKILL_TITLE + ' - Search: {{keyword}}'
+        pageTitleDiscover: SKILL_TITLE + ' - Discover',
+        pageTitleSearch: SKILL_TITLE + ' - Search: {{keyword}}'
+      },
+      'NO_SEARCH_RESULTS': {
+        outputSpeech: 'I\m sorry, but I cannot find any games matching that criteria.',
+        reprompt: "Sorry, I didn't catch that, what would you like to do next?",
+        displayTitle: SKILL_TITLE + ' - Welcome',
+        displayText: 'Which station are you intrested in?'
       },
       'SEARCH_RESULT_ITEM_INFO': {
         speech: 'Here is some information for {{gameTitle}}',
@@ -62,7 +69,8 @@ const messages = {
       'RE_SHOW_RESULTS': {
         speech: 'Now showing the overall results. Let me know if you want to know information for a specific game.',
         reprompt: "Sorry, I didn't catch that, what would you like to do next?",
-        pageTitle: SKILL_TITLE + ' - Search: {{keyword}}'
+        pageTitleDiscover: SKILL_TITLE + ' - Discover',
+        pageTitleSearch: SKILL_TITLE + ' - Search: {{keyword}}'
       },
       'VIDEO_END': {
         speech: 'What else would you like to do?',
