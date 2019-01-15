@@ -34,6 +34,11 @@ const defaultHandlers = {
       if (Object.keys(sessionAttributes).length === 0) {
         
       }
+
+      sessionAttributes.state = settings.SKILL_STATES.IDLE_STATE;
+      sessionAttributes.currentItem = 0;
+      sessionAttributes.lastItem = 0;
+      sessionAttributes.gameToSearch = "";
       
       // Apply the persistent attributes to the current session
       attributesManager.setSessionAttributes(Object.assign({}, persistentAtttributes, sessionAttributes));
@@ -302,6 +307,11 @@ const defaultHandlers = {
       let ctx = attributesManager.getRequestAttributes();
       let sessionAttributes = attributesManager.getSessionAttributes();
 
+      sessionAttributes.state = settings.SKILL_STATES.IDLE_STATE;
+      sessionAttributes.currentItem = 0;
+      sessionAttributes.lastItem = 0;
+      sessionAttributes.gameToSearch = "";
+
       /**
        * Figure out where we need help
        */
@@ -363,7 +373,9 @@ const defaultHandlers = {
       } = handlerInput;
 
       let sessionAttributes = attributesManager.getSessionAttributes();
-      delete sessionAttributes.state;
+      
+      sessionAttributes.state = settings.SKILL_STATES.IDLE_STATE;
+
       /**
        *  setting shouldEndSession = true  -  lets Alexa know that the skill is done
        *  see: https://developer.amazon.com/docs/gadget-skills/receive-voice-input.html

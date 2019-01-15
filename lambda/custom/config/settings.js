@@ -46,6 +46,15 @@ module.exports = (function () {
     DETAILED_RESULTS_STATE: '_DETAILED_RESULTS_STATE'
   };
 
+  const SKILL_INTERACTIONS = {
+    GO_BACK: 'GO_BACK',
+    STOP_VIDEO: 'STOP_VIDEO',
+    PLAY_VIDEO: 'PLAY_VIDEO',
+    SELECT_ITEM: 'SELECT_ITEM',
+    NAVIGATE_TO_ITEM: 'NAVIGATE_TO_ITEM',
+    READ_TEXT: 'READ_TEXT'
+  };
+
   /**
    * A set of images to show on backgrounds and in display templates when the skill
    * is used with a device with a screen like the Echo Show or Echo Spot
@@ -67,6 +76,7 @@ module.exports = (function () {
     VIDEO_CONVERTER_URL: VIDEO_CONVERTER_URL,
     VIDEO_NAME: VIDEO_NAME,
     SKILL_STATES: SKILL_STATES,
+    SKILL_INTERACTIONS: SKILL_INTERACTIONS,
     API: API,
     APP_ID: APP_ID,
     APL_ENABLED: APL_ENABLED,

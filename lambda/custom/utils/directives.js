@@ -85,7 +85,6 @@ const APL = {
     };
   },
 
-  // returns a RenderDocument directive for all visuals, except for song displaying
   setDefaultDisplay: function (backgroundImageUrl, skillTitle, message, logoUrl, hintText) {
     let payload = {
       "backgroundImageUrl": backgroundImageUrl,

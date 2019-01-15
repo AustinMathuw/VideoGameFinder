@@ -362,7 +362,6 @@ const Finder = {
             attributesManager
         } = handlerInput;
         let sessionAttributes = attributesManager.getSessionAttributes();
-        sessionAttributes.state = settings.SKILL_STATES.GENERAL_RESULTS_STATE;
         
         let ctx = attributesManager.getRequestAttributes();
 
@@ -382,15 +381,21 @@ const Finder = {
                 ctx.outputSpeech.push(responseMessage.outputSpeech);
                 ctx.reprompt.push(responseMessage.reprompt);
                 ctx.openMicrophone = true;
+                return;
             }
             outputSpeech = ctx.t('SEARCH_RESULTS', {
                 keyword: gameToSearch
             });
+            sessionAttributes.state = settings.SKILL_STATES.GENERAL_RESULTS_STATE;
+            sessionAttributes.currentItem = 0;
+            sessionAttributes.lastItem = results.length;
+            sessionAttributes.gameToSearch = gameToSearch;
             if(ctx.isAPLCapatable(handlerInput)) {
                 ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitleSearch, gameToSearch);
+                ctx.outputSpeech.push(outputSpeech.speechWithDisplay);
+            } else {
+                ctx.outputSpeech.push(outputSpeech.speech);
             }
-            logger.debug(outputSpeech.speech);
-            ctx.outputSpeech.push(outputSpeech.speech);
             ctx.reprompt.push(outputSpeech.reprompt);
             ctx.openMicrophone = true;
         }).catch(err => {
@@ -417,14 +422,29 @@ const Finder = {
         var gameToSearch = "discoverGamePlaceholder";
 
         await helpers.discover(slotValues).then(results => {
+            if(!(results.length > -1)) {
+                let responseMessage = ctx.t('NO_SEARCH_RESULTS');
+                if(display.isAPLCapatable(handlerInput)) {
+                    ctx.renderDefault(handlerInput, responseMessage);
+                }
+                ctx.outputSpeech.push(responseMessage.outputSpeech);
+                ctx.reprompt.push(responseMessage.reprompt);
+                ctx.openMicrophone = true;
+                return;
+            }
             outputSpeech = ctx.t('SEARCH_RESULTS', {
                 keyword: gameToSearch
             });
+            sessionAttributes.state = settings.SKILL_STATES.GENERAL_RESULTS_STATE;
+            sessionAttributes.currentItem = 0;
+            sessionAttributes.lastItem = results.length;
+            sessionAttributes.gameToSearch = gameToSearch;
             if(ctx.isAPLCapatable(handlerInput)) {
                 ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitleDiscover, gameToSearch);
+                ctx.outputSpeech.push(outputSpeech.speechWithDisplay);
+            } else {
+                ctx.outputSpeech.push(outputSpeech.speech);
             }
-            logger.debug(outputSpeech.speech);
-            ctx.outputSpeech.push(outputSpeech.speech);
             ctx.reprompt.push(outputSpeech.reprompt);
             ctx.openMicrophone = true;
         }).catch(err => {
@@ -434,7 +454,7 @@ const Finder = {
             ctx.openMicrophone = false;
         });
     },
-    getGameInfoFromSearchItem: function (handlerInput, fromTap) {
+    getGameInfoFromSearchItem: function (handlerInput, itemPosition, gameToSearch) {
         let {
             requestEnvelope,
             attributesManager
@@ -443,8 +463,6 @@ const Finder = {
         sessionAttributes.state = settings.SKILL_STATES.DETAILED_RESULTS_STATE;
 
         let ctx = attributesManager.getRequestAttributes();
-        var itemPosition = requestEnvelope.request.arguments[1];
-        var gameToSearch = requestEnvelope.request.arguments[2];
         var results = requestEnvelope.request.arguments.slice(3);
         var commands = [
             {
@@ -478,22 +496,30 @@ const Finder = {
                 ]
             }
         ];
+        
+        sessionAttributes.state = settings.SKILL_STATES.DETAILED_RESULTS_STATE;
+        sessionAttributes.currentItem = itemPosition;
         var outputSpeech = ctx.t('GENERAL_REPROMPT');
-        ctx.outputSpeech.push("Here is what I found...");
-        var outputSpeech = ctx.t('GENERAL_REPROMPT');
-        ctx.reprompt.push(outputSpeech.reprompt);
-        ctx.renderSearchResultsInfo(handlerInput, results, gameToSearch);
-        ctx.addAPLCommands(commands);
-        ctx.openMicrophone = true;
+        if(ctx.isAPLCapatable(handlerInput)) {
+            ctx.renderSearchResultsInfo(handlerInput, results, gameToSearch);
+            ctx.addAPLCommands(commands);
+            outputSpeech = ctx.t('GENERAL_REPROMPT');
+            ctx.reprompt.push(outputSpeech.reprompt);
+            ctx.openMicrophone = true;
+        } else {
+            outputSpeech = ctx.t('NO_DISPLAY');
+            ctx.outputSpeech.push(outputSpeech.speech);
+            ctx.openMicrophone = false;
+        }
+        
     },
-    getGameInfoFromOtherItem: function (handlerInput, fromTap) {
+    getGameInfoFromOtherItem: function (handlerInput, itemPosition) {
         let {
             requestEnvelope,
             attributesManager
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
-        var itemToShow = requestEnvelope.request.arguments[1];
-        var itemPosition = requestEnvelope.request.arguments[2];
+        
         var commands = [
             {
                 "type": "Sequential",
@@ -531,20 +557,25 @@ const Finder = {
                 ]
             }
         ];
-        var outputSpeech = ctx.t('SEARCH_RESULT_ITEM_INFO', {
-            gameTitle: itemToShow.gameTitle
-        });
-        ctx.reprompt.push(outputSpeech.reprompt);
-        ctx.addAPLCommands(commands);
-        ctx.openMicrophone = true;
+        var outputSpeech = ctx.t('SEARCH_RESULT_ITEM_INFO');
+        if(ctx.isAPLCapatable(handlerInput)) {
+            ctx.renderSearchResultsInfo(handlerInput, results, gameToSearch);
+            ctx.addAPLCommands(commands);
+            ctx.outputSpeech.push(outputSpeech.speech);
+            ctx.reprompt.push(outputSpeech.reprompt);
+            ctx.openMicrophone = true;
+        } else {
+            outputSpeech = ctx.t('NO_DISPLAY');
+            ctx.outputSpeech.push(outputSpeech.speech);
+            ctx.openMicrophone = false;
+        }
     },
-    getGameInfoFromItemView: function (handlerInput, fromTap) {
+    getGameInfoFromItemView: function (handlerInput, itemPosition) {
         let {
             requestEnvelope,
             attributesManager
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
-        var itemToShow = requestEnvelope.request.arguments[1];
         var commands = [
             {
                 "type": "Parallel",
@@ -555,7 +586,7 @@ const Finder = {
                     },
                     {
                         "type": "SpeakItem",
-                        "componentId": itemToShow.resultNum + "-summary",
+                        "componentId": itemPosition + "-summary",
                         "highlightMode": "line",
                         "align": "center"
                     }
@@ -563,18 +594,23 @@ const Finder = {
             }
         ];
 
-        ctx.addAPLCommands(commands);
-        ctx.openMicrophone = true;
+        var outputSpeech = ctx.t('GENERAL_REPROMPT');
+        if(ctx.isAPLCapatable(handlerInput)) {
+            ctx.addAPLCommands(commands);
+            ctx.reprompt.push(outputSpeech.reprompt);
+            ctx.openMicrophone = true;
+        } else {
+            outputSpeech = ctx.t('NO_DISPLAY');
+            ctx.outputSpeech.push(outputSpeech.speech);
+            ctx.openMicrophone = false;
+        }
     },
-    reShowResults: async function (handlerInput) {
+    reShowResults: async function (handlerInput, gameToSearch, results) {
         let {
             requestEnvelope,
             attributesManager
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
-
-        var gameToSearch = requestEnvelope.request.arguments[1];
-        var results = requestEnvelope.request.arguments.slice(2);
 
         var outputSpeech = ctx.t('RE_SHOW_RESULTS', {
             keyword: gameToSearch
@@ -585,11 +621,14 @@ const Finder = {
             } else {
                 ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitleSearch, gameToSearch);
             }
+            ctx.outputSpeech.push(outputSpeech.speech);
+            ctx.reprompt.push(outputSpeech.reprompt);
+            ctx.openMicrophone = true;
+        } else {
+            outputSpeech = ctx.t('NO_DISPLAY');
+            ctx.outputSpeech.push(outputSpeech.speech);
+            ctx.openMicrophone = false;
         }
-        logger.debug(outputSpeech.speech);
-        ctx.outputSpeech.push(outputSpeech.speech);
-        ctx.reprompt.push(outputSpeech.reprompt);
-        ctx.openMicrophone = true;
     },
     playVideo: async function (handlerInput) {
         let {
@@ -639,7 +678,7 @@ const Finder = {
             attributesManager
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
-        var itemToShow = requestEnvelope.request.arguments[1];
+        var itemToShow = sessionAttributes.currentItem;
         var commands = [
             {
                 "type": "SetPage",
@@ -657,13 +696,35 @@ const Finder = {
                 "duration": 5000
             }
         ];
-        ctx.addAPLCommands(commands);
+        var outputSpeech;
+        if(ctx.isAPLCapatable(handlerInput)) {
+            ctx.addAPLCommands(commands);
+            ctx.outputSpeech.push(outputSpeech.speech);
+            ctx.reprompt.push(outputSpeech.reprompt);
 
-        if(playVideo) {
-            await Finder.playVideo(handlerInput);
+            if(playVideo) {
+                await Finder.playVideo(handlerInput);
+            } else {
+                await Finder.stopVideo(handlerInput);
+            }
+            ctx.openMicrophone = true;
         } else {
-            await Finder.stopVideo(handlerInput);
+            outputSpeech = ctx.t('NO_DISPLAY');
+            ctx.outputSpeech.push(outputSpeech.speech);
+            ctx.openMicrophone = false;
         }
+    },
+    invalidInteraction: function(handlerInput, type) {
+        let {
+            requestEnvelope,
+            attributesManager
+        } = handlerInput;
+        let ctx = attributesManager.getRequestAttributes();
+        var outputSpeech = ctx.t('INVALID_INTERACTION');
+        ctx.outputSpeech.push(outputSpeech[type]);
+        var repromptSpeech = ctx.t('GENERAL_REPROMPT');
+        ctx.reprompt.push(repromptSpeech.reprompt);
+        ctx.openMicrophone = true;
     }
 };
 module.exports = Finder;

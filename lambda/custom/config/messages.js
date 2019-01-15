@@ -37,6 +37,16 @@ const messages = {
         outputSpeech: "Sorry, I didn't get that. Please say again!",
         reprompt: "Please say it again. You can ask for help if you're not sure what to do."
       },
+      //Update invalid prompts
+      'INVALID_INTERACTION': {
+        GO_BACK: 'GO_BACK',
+        STOP_VIDEO: 'STOP_VIDEO',
+        PLAY_VIDEO: 'PLAY_VIDEO',
+        SELECT_ITEM: 'SELECT_ITEM',
+        NAVIGATE_TO_ITEM: 'NAVIGATE_TO_ITEM',
+        GO_TO_SLIDESHOW: 'GO_TO_SLIDESHOW',
+        READ_TEXT: 'READ_TEXT'
+      },
       'GOOD_BYE': {
         outputSpeech: "Ok, see you next time!",
         reprompt: ''
@@ -52,6 +62,7 @@ const messages = {
       },
       'SEARCH_RESULTS': {
         speech: "Here are some games I found...",
+        speechWithDisplay: "Here are some games I found...",
         reprompt: 'What\'s next?',
         pageTitleDiscover: SKILL_TITLE + ' - Discover',
         pageTitleSearch: SKILL_TITLE + ' - Search: {{keyword}}'
@@ -63,7 +74,7 @@ const messages = {
         displayText: 'I\'m sorry, but I cannot find any games matching that criteria.'
       },
       'SEARCH_RESULT_ITEM_INFO': {
-        speech: 'Here is some information for {{gameTitle}}',
+        speech: 'Here\'s what I found',
         reprompt: "Sorry, I didn't catch that, what would you like to do next?"
       },
       'RE_SHOW_RESULTS': {
@@ -75,6 +86,9 @@ const messages = {
       'VIDEO_END': {
         speech: 'What else would you like to do?',
         reprompt: "What else would you like to do?"
+      },
+      'NO_DISPLAY': {
+        speech: 'You must have a screened device to be able to preform that action.'
       },
       'API_CALL_ERROR': "I'm having difficulty accessing that part of my memory... Please try again later!"
     }
