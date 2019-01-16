@@ -87,6 +87,10 @@ const messages = {
         speech: 'What else would you like to do?',
         reprompt: "What else would you like to do?"
       },
+      'VIDEO_PLAY': {
+        speech: 'Playing trailer...',
+        reprompt: "What else would you like to do?"
+      },
       'NO_DISPLAY': {
         speech: 'You must have a screened device to be able to preform that action.'
       },

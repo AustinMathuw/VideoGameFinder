@@ -69,6 +69,8 @@ const aplHandlers = {
                 requestEnvelope
             } = handlerInput;
             let sessionAttributes = attributesManager.getSessionAttributes();
+            console.log(sessionAttributes.state);
+            console.log(settings.SKILL_STATES.GENERAL_RESULTS_STATE);
             if(sessionAttributes.state != settings.SKILL_STATES.GENERAL_RESULTS_STATE){
                 Finder.invalidInteraction(handlerInput, settings.SKILL_INTERACTIONS.SELECT_ITEM)
                 return handlerInput.responseBuilder.getResponse();
@@ -77,12 +79,16 @@ const aplHandlers = {
 
             var itemPosition;
             var gameToSearch;
+            var results;
+
             if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
                 itemPosition = requestEnvelope.request.arguments[1];
                 gameToSearch = requestEnvelope.request.arguments[2];
+                results = requestEnvelope.request.arguments.slice(3);
             } else {
                 const filledSlots = handlerInput.requestEnvelope.request.intent.slots;
                 const slotValues = helpers.getSlotValues(filledSlots);
+                results = [];
                 gameToSearch = sessionAttributes.gameToSearch;
                 if(slotValues.ListPosition.value) {
                     itemPosition = slotValues.ListPosition.value;
@@ -98,7 +104,7 @@ const aplHandlers = {
                     itemPosition = 1;
                 }
             }
-            Finder.getGameInfoFromSearchItem(handlerInput, itemPosition, gameToSearch);
+            Finder.getGameInfoFromSearchItem(handlerInput, itemPosition, gameToSearch, results);
             return handlerInput.responseBuilder.getResponse();
         },
     },
@@ -132,9 +138,9 @@ const aplHandlers = {
                 && (requestEnvelope.request.arguments[0] === 'GoToNextItem' || requestEnvelope.request.arguments[0] === 'GoToPrevItem'
                 || requestEnvelope.request.arguments[0] === 'GoToItemScreenshots' || requestEnvelope.request.arguments[0] === 'GoToItemVideo' || requestEnvelope.request.arguments[0] === "GoToItemInfo"))
                 || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
-                && (handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent' || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PreviousIntent')
+                && ((handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent' || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PreviousIntent')
                 //|| (handlerInput.requestEnvelope.request.intent.name === 'ScreenshotsIntent' || handlerInput.requestEnvelope.request.intent.name === 'VideoIntent' || handlerInput.requestEnvelope.request.intent.name === 'ItemInfoIntent'))
-                || (handlerInput.requestEnvelope.request.intent.name === 'NavigateDetailsIntent' && requestEnvelope.request.dialogState === 'COMPLETED'));
+                || (handlerInput.requestEnvelope.request.intent.name === 'NavigateDetailsIntent' && requestEnvelope.request.dialogState === 'COMPLETED')));
         },
         async handle(handlerInput) {
             let {
@@ -152,11 +158,11 @@ const aplHandlers = {
                 if(requestEnvelope.request.arguments[0] === 'GoToNextItem' || requestEnvelope.request.arguments[0] === 'GoToPrevItem') {
                     Finder.getGameInfoFromOtherItem(handlerInput, requestEnvelope.request.arguments[2]);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemScreenshots') {
-                    await Finder.changeGameInfoView(handlerInput, 0);
+                    await Finder.changeGameInfoView(handlerInput, 0, requestEnvelope.request.arguments[1].resultNum);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemVideo') {
-                    await Finder.changeGameInfoView(handlerInput, 2, true);
+                    await Finder.changeGameInfoView(handlerInput, 2, requestEnvelope.request.arguments[1].resultNum, true);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemInfo') {
-                    await Finder.changeGameInfoView(handlerInput, 1);
+                    await Finder.changeGameInfoView(handlerInput, 1, requestEnvelope.request.arguments[1].resultNum);
                 }
             } else {
                 logger.debug('APL.NavigateToItem no tap: handle: ' + sessionAttributes.item);
@@ -168,11 +174,11 @@ const aplHandlers = {
                     const filledSlots = handlerInput.requestEnvelope.request.intent.slots;
                     const slotValues = helpers.getSlotValues(filledSlots);
                     if(slotValues.ListPosition.resolved === 'screenshots') {
-                        await Finder.changeGameInfoView(handlerInput, 0);
+                        await Finder.changeGameInfoView(handlerInput, 0, sessionAttributes.currentItem);
                     } else if (slotValues.ListPosition.resolved === 'video') {
-                        await Finder.changeGameInfoView(handlerInput, 2, true);
+                        await Finder.changeGameInfoView(handlerInput, 2, sessionAttributes.currentItem, true);
                     } else if (slotValues.ListPosition.resolved === 'summary') {
-                        await Finder.changeGameInfoView(handlerInput, 1);
+                        await Finder.changeGameInfoView(handlerInput, 1, sessionAttributes.currentItem);
                     }
                 }
             }

@@ -19,7 +19,7 @@ module.exports = (function () {
     URL: "https://api-v3.igdb.com/search/",
     KEY: "af3fe2351343ef7dd1171ef25b018685",
     TIMEOUT: 2500,
-    RESULTS_LIMIT: 8
+    RESULTS_LIMIT: 6
   }
 
   const VIDEO_CONVERTER_URL = "https://you-link.herokuapp.com/?url=https://www.youtube.com/watch?v=";

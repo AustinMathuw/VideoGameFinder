@@ -151,7 +151,7 @@
                             {
                                 "type": "Pager",
                                 "id": "${result.resultNum}",
-                                "initialPage": 1,
+                                "initialPage": 2,
                                 "navigation": "none",
                                 "height": "100vh",
                                 "width": "100vw",
@@ -182,8 +182,9 @@
                                             {
                                                 "type": "Frame",
                                                 "position": "absolute",
-                                                "bottom": 25,
-                                                "right": 25,
+                                                "bottom": "${((viewport.shape != 'round') ? '25' : '-25')}",
+                                                "right": "${((viewport.shape != 'round') ? '25' : '40vw')}",
+                                                "left": "${((viewport.shape != 'round') ? '' : '40vw')}",
                                                 "borderRadius": 25,
                                                 "backgroundColor": "grey",
                                                 "item": {
@@ -199,9 +200,9 @@
                                                     "item": [
                                                         {
                                                             "type": "Text",
-                                                            "text": "Info",
+                                                            "text": "Info${((viewport.shape != 'round') ? '' : '<br />.')}",
                                                             "fontSize": "20dp",
-                                                            "width": "120",
+                                                            "width": "${((viewport.shape != 'round') ? '60dp' : '100%')}",
                                                             "height": "50",
                                                             "textAlign": "center",
                                                             "textAlignVertical": "center"
@@ -215,10 +216,12 @@
                                         "type": "Container",
                                         "width": "100vw",
                                         "height": "100vh",
+                                        "alignItems": "${((viewport.shape != 'round') ? 'stretch' : 'center')}",
                                         "id": "${result.gameTitle}-Info",
                                         "items": [
                                             {
                                                 "type": "Container",
+                                                "when": "${viewport.shape != 'round'}",
                                                 "direction": "column",
                                                 "width": "100vw",
                                                 "height": "100vh",
@@ -242,6 +245,7 @@
                                             },
                                             {
                                                 "type": "Frame",
+                                                "when": "${viewport.shape != 'round'}",
                                                 "position": "absolute",
                                                 "top": 25,
                                                 "right": 25,
@@ -276,7 +280,16 @@
                                                 "headerTitle": "${result.resultNum}. ${result.gameTitle}"
                                             },
                                             {
+                                                "type": "Image",
+                                                "when": "${viewport.shape == 'round'}",
+                                                "source": "${result.coverImageUrl}",
+                                                "width": "20vw",
+                                                "height": "40vh",
+                                                "scale": "best-fit"
+                                            },
+                                            {
                                                 "type": "Container",
+                                                "when": "${viewport.shape != 'round'}",
                                                 "position": "absolute",
                                                 "direction": "row",
                                                 "paddingTop": "10vh",
@@ -449,7 +462,7 @@
                                             {
                                                 "type": "Frame",
                                                 "position": "absolute",
-                                                "bottom": 25,
+                                                "bottom": "${((viewport.shape != 'round') ? '25' : '50vh')}",
                                                 "left": 25,
                                                 "borderRadius": 25,
                                                 "backgroundColor": "grey",
@@ -479,7 +492,7 @@
                                             {
                                                 "type": "Frame",
                                                 "position": "absolute",
-                                                "bottom": 25,
+                                                "bottom": "${((viewport.shape != 'round') ? '25' : '50vh')}",
                                                 "right": 25,
                                                 "borderRadius": 25,
                                                 "backgroundColor": "grey",
@@ -543,8 +556,9 @@
                                             {
                                                 "type": "Frame",
                                                 "position": "absolute",
-                                                "bottom": 25,
-                                                "left": 25,
+                                                "bottom": "${((viewport.shape != 'round') ? '25' : '-25')}",
+                                                "left": "${((viewport.shape != 'round') ? '25' : '40vw')}",
+                                                "right": "${((viewport.shape != 'round') ? '' : '40vw')}",
                                                 "borderRadius": 25,
                                                 "backgroundColor": "grey",
                                                 "item": {
@@ -560,9 +574,9 @@
                                                     "item": [
                                                         {
                                                             "type": "Text",
-                                                            "text": "Info",
+                                                            "text": "Info${((viewport.shape != 'round') ? '' : '<br />.')}",
                                                             "fontSize": "20dp",
-                                                            "width": "120",
+                                                            "width": "${((viewport.shape != 'round') ? '60dp' : '100%')}",
                                                             "height": "50",
                                                             "textAlign": "center",
                                                             "textAlignVertical": "center"

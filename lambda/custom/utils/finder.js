@@ -454,7 +454,7 @@ const Finder = {
             ctx.openMicrophone = false;
         });
     },
-    getGameInfoFromSearchItem: function (handlerInput, itemPosition, gameToSearch) {
+    getGameInfoFromSearchItem: function (handlerInput, itemPosition, gameToSearch, results) {
         let {
             requestEnvelope,
             attributesManager
@@ -463,7 +463,6 @@ const Finder = {
         sessionAttributes.state = settings.SKILL_STATES.DETAILED_RESULTS_STATE;
 
         let ctx = attributesManager.getRequestAttributes();
-        var results = requestEnvelope.request.arguments.slice(3);
         var commands = [
             {
                 "type": "Sequential",
@@ -559,9 +558,7 @@ const Finder = {
         ];
         var outputSpeech = ctx.t('SEARCH_RESULT_ITEM_INFO');
         if(ctx.isAPLCapatable(handlerInput)) {
-            ctx.renderSearchResultsInfo(handlerInput, results, gameToSearch);
             ctx.addAPLCommands(commands);
-            ctx.outputSpeech.push(outputSpeech.speech);
             ctx.reprompt.push(outputSpeech.reprompt);
             ctx.openMicrophone = true;
         } else {
@@ -672,35 +669,35 @@ const Finder = {
         ctx.addAPLCommands(commands);
         ctx.openMicrophone = true;
     },
-    changeGameInfoView: async function (handlerInput, index, playVideo = false) {
+    changeGameInfoView: async function (handlerInput, index, itemPosition, playVideo = false) {
         let {
             requestEnvelope,
             attributesManager
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
-        var itemToShow = sessionAttributes.currentItem;
+        let sessionAttributes = attributesManager.getSessionAttributes();
         var commands = [
             {
                 "type": "SetPage",
-                "componentId": itemToShow.resultNum,
+                "componentId": itemPosition,
                 "value": index
             },
             {
                 "type": "SetPage",
-                "componentId": itemToShow.resultNum + "-Screenshots-Pager",
+                "componentId": itemPosition + "-Screenshots-Pager",
                 "value": 0
             },
             {
                 "type": "AutoPage",
-                "componentId": itemToShow.resultNum + "-Screenshots-Pager",
+                "componentId": itemPosition + "-Screenshots-Pager",
                 "duration": 5000
             }
         ];
         var outputSpeech;
         if(ctx.isAPLCapatable(handlerInput)) {
-            ctx.addAPLCommands(commands);
-            ctx.outputSpeech.push(outputSpeech.speech);
+            outputSpeech = ctx.t('GENERAL_REPROMPT');
             ctx.reprompt.push(outputSpeech.reprompt);
+            ctx.addAPLCommands(commands);
 
             if(playVideo) {
                 await Finder.playVideo(handlerInput);

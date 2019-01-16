@@ -31,14 +31,12 @@ const defaultHandlers = {
       /**
        * Ensure a state in case we're starting fresh
        */
-      if (Object.keys(sessionAttributes).length === 0) {
-        
+      if (Object.keys(sessionAttributes).length === 0 || handlerInput.requestEnvelope.session.new) {
+        sessionAttributes.state = settings.SKILL_STATES.IDLE_STATE;
+        sessionAttributes.currentItem = 0;
+        sessionAttributes.lastItem = 0;
+        sessionAttributes.gameToSearch = "";
       }
-
-      sessionAttributes.state = settings.SKILL_STATES.IDLE_STATE;
-      sessionAttributes.currentItem = 0;
-      sessionAttributes.lastItem = 0;
-      sessionAttributes.gameToSearch = "";
       
       // Apply the persistent attributes to the current session
       attributesManager.setSessionAttributes(Object.assign({}, persistentAtttributes, sessionAttributes));
@@ -262,8 +260,6 @@ const defaultHandlers = {
         responseBuilder,
         requestEnvelope
       } = handlerInput;
-      let sessionAttributes = attributesManager.getSessionAttributes();
-      sessionAttributes.state = settings.SKILL_STATES.IDLE_STATE;
 
       let ctx = attributesManager.getRequestAttributes();
       let messageKey = "";
