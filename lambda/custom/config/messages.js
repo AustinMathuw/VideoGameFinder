@@ -21,7 +21,8 @@ const messages = {
   en: {
     translation: {
       'WELCOME': {
-        outputSpeech: 'Welcome to ' + SKILL_TITLE + '! What are you intrested in doing today?',
+        outputSpeech: 'Welcome to ' + SKILL_TITLE + '! For a better experience, switch to a screened device such as an Echo Show or a fire TV. What are you intrested in doing today?',
+        outputSpeechDisplay: 'Welcome to ' + SKILL_TITLE + '! What are you intrested in doing today?',
         reprompt: "Sorry, I didn't catch that, what would you like to do next?",
         displayTitle: SKILL_TITLE + ' - Welcome',
         displayText: 'What would you like to do?'
@@ -39,13 +40,13 @@ const messages = {
       },
       //Update invalid prompts
       'INVALID_INTERACTION': {
-        GO_BACK: 'GO_BACK',
-        STOP_VIDEO: 'STOP_VIDEO',
-        PLAY_VIDEO: 'PLAY_VIDEO',
-        SELECT_ITEM: 'SELECT_ITEM',
-        NAVIGATE_TO_ITEM: 'NAVIGATE_TO_ITEM',
-        GO_TO_SLIDESHOW: 'GO_TO_SLIDESHOW',
-        READ_TEXT: 'READ_TEXT'
+        GO_BACK: 'I\'m sorry, but you cannot do that here. Try searching for a game!',
+        STOP_VIDEO: 'I\'m sorry, but you cannot do that here. Try searching for a game!',
+        PLAY_VIDEO: 'I\'m sorry, but you cannot do that here. Try searching for a game!',
+        SELECT_ITEM: 'I\'m sorry, but you cannot do that here. Try searching for a game!',
+        NAVIGATE_TO_ITEM: 'I\'m sorry, but you cannot do that here. Try searching for a game!',
+        GO_TO_SLIDESHOW: 'I\'m sorry, but you cannot do that here. Try searching for a game!',
+        READ_TEXT: 'I\'m sorry, but you cannot do that here. Try searching for a game!'
       },
       'GOOD_BYE': {
         outputSpeech: "Ok, see you next time!",
@@ -61,7 +62,7 @@ const messages = {
         reprompt: "Sorry, I didn't catch that, what would you like to do next?"
       },
       'SEARCH_RESULTS': {
-        speech: "Here are some games I found...",
+        speech: "I have sent a list of games I found to your Alexa App...",
         speechWithDisplay: "Here are some games I found...",
         reprompt: 'What\'s next?',
         pageTitleDiscover: SKILL_TITLE + ' - Discover',

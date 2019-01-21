@@ -377,7 +377,7 @@
                                                             {
                                                                 "type": "ScrollView",
                                                                 "width": "80vw",
-                                                                "height": "${((viewport.shape != 'round') ? '30vh' : '10vh')}",
+                                                                "height": "${((viewport.shape != 'round') ? '30vh' : '30vh')}",
                                                                 "item": {
                                                                     "type": "Text",
                                                                     "id": "${result.resultNum}-summary",
@@ -477,7 +477,7 @@
                                                     "item": [
                                                         {
                                                             "type": "Text",
-                                                            "text": "Screenshot",
+                                                            "text": "Screenshots",
                                                             "fontSize": "20dp",
                                                             "width": "120",
                                                             "height": "50",
@@ -644,7 +644,6 @@
             ],
             "type": "object",
             "properties": {
-                "searchedGame": "battlefield",
                 "type": "resultsPager",
                 "results": [
                     {
@@ -669,10 +668,9 @@
                         "infoText2": "N/A",
                         "infoText1": "November 20th 2018",
                         "summaryText": "A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.",
-                        "videoName": "Trailer",
                         "skillLogo": "",
                         "resultTotal": 5,
-                        "summarySpeech": "https://kopytko.amazon.com/3/b0b7c915-1d29-11e9-af27-59accaaefeaa-bec85c/8/1548126450709/e9106d9917cf462075a75c8f3844acb7f5711a1837dd707f5df708c22474318b/resource.mp3",
+                        "summarySpeech": "https://kopytko.amazon.com/3/6962e958-1d5b-11e9-b3a4-11d53fc93b8c-1566af/8/1548147805892/910e1e596afa547c97e5a5694de70f95b241c4779ae6245c53d620623aa0f6e0/resource.mp3",
                         "infoText4": "Electronic Arts",
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
                         "infoText3": "68.88"
@@ -693,10 +691,9 @@
                         "infoText2": "ESRB M<br />PEGI 16",
                         "infoText1": "October 25th 2011",
                         "summaryText": "In Battlefield 3, players step into the role of the elite U.S. Marines. As the first boots on the ground, players will experience heart-pounding missions across diverse locations including Paris, Tehran and New York. As a U.S. Marine in the field, periods of tension and anticipation are punctuated by moments of complete chaos. As bullets whiz by, as walls crumble, as explosions force players to the ground, the battlefield feels more alive and interactive than ever before.",
-                        "videoName": "Trailer",
                         "skillLogo": "",
                         "resultTotal": 5,
-                        "summarySpeech": "https://kopytko.amazon.com/3/b0b8b443-1d29-11e9-98af-07d6484fbadd-851077/8/1548126450731/869938f7e9ef7e1af4845e0ac957a02f482ccd7bb0fafda0fa83c74470773893/resource.mp3",
+                        "summarySpeech": "https://kopytko.amazon.com/3/6965a85d-1d5b-11e9-8d50-712511c30ac7-044d91/8/1548147805903/de51d6edcde91c242384441b51a9ef200c8171b5317ad0c0a3d43f9811f8ece4/resource.mp3",
                         "infoText4": "Electronic Arts",
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
                         "infoText3": "83.34"
@@ -723,10 +720,9 @@
                         "infoText2": "ESRB M<br />PEGI 18",
                         "infoText1": "October 21st 2016",
                         "summaryText": "Discover classic Battlefield gameplay with epic multiplayer and an adventure-filled campaign. Experience the Dawn of All-Out War, Only in Battlefield 1.",
-                        "videoName": "Trailer",
                         "skillLogo": "",
                         "resultTotal": 5,
-                        "summarySpeech": "https://kopytko.amazon.com/3/b0be58ce-1d29-11e9-87b0-c335f978a827-39e4c7/8/1548126450745/17dce16e27ab1335e2ee43b7ca79fb174109d4bceb6eda0cd8d6aadd18cf9540/resource.mp3",
+                        "summarySpeech": "https://kopytko.amazon.com/3/69675644-1d5b-11e9-9c5c-ab90aff8e9b9-00fdf3/8/1548147805912/c60a01f5b2db4bdf4491f1a6a1c054bac842783c7b569b9d0b90c2eff6e9f427/resource.mp3",
                         "infoText4": "Electronic Arts",
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
                         "infoText3": "82.96"
@@ -747,10 +743,9 @@
                         "infoText2": "ESRB M<br />PEGI 18",
                         "infoText1": "October 29th 2013",
                         "summaryText": "Battlefield 4™ is the genre-defining action blockbuster created by DICE, and made from moments that blur the line between game and glory – moments found only in Battlefield. Go to Boot Camp to learn the basics of Battlefield 4's engaging single player and intense multiplayer mode. Here you'll also find intel on Levolution, Commander Mode, Naval Warfare and many more exciting game features.",
-                        "videoName": "Trailer",
                         "skillLogo": "",
                         "resultTotal": 5,
-                        "summarySpeech": "https://kopytko.amazon.com/3/b0bf437f-1d29-11e9-8a73-f72e072be004-438b29/8/1548126450760/2bab719c6b295de744078d01fbcc3f457ed9377507f856feee1f6c4a33045a94/resource.mp3",
+                        "summarySpeech": "https://kopytko.amazon.com/3/69684064-1d5b-11e9-896e-bf34a4d474f5-0984af/8/1548147805924/9fb13fc5a990ebda8c21a5f1053d70be6a639331cb468dbee6b50278051a07a3/resource.mp3",
                         "infoText4": "Electronic Arts",
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
                         "infoText3": "78.31"
@@ -771,10 +766,9 @@
                         "infoText2": "ESRB T<br />PEGI 16",
                         "infoText1": "June 21st 2005",
                         "summaryText": "In Battlefield 2, players will choose to fight for one of three military superpowers: the United States, the Chinese, or the newly formed Middle East Coalition. Armed with the latest modern weaponry, players can take control of any of the game’s 30+ vehicles to engage in major conflicts with over 64 players in some of the largest online battles on the PC. Additionally, persistent character growth allows players to rise through the ranks and attain the ultimate rank of General.",
-                        "videoName": "Trailer",
                         "skillLogo": "",
                         "resultTotal": 5,
-                        "summarySpeech": "https://kopytko.amazon.com/3/b0c229d8-1d29-11e9-a52a-6f0230368195-19bcce/8/1548126450774/f669a20a1ffd69f25895b7247846f2dd8affe2e2d5013103c81c8f540055e331/resource.mp3",
+                        "summarySpeech": "https://kopytko.amazon.com/3/696ad881-1d5b-11e9-bc3a-8153af9f8424-6c13fd/8/1548147805935/10049d8f45a4d3083d0f07b0a2b85ac7cef48cbc07ab69abb21f7124fa9b541a/resource.mp3",
                         "infoText4": "Electronic Arts",
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
                         "infoText3": "87.23"
