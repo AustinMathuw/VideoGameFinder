@@ -48,16 +48,6 @@ const helpers = {
         }, this);
         console.log(`The formatted slots: ${JSON.stringify(slotValues)}`);
         return slotValues;
-    },
-
-    getRequestArgs: function (args) {
-        var result = args;
-        try {
-            result = JSON.parse(result);
-        } catch(err) {
-            logger.error("Error Parsing Results... Are you in the simulator? Error: " + err)
-        }
-        return result;
     }
 }
 
@@ -69,9 +59,9 @@ const aplHandlers = {
                 requestEnvelope
             } = handlerInput;
             return (requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent'
-                && requestEnvelope.request.arguments[0] === 'SearchItem');
-                /*|| (handlerInput.requestEnvelope.request.type === 'IntentRequest'
-                && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.SelectIntent');*/
+                && requestEnvelope.request.arguments[0] === 'SearchItem')
+                || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+                && handlerInput.requestEnvelope.request.intent.name === 'SelectIntent');
         },
         handle(handlerInput) {
             let {
@@ -79,8 +69,6 @@ const aplHandlers = {
                 requestEnvelope
             } = handlerInput;
             let sessionAttributes = attributesManager.getSessionAttributes();
-            console.log(sessionAttributes.state);
-            console.log(settings.SKILL_STATES.GENERAL_RESULTS_STATE);
             if(sessionAttributes.state != settings.SKILL_STATES.GENERAL_RESULTS_STATE){
                 Finder.invalidInteraction(handlerInput, settings.SKILL_INTERACTIONS.SELECT_ITEM)
                 return handlerInput.responseBuilder.getResponse();
@@ -88,33 +76,17 @@ const aplHandlers = {
             logger.debug('APL.SearchItemSelected: handle');
 
             var itemPosition;
-            var gameToSearch;
-            var results;
+            var results = sessionAttributes.results;
 
             if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
                 itemPosition = requestEnvelope.request.arguments[1];
-                gameToSearch = requestEnvelope.request.arguments[2];
-                results = helpers.getRequestArgs(requestEnvelope.request.arguments.slice(3));
             } else {
                 const filledSlots = handlerInput.requestEnvelope.request.intent.slots;
                 const slotValues = helpers.getSlotValues(filledSlots);
-                results = [];
-                gameToSearch = sessionAttributes.gameToSearch;
-                if(slotValues.ListPosition.value) {
-                    itemPosition = slotValues.ListPosition.value;
-                } else if (slotValues.ListPosition.value) {
-                    if(slotValues.ListPosition.value == "top") {
-                        itemPosition = 1;
-                    } else if(slotValues.PositionRelation.value == ("bottom" || "last")) {
-                        itemPosition = sessionAttributes.lastItem;
-                    } else {
-                        itemPosition = 1;
-                    }
-                } else {
-                    itemPosition = 1;
-                }
+                itemPosition = slotValues.item.resolved;
             }
-            Finder.getGameInfoFromSearchItem(handlerInput, itemPosition, gameToSearch, results);
+            
+            Finder.getGameInfoFromSearchItem(handlerInput, itemPosition, results);
             return handlerInput.responseBuilder.getResponse();
         },
     },
@@ -146,10 +118,10 @@ const aplHandlers = {
             } = handlerInput;
             return (requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent'
                 && (requestEnvelope.request.arguments[0] === 'GoToNextItem' || requestEnvelope.request.arguments[0] === 'GoToPrevItem'
-                || requestEnvelope.request.arguments[0] === 'GoToItemScreenshots' || requestEnvelope.request.arguments[0] === 'GoToItemVideo' || requestEnvelope.request.arguments[0] === "GoToItemInfo"));
-                /*|| (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+                || requestEnvelope.request.arguments[0] === 'GoToItemScreenshots' || requestEnvelope.request.arguments[0] === 'GoToItemVideo' || requestEnvelope.request.arguments[0] === "GoToItemInfo"))
+                || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
                 && ((handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent' || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PreviousIntent')
-                || (handlerInput.requestEnvelope.request.intent.name === 'NavigateDetailsIntent' && requestEnvelope.request.dialogState === 'COMPLETED')));*/
+                || (handlerInput.requestEnvelope.request.intent.name === 'NavigateDetailsIntent' && requestEnvelope.request.dialogState === 'COMPLETED')));
         },
         async handle(handlerInput) {
             let {
@@ -162,36 +134,40 @@ const aplHandlers = {
                 return handlerInput.responseBuilder.getResponse();
             }
             
+            var results = sessionAttributes.results;
+
             if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
                 logger.debug('APL.NavigateToItem tap: handle: ' + requestEnvelope.request.arguments[0]);
-                var results;
-                if(requestEnvelope.request.arguments[0] === 'GoToNextItem' || requestEnvelope.request.arguments[0] === 'GoToPrevItem') {
-                    Finder.getGameInfoFromOtherItem(handlerInput, requestEnvelope.request.arguments[2]);
+                if(requestEnvelope.request.arguments[0] === 'GoToNextItem') {
+                    sessionAttributes.currentItem = sessionAttributes.currentItem + 1;
+                    Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem);
+                } else if(requestEnvelope.request.arguments[0] === 'GoToPrevItem') {
+                    sessionAttributes.currentItem = sessionAttributes.currentItem - 1;
+                    Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemScreenshots') {
-                    results = helpers.getRequestArgs(requestEnvelope.request.arguments[1]);
-                    await Finder.changeGameInfoView(handlerInput, 0, results);
+                    await Finder.changeGameInfoView(handlerInput, 0, results[sessionAttributes.currentItem - 1]);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemVideo') {
-                    results = helpers.getRequestArgs(requestEnvelope.request.arguments[1]);
-                    await Finder.changeGameInfoView(handlerInput, 2, results, true);
+                    await Finder.changeGameInfoView(handlerInput, 2, results[sessionAttributes.currentItem - 1], true);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemInfo') {
-                    results = helpers.getRequestArgs(requestEnvelope.request.arguments[1]);
-                    await Finder.changeGameInfoView(handlerInput, 1, results);
+                    await Finder.changeGameInfoView(handlerInput, 1, results[sessionAttributes.currentItem - 1]);
                 }
             } else {
                 logger.debug('APL.NavigateToItem no tap: handle: ' + sessionAttributes.item);
                 if(handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent') {
-                    Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem + 1);
+                    sessionAttributes.currentItem = sessionAttributes.currentItem + 1;
+                    Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem);
                 } else if(handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PreviousIntent') {
-                    Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem - 1);
+                    sessionAttributes.currentItem = sessionAttributes.currentItem - 1;
+                    Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem);
                 } else if (handlerInput.requestEnvelope.request.intent.name === 'NavigateDetailsIntent') {
                     const filledSlots = handlerInput.requestEnvelope.request.intent.slots;
                     const slotValues = helpers.getSlotValues(filledSlots);
-                    if(slotValues.ListPosition.resolved === 'screenshots') {
-                        await Finder.changeGameInfoView(handlerInput, 0, sessionAttributes.currentItem);
-                    } else if (slotValues.ListPosition.resolved === 'video') {
-                        await Finder.changeGameInfoView(handlerInput, 2, sessionAttributes.currentItem, true);
-                    } else if (slotValues.ListPosition.resolved === 'summary') {
-                        await Finder.changeGameInfoView(handlerInput, 1, sessionAttributes.currentItem);
+                    if(slotValues.navigation.resolved === 'screenshots') {
+                        await Finder.changeGameInfoView(handlerInput, 0, results[sessionAttributes.currentItem - 1]);
+                    } else if (slotValues.navigation.resolved === 'video') {
+                        await Finder.changeGameInfoView(handlerInput, 2, results[sessionAttributes.currentItem - 1], true);
+                    } else if (slotValues.navigation.resolved === 'summary') {
+                        await Finder.changeGameInfoView(handlerInput, 1, results[sessionAttributes.currentItem - 1]);
                     }
                 }
             }
@@ -206,9 +182,9 @@ const aplHandlers = {
                 requestEnvelope
             } = handlerInput;
             return (requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent'
-                && requestEnvelope.request.arguments[0] === 'ItemView');
-                /*|| (handlerInput.requestEnvelope.request.type === 'IntentRequest'
-                && handlerInput.requestEnvelope.request.intent.name === 'ReadTextIntent');*/
+                && requestEnvelope.request.arguments[0] === 'ItemView')
+                || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+                && handlerInput.requestEnvelope.request.intent.name === 'ReadTextIntent');
         },
         handle(handlerInput) {
             let {
@@ -222,11 +198,7 @@ const aplHandlers = {
             }
             logger.debug('APL.ItemViewSelected: handle');
             var itemPosition = 0;
-            if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
-                itemPosition = requestEnvelope.request.arguments[1].resultNum;
-            } else {
-                itemPosition = sessionAttributes.currentItem;
-            }
+            itemPosition = sessionAttributes.currentItem;
             Finder.getGameInfoFromItemView(handlerInput, itemPosition);
             return handlerInput.responseBuilder.getResponse();
         },
@@ -302,17 +274,8 @@ const aplHandlers = {
             }
             logger.debug('APL.GoBackToResults: handle');
 
-            var gameToSearch;
-            var results;
-
-            if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
-                gameToSearch = requestEnvelope.request.arguments[1];
-                results = requestEnvelope.request.arguments.slice(2);
-                results = helpers.getRequestArgs(results);
-            } else {
-                gameToSearch = sessionAttributes.gameToSearch;
-                results = [];
-            }
+            var gameToSearch = sessionAttributes.gameToSearch;
+            var results = sessionAttributes.results;
 
             Finder.reShowResults(handlerInput, gameToSearch, results);
             return handlerInput.responseBuilder.getResponse();

@@ -32,10 +32,12 @@ const defaultHandlers = {
        * Ensure a state in case we're starting fresh
        */
       if (Object.keys(sessionAttributes).length === 0 || handlerInput.requestEnvelope.session.new) {
+        sessionAttributes = {};
         sessionAttributes.state = settings.SKILL_STATES.IDLE_STATE;
         sessionAttributes.currentItem = 0;
         sessionAttributes.lastItem = 0;
         sessionAttributes.gameToSearch = "";
+        sessionAttributes.results = [];
       }
       
       // Apply the persistent attributes to the current session

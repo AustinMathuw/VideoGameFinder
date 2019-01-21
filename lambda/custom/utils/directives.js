@@ -29,16 +29,6 @@ const APL = {
       "properties": payload,
       "transformers": [
         {
-          "inputPath": "results[*].summarySSML",
-          "outputName": "summarySpeech",
-          "transformer": "ssmlToSpeech"
-        },
-        {
-          "inputPath": "results[*].summarySSML",
-          "outputName": "summaryText",
-          "transformer": "ssmlToText"
-        },
-        {
           "inputPath": "hintText",
           "transformer": "textToHint"
         }
@@ -54,10 +44,9 @@ const APL = {
   },
 
   // returns a APL directive for game search w/ results (INFO)
-  setSearchInfoDisplay: function (games, searchedGame) {
+  setSearchInfoDisplay: function (games) {
     let payload = {
       "type": "resultsPager",
-      "searchedGame": searchedGame,
       "results": games
     }
     let data = {

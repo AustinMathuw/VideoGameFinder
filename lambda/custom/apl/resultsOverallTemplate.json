@@ -152,9 +152,7 @@
                             "type": "SendEvent",
                             "arguments": [
                                 "SearchItem",
-                                "${ordinal}",
-                                "${payload.data.properties.searchedGame}",
-                                "${results}"
+                                "${ordinal}"
                             ]
                         },
                         "item": [
@@ -204,7 +202,6 @@
             },
             "resultsListItem": {
                 "parameters": [
-                    "results",
                     "result"
                 ],
                 "items": [
@@ -215,9 +212,7 @@
                             "type": "SendEvent",
                             "arguments": [
                                 "SearchItem",
-                                "${ordinal}",
-                                "${payload.data.properties.searchedGame}",
-                                "${results}"
+                                "${ordinal}"
                             ]
                         },
                         "item": {
@@ -277,7 +272,6 @@
                                 "item": [
                                     {
                                         "type": "fullResultsListItem",
-                                        "results": "${results}",
                                         "result": "${data}",
                                         "listLength": "${results.length}"
                                     }
@@ -315,7 +309,6 @@
                                 "item": [
                                     {
                                         "type": "resultsListItem",
-                                        "results": "${results}",
                                         "result": "${data}"
                                     }
                                 ]
@@ -390,52 +383,14 @@
                     {
                         "gameTitle": "Battlefield V",
                         "resultNum": 1,
-                        "resultTotal": 10,
-                        "skillLogo": "",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/rkp2kggnoid6bthpuv2n.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/oteswqhfmfxjcu41sug0.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/xdjjufkmte3ntonkigs5.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/cdlqzmwub64eokzm7cdt.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/lxeavjeryfvcj2jtzpu5.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/enrem5i1bj7kcgx0qx6n.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/pjqit6egebe8affgfxey.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/b8aivuwxxtgojaguczad.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/xokasjrbubfkqtnvy9p3.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/w3yuy5qbpbdhmbd4ggu1.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/pmozz7tpzfwiprzjzokc.jpeg"
-                        ],
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
                         "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/vkdea0wwyn0zx8fjs1kt.jpeg",
-                        "infoText1": "November 19th 2018",
-                        "infoText2": "N/A",
-                        "infoText3": "68.83",
-                        "infoText4": "Electronic Arts",
-                        "summarySSML": "<speak>A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.</speak>",
-                        "videoName": "Trailer",
-                        "videoID": "fb1MR85XFOc"
+                        "infoText1": "November 19th 2018"
                     },
                     {
                         "gameTitle": "Battlefield 4",
                         "resultNum": 2,
-                        "resultTotal": 10,
-                        "skillLogo": "",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/yq7owbqrj09mgfqg3ac3.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/gkvbblwscco4eaiquxfw.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/gvixjdrjylwi4kifgc4r.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/o80vh3ztviwbrkedbvjs.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/chkphyps9bwrxoau9hen.jpeg"
-                        ],
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
                         "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ejcbrblr9aj12b8ihgfj.jpeg",
-                        "infoText1": "October 28th 2013",
-                        "infoText2": "ESRB RP<br />PGEI 18",
-                        "infoText3": "78.31",
-                        "infoText4": "Electronic Arts",
-                        "summarySSML": "<speak>Battlefield 4™ is the genre-defining action blockbuster created by DICE, and made from moments that blur the line between game and glory – moments found only in Battlefield. Go to Boot Camp to learn the basics of Battlefield 4's engaging single player and intense multiplayer mode. Here you'll also find intel on Levolution, Commander Mode, Naval Warfare and many more exciting game features.</speak>",
-                        "videoName": "Trailer",
-                        "videoID": "ZjSykcTGrNc"
+                        "infoText1": "October 28th 2013"
                     },
                     {
                         "gameTitle": "Battlefield 2",

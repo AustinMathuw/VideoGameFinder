@@ -257,9 +257,7 @@
                                                     "onPress": {
                                                         "type": "SendEvent",
                                                         "arguments": [
-                                                            "GoBackToResults",
-                                                            "${payload.data.properties.searchedGame}",
-                                                            "${payload.data.properties.results}"
+                                                            "GoBackToResults"
                                                         ]
                                                     },
                                                     "item": [
@@ -587,114 +585,6 @@
                                         ]
                                     }
                                 ]
-                            },
-                            {
-                                "type": "Video",
-                                "id": "goBackSpeech",
-                                "position": "absolute",
-                                "source": "",
-                                "onEnd": {
-                                    "type": "SendEvent",
-                                    "arguments": [
-                                        "GoBackToResults",
-                                        "${payload.data.properties.searchedGame}",
-                                        "${payload.data.properties.results}"
-                                    ]
-                                }
-                            },
-                            {
-                                "type": "Video",
-                                "id": "prevItemSpeech",
-                                "position": "absolute",
-                                "source": "",
-                                "onEnd": {
-                                    "type": "SendEvent",
-                                    "arguments": [
-                                        "GoToPrevItem",
-                                        "${result}",
-                                        "${result.resultNum - 1}"
-                                    ]
-                                }
-                            },
-                            {
-                                "type": "Video",
-                                "id": "nextItemSpeech",
-                                "position": "absolute",
-                                "source": "",
-                                "onEnd": {
-                                    "type": "SendEvent",
-                                    "arguments": [
-                                        "GoToNextItem",
-                                        "${result}",
-                                        "${result.resultNum + 1}"
-                                    ]
-                                }
-                            },
-                            {
-                                "type": "Video",
-                                "id": "infoSpeech",
-                                "position": "absolute",
-                                "source": "",
-                                "onEnd": {
-                                    "type": "SendEvent",
-                                    "arguments": [
-                                        "GoToItemInfo",
-                                        "${result}"
-                                    ]
-                                }
-                            },
-                            {
-                                "type": "Video",
-                                "id": "playVideoSpeech",
-                                "position": "absolute",
-                                "source": "",
-                                "onEnd": {
-                                    "type": "SendEvent",
-                                    "arguments": [
-                                        "GoToItemVideo",
-                                        "${result}"
-                                    ]
-                                }
-                            },
-                            {
-                                "type": "Video",
-                                "id": "stopVideoSpeech",
-                                "position": "absolute",
-                                "source": "",
-                                "onEnd": {
-                                    "type": "SendEvent",
-                                    "arguments": [
-                                        "StopVideo",
-                                        "${result}"
-                                    ]
-                                }
-                            },
-                            {
-                                "type": "Video",
-                                "id": "screenshotSpeech",
-                                "position": "absolute",
-                                "source": "",
-                                "onEnd": {
-                                    "type": "SendEvent",
-                                    "arguments": [
-                                        "GoToItemScreenshots",
-                                        "${result}"
-                                    ]
-                                }
-                            },
-                            {
-                                "type": "Video",
-                                "id": "itemViewSpeech",
-                                "position": "absolute",
-                                "source": "",
-                                "onEnd": {
-                                    "type": "SendEvent",
-                                    "arguments": [
-                                        "ItemView",
-                                        "${result}",
-                                        "${result.resultNum}"
-                                    ]
-                                }
                             }
                         ]
                     }

@@ -122,7 +122,6 @@ const helpers = {
                 "gameTitle": "",
                 "resultNum": resultNum,
                 "resultTotal": incomingData.length,
-                "skillLogo": "",
                 "screenshotImageUrls": [],
                 "backgroundImageUrl": "",
                 "coverImageUrl": "",
@@ -131,7 +130,6 @@ const helpers = {
                 "infoText3": "",
                 "infoText4": "",
                 "summarySSML": "",
-                "videoName": "",
                 "videoID": ""
             };
             var videoToShow = element.game.videos.find(video => {
@@ -142,10 +140,8 @@ const helpers = {
                 }
             });
             if(videoToShow){
-                data.videoName = videoToShow.name;
                 data.videoID = videoToShow.video_id;
             } else {
-                data.videoName = element.game.videos[0].name;
                 data.videoID = element.game.videos[0].video_id;
             }
 
@@ -392,9 +388,18 @@ const Finder = {
             sessionAttributes.results = results;
             sessionAttributes.gameToSearch = gameToSearch;
             if(ctx.isAPLCapatable(handlerInput)) {
-                ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitleSearch, gameToSearch);
+                var resultsToDisplay = [];
+                results.forEach(result => {
+                    resultsToDisplay.push({
+                        "gameTitle": result.gameTitle,
+                        "resultNum": result.resultNum,
+                        "coverImageUrl": result.coverImageUrl,
+                        "infoText1": result.infoText1
+                    });
+                });
+                ctx.renderSearchResultsOverall(handlerInput, resultsToDisplay, outputSpeech.pageTitleSearch, gameToSearch);
                 ctx.outputSpeech.push(outputSpeech.speechWithDisplay);
-                ctx.openMicrophone = false;
+                ctx.openMicrophone = true;
             } else {
                 ctx.outputSpeech.push(outputSpeech.speech);
                 ctx.reprompt.push(outputSpeech.reprompt);
@@ -440,9 +445,19 @@ const Finder = {
             sessionAttributes.state = settings.SKILL_STATES.GENERAL_RESULTS_STATE;
             sessionAttributes.currentItem = 0;
             sessionAttributes.lastItem = results.length;
+            sessionAttributes.results = results;
             sessionAttributes.gameToSearch = gameToSearch;
             if(ctx.isAPLCapatable(handlerInput)) {
-                ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitleDiscover, gameToSearch);
+                var resultsToDisplay = [];
+                results.forEach(result => {
+                    resultsToDisplay.push({
+                        "gameTitle": result.gameTitle,
+                        "resultNum": result.resultNum,
+                        "coverImageUrl": result.coverImageUrl,
+                        "infoText1": result.infoText1
+                    });
+                });
+                ctx.renderSearchResultsOverall(handlerInput, resultsToDisplay, outputSpeech.pageTitleDiscover, gameToSearch);
                 ctx.outputSpeech.push(outputSpeech.speechWithDisplay);
             } else {
                 ctx.outputSpeech.push(outputSpeech.speech);
@@ -456,7 +471,7 @@ const Finder = {
             ctx.openMicrophone = false;
         });
     },
-    getGameInfoFromSearchItem: function (handlerInput, itemPosition, gameToSearch, results) {
+    getGameInfoFromSearchItem: function (handlerInput, itemPosition, results) {
         let {
             requestEnvelope,
             attributesManager
@@ -492,12 +507,12 @@ const Finder = {
         sessionAttributes.currentItem = itemPosition;
         var outputSpeech = ctx.t('GENERAL_REPROMPT');
         if(ctx.isAPLCapatable(handlerInput)) {
-            ctx.renderSearchResultsInfo(handlerInput, results, gameToSearch);
+            ctx.renderSearchResultsInfo(handlerInput, results);
             ctx.addAPLCommands(commands);
             outputSpeech = ctx.t('GENERAL_REPROMPT');
             ctx.reprompt.push(outputSpeech.reprompt);
             ctx.outputSpeech.push(outputSpeech.speech);
-            ctx.openMicrophone = false;
+            ctx.openMicrophone = true;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -539,7 +554,7 @@ const Finder = {
         if(ctx.isAPLCapatable(handlerInput)) {
             ctx.addAPLCommands(commands);
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = false;
+            ctx.openMicrophone = true;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -565,7 +580,7 @@ const Finder = {
         if(ctx.isAPLCapatable(handlerInput)) {
             ctx.addAPLCommands(commands);
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = false;
+            ctx.openMicrophone = true;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -592,7 +607,7 @@ const Finder = {
             }
             ctx.outputSpeech.push(outputSpeech.speech);
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = false;
+            ctx.openMicrophone = true;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -626,13 +641,13 @@ const Finder = {
             ctx.openMicrophone = false;
         })
     },
-    stopVideo: async function (handlerInput) {
+    stopVideo: async function (handlerInput, result) {
         let {
             requestEnvelope,
             attributesManager
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
-        var itemToShowOn = requestEnvelope.request.arguments[1].videoID;
+        var itemToShowOn = result.videoID;
         var commands = [
             {
                 "type": "ControlMedia",
@@ -683,7 +698,7 @@ const Finder = {
             } else {
                 await Finder.stopVideo(handlerInput, result);
             }
-            ctx.openMicrophone = false;
+            ctx.openMicrophone = true;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
