@@ -95,7 +95,7 @@ const Display = {
     ));
   },
 
-  sendAPLCommands: function (handlerInput, commands, token = "") {
+  sendAPLCommands: function (handlerInput, commands, token = "token") {
     let ctx = handlerInput.attributesManager.getRequestAttributes();
     ctx.directives.push(directives.APL.setCommands(
       commands,

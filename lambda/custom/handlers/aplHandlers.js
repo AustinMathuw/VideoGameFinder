@@ -48,6 +48,16 @@ const helpers = {
         }, this);
         console.log(`The formatted slots: ${JSON.stringify(slotValues)}`);
         return slotValues;
+    },
+
+    getRequestArgs: function (args) {
+        var result = args;
+        try {
+            result = JSON.parse(result);
+        } catch(err) {
+            logger.error("Error Parsing Results... Are you in the simulator? Error: " + err)
+        }
+        return result;
     }
 }
 
@@ -59,9 +69,9 @@ const aplHandlers = {
                 requestEnvelope
             } = handlerInput;
             return (requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent'
-                && requestEnvelope.request.arguments[0] === 'SearchItem')
-                || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
-                && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.SelectIntent');
+                && requestEnvelope.request.arguments[0] === 'SearchItem');
+                /*|| (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+                && handlerInput.requestEnvelope.request.intent.name === 'AMAZON.SelectIntent');*/
         },
         handle(handlerInput) {
             let {
@@ -84,7 +94,7 @@ const aplHandlers = {
             if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
                 itemPosition = requestEnvelope.request.arguments[1];
                 gameToSearch = requestEnvelope.request.arguments[2];
-                results = requestEnvelope.request.arguments.slice(3);
+                results = helpers.getRequestArgs(requestEnvelope.request.arguments.slice(3));
             } else {
                 const filledSlots = handlerInput.requestEnvelope.request.intent.slots;
                 const slotValues = helpers.getSlotValues(filledSlots);
@@ -136,11 +146,10 @@ const aplHandlers = {
             } = handlerInput;
             return (requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent'
                 && (requestEnvelope.request.arguments[0] === 'GoToNextItem' || requestEnvelope.request.arguments[0] === 'GoToPrevItem'
-                || requestEnvelope.request.arguments[0] === 'GoToItemScreenshots' || requestEnvelope.request.arguments[0] === 'GoToItemVideo' || requestEnvelope.request.arguments[0] === "GoToItemInfo"))
-                || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+                || requestEnvelope.request.arguments[0] === 'GoToItemScreenshots' || requestEnvelope.request.arguments[0] === 'GoToItemVideo' || requestEnvelope.request.arguments[0] === "GoToItemInfo"));
+                /*|| (handlerInput.requestEnvelope.request.type === 'IntentRequest'
                 && ((handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent' || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PreviousIntent')
-                //|| (handlerInput.requestEnvelope.request.intent.name === 'ScreenshotsIntent' || handlerInput.requestEnvelope.request.intent.name === 'VideoIntent' || handlerInput.requestEnvelope.request.intent.name === 'ItemInfoIntent'))
-                || (handlerInput.requestEnvelope.request.intent.name === 'NavigateDetailsIntent' && requestEnvelope.request.dialogState === 'COMPLETED')));
+                || (handlerInput.requestEnvelope.request.intent.name === 'NavigateDetailsIntent' && requestEnvelope.request.dialogState === 'COMPLETED')));*/
         },
         async handle(handlerInput) {
             let {
@@ -155,14 +164,18 @@ const aplHandlers = {
             
             if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
                 logger.debug('APL.NavigateToItem tap: handle: ' + requestEnvelope.request.arguments[0]);
+                var results;
                 if(requestEnvelope.request.arguments[0] === 'GoToNextItem' || requestEnvelope.request.arguments[0] === 'GoToPrevItem') {
                     Finder.getGameInfoFromOtherItem(handlerInput, requestEnvelope.request.arguments[2]);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemScreenshots') {
-                    await Finder.changeGameInfoView(handlerInput, 0, requestEnvelope.request.arguments[1].resultNum);
+                    results = helpers.getRequestArgs(requestEnvelope.request.arguments[1]);
+                    await Finder.changeGameInfoView(handlerInput, 0, results);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemVideo') {
-                    await Finder.changeGameInfoView(handlerInput, 2, requestEnvelope.request.arguments[1].resultNum, true);
+                    results = helpers.getRequestArgs(requestEnvelope.request.arguments[1]);
+                    await Finder.changeGameInfoView(handlerInput, 2, results, true);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemInfo') {
-                    await Finder.changeGameInfoView(handlerInput, 1, requestEnvelope.request.arguments[1].resultNum);
+                    results = helpers.getRequestArgs(requestEnvelope.request.arguments[1]);
+                    await Finder.changeGameInfoView(handlerInput, 1, results);
                 }
             } else {
                 logger.debug('APL.NavigateToItem no tap: handle: ' + sessionAttributes.item);
@@ -193,9 +206,9 @@ const aplHandlers = {
                 requestEnvelope
             } = handlerInput;
             return (requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent'
-                && requestEnvelope.request.arguments[0] === 'ItemView')
-                || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
-                && handlerInput.requestEnvelope.request.intent.name === 'ReadTextIntent');
+                && requestEnvelope.request.arguments[0] === 'ItemView');
+                /*|| (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+                && handlerInput.requestEnvelope.request.intent.name === 'ReadTextIntent');*/
         },
         handle(handlerInput) {
             let {
@@ -210,7 +223,7 @@ const aplHandlers = {
             logger.debug('APL.ItemViewSelected: handle');
             var itemPosition = 0;
             if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
-                itemPosition = requestEnvelope.request.arguments[1]
+                itemPosition = requestEnvelope.request.arguments[1].resultNum;
             } else {
                 itemPosition = sessionAttributes.currentItem;
             }
@@ -295,6 +308,7 @@ const aplHandlers = {
             if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
                 gameToSearch = requestEnvelope.request.arguments[1];
                 results = requestEnvelope.request.arguments.slice(2);
+                results = helpers.getRequestArgs(results);
             } else {
                 gameToSearch = sessionAttributes.gameToSearch;
                 results = [];

@@ -47,7 +47,7 @@ const APL = {
     return {
       "type": 'Alexa.Presentation.APL.RenderDocument',
       "version": '1.0',
-      "token": "search",
+      "token": "token",
       "document": resultsOverallTemplate.document,
       "datasources": {data}
     };
@@ -79,7 +79,7 @@ const APL = {
     return {
       "type": 'Alexa.Presentation.APL.RenderDocument',
       "version": '1.0',
-      "token": "search",
+      "token": "token",
       "document": resultsInfoTemplate.document,
       "datasources": {data}
     };
@@ -107,6 +107,7 @@ const APL = {
     return {
       "type": 'Alexa.Presentation.APL.RenderDocument',
       "version": '1.0',
+      "token": "token",
       "document": defaultTemplate.document,
       "datasources": {data}
     };

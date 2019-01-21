@@ -389,15 +389,17 @@ const Finder = {
             sessionAttributes.state = settings.SKILL_STATES.GENERAL_RESULTS_STATE;
             sessionAttributes.currentItem = 0;
             sessionAttributes.lastItem = results.length;
+            sessionAttributes.results = results;
             sessionAttributes.gameToSearch = gameToSearch;
             if(ctx.isAPLCapatable(handlerInput)) {
                 ctx.renderSearchResultsOverall(handlerInput, results, outputSpeech.pageTitleSearch, gameToSearch);
                 ctx.outputSpeech.push(outputSpeech.speechWithDisplay);
+                ctx.openMicrophone = false;
             } else {
                 ctx.outputSpeech.push(outputSpeech.speech);
+                ctx.reprompt.push(outputSpeech.reprompt);
+                ctx.openMicrophone = false;
             }
-            ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = true;
         }).catch(err => {
             outputSpeech = ctx.t('API_CALL_ERROR');
             logger.debug(err);
@@ -478,25 +480,15 @@ const Finder = {
                         "value": 1
                     },
                     {
-                        "type": "Parallel",
-                        "commands": [
-                            {
-                                "type": "Idle",
-                                "delay": 3000
-                            },
-                            {
-                                "type": "SpeakItem",
-                                "componentId": itemPosition + "-summary",
-                                "highlightMode": "line",
-                                "align": "center"
-                            }
-                        ]
+                        "type": "SpeakItem",
+                        "componentId": itemPosition + "-summary",
+                        "highlightMode": "line",
+                        "align": "center"
                     }
                 ]
             }
         ];
         
-        sessionAttributes.state = settings.SKILL_STATES.DETAILED_RESULTS_STATE;
         sessionAttributes.currentItem = itemPosition;
         var outputSpeech = ctx.t('GENERAL_REPROMPT');
         if(ctx.isAPLCapatable(handlerInput)) {
@@ -504,7 +496,8 @@ const Finder = {
             ctx.addAPLCommands(commands);
             outputSpeech = ctx.t('GENERAL_REPROMPT');
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = true;
+            ctx.outputSpeech.push(outputSpeech.speech);
+            ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -525,11 +518,6 @@ const Finder = {
                 "commands": [
                     {
                         "type": "SetPage",
-                        "componentId": "entireDisplay",
-                        "value": 1
-                    },
-                    {
-                        "type": "SetPage",
                         "componentId": "resultsPager",
                         "value": itemPosition - 1
                     },
@@ -539,19 +527,10 @@ const Finder = {
                         "value": 1
                     },
                     {
-                        "type": "Parallel",
-                        "commands": [
-                            {
-                                "type": "Idle",
-                                "delay": 3000
-                            },
-                            {
-                                "type": "SpeakItem",
-                                "componentId": itemPosition + "-summary",
-                                "highlightMode": "line",
-                                "align": "center"
-                            }
-                        ]
+                        "type": "SpeakItem",
+                        "componentId": itemPosition + "-summary",
+                        "highlightMode": "line",
+                        "align": "center"
                     }
                 ]
             }
@@ -560,7 +539,7 @@ const Finder = {
         if(ctx.isAPLCapatable(handlerInput)) {
             ctx.addAPLCommands(commands);
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -575,19 +554,10 @@ const Finder = {
         let ctx = attributesManager.getRequestAttributes();
         var commands = [
             {
-                "type": "Parallel",
-                "commands": [
-                    {
-                        "type": "Idle",
-                        "delay": 3000
-                    },
-                    {
-                        "type": "SpeakItem",
-                        "componentId": itemPosition + "-summary",
-                        "highlightMode": "line",
-                        "align": "center"
-                    }
-                ]
+                "type": "SpeakItem",
+                "componentId": itemPosition + "-summary",
+                "highlightMode": "line",
+                "align": "center"
             }
         ];
 
@@ -595,7 +565,7 @@ const Finder = {
         if(ctx.isAPLCapatable(handlerInput)) {
             ctx.addAPLCommands(commands);
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -608,6 +578,8 @@ const Finder = {
             attributesManager
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
+        let sessionAttributes = attributesManager.getSessionAttributes();
+        sessionAttributes.state = settings.SKILL_STATES.GENERAL_RESULTS_STATE;
 
         var outputSpeech = ctx.t('RE_SHOW_RESULTS', {
             keyword: gameToSearch
@@ -620,22 +592,24 @@ const Finder = {
             }
             ctx.outputSpeech.push(outputSpeech.speech);
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
             ctx.openMicrophone = false;
         }
     },
-    playVideo: async function (handlerInput) {
+    playVideo: async function (handlerInput, result) {
         let {
             requestEnvelope,
             attributesManager
         } = handlerInput;
         let ctx = attributesManager.getRequestAttributes();
-        var itemToShowOn = requestEnvelope.request.arguments[1].videoID;
+        var itemToShowOn = result.videoID;
         var outputSpeech;
         await helpers.getVideoURL(itemToShowOn).then(videoURL => {
+            logger.log(itemToShowOn);
+            logger.log(videoURL);
             var commands = [
                 {
                     "type": "PlayMedia",
@@ -669,7 +643,7 @@ const Finder = {
         ctx.addAPLCommands(commands);
         ctx.openMicrophone = true;
     },
-    changeGameInfoView: async function (handlerInput, index, itemPosition, playVideo = false) {
+    changeGameInfoView: async function (handlerInput, index, result, playVideo = false) {
         let {
             requestEnvelope,
             attributesManager
@@ -679,32 +653,37 @@ const Finder = {
         var commands = [
             {
                 "type": "SetPage",
-                "componentId": itemPosition,
+                "componentId": result.resultNum,
                 "value": index
             },
             {
                 "type": "SetPage",
-                "componentId": itemPosition + "-Screenshots-Pager",
+                "componentId": result.resultNum + "-Screenshots-Pager",
                 "value": 0
-            },
-            {
-                "type": "AutoPage",
-                "componentId": itemPosition + "-Screenshots-Pager",
-                "duration": 5000
             }
         ];
+
+        if(index == 0){
+            commands.push({
+                "type": "AutoPage",
+                "componentId": result.resultNum + "-Screenshots-Pager",
+                "duration": 5000
+            });
+        }
+
+        ctx.addAPLCommands(commands);
+
         var outputSpeech;
         if(ctx.isAPLCapatable(handlerInput)) {
             outputSpeech = ctx.t('GENERAL_REPROMPT');
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.addAPLCommands(commands);
 
             if(playVideo) {
-                await Finder.playVideo(handlerInput);
+                await Finder.playVideo(handlerInput, result);
             } else {
-                await Finder.stopVideo(handlerInput);
+                await Finder.stopVideo(handlerInput, result);
             }
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);

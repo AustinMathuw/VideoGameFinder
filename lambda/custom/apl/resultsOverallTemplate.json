@@ -354,7 +354,14 @@
                 "payload"
             ],
             "item": [
-                "${payload.data.properties}"
+                {
+                    "searchedGame": "${payload.data.properties.searchedGame}",
+                    "hintText": "${payload.data.properties.hintText}",
+                    "pageTitle": "${payload.data.properties.pageTitle}",
+                    "skillLogo": "${payload.data.properties.skillLogo}",
+                    "type": "resultsDisplay",
+                    "results":   "${payload.data.properties.results}"
+                    }
             ]
         }
     },
