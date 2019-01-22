@@ -103,10 +103,21 @@ const APL = {
   },
 
   setCommands: function (commands, token) {
+
+    commands.push({
+      "type": "Idle",
+      "delay": 30000
+    });
+
     return {
       "type" : "Alexa.Presentation.APL.ExecuteCommands",
       "token": token,
-      "commands": commands
+      "commands": [
+        {
+          "type": "Parallel",
+          "commands": commands
+        }
+      ]
     };
   }
 };
