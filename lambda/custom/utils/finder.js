@@ -402,7 +402,11 @@ const Finder = {
                 ctx.openMicrophone = true;
             } else {
                 ctx.outputSpeech.push(outputSpeech.speech);
-                ctx.reprompt.push(outputSpeech.reprompt);
+                var cardContent = "";
+                results.forEach(result => {
+                    cardContent = cardContent + result.gameTitle + "\n";
+                });
+                ctx.setCard(false, settings.SKILL_TITLE, cardContent);
                 ctx.openMicrophone = false;
             }
         }).catch(err => {
@@ -504,7 +508,7 @@ const Finder = {
             }
         ];
         
-        sessionAttributes.currentItem = itemPosition;
+        sessionAttributes.currentItem = parseInt(itemPosition);
         var outputSpeech = ctx.t('GENERAL_REPROMPT');
         if(ctx.isAPLCapatable(handlerInput)) {
             ctx.renderSearchResultsInfo(handlerInput, results);

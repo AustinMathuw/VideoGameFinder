@@ -362,63 +362,72 @@
         "data": {
             "transformers": [
                 {
-                    "inputPath": "results[*].summarySSML",
-                    "outputName": "summarySpeech",
-                    "transformer": "ssmlToSpeech"
-                },
-                {
-                    "inputPath": "results[*].summarySSML",
-                    "outputName": "summaryText",
-                    "transformer": "ssmlToText"
+                    "inputPath": "hintText",
+                    "transformer": "textToHint"
                 }
             ],
             "type": "object",
             "properties": {
+                "hintText": "Try \"Alexa, select option 1\"",
                 "searchedGame": "battlefield",
-                "hintText": "Try, \"Alexa, select option 1\"",
                 "pageTitle": "Video Game Finder - Search: battlefield",
                 "skillLogo": "https://s3.amazonaws.com/austinmatthuw/VideoGameFinder/icon_512.png",
                 "type": "resultsDisplay",
                 "results": [
                     {
-                        "gameTitle": "Battlefield V",
+                        "summarySSML": "<speak>A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.</speak>",
                         "resultNum": 1,
                         "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/vkdea0wwyn0zx8fjs1kt.jpeg",
-                        "infoText1": "November 19th 2018"
-                    },
-                    {
-                        "gameTitle": "Battlefield 4",
-                        "resultNum": 2,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ejcbrblr9aj12b8ihgfj.jpeg",
-                        "infoText1": "October 28th 2013"
-                    },
-                    {
-                        "gameTitle": "Battlefield 2",
-                        "resultNum": 3,
-                        "resultTotal": 10,
-                        "skillLogo": "",
+                        "gameTitle": "Battlefield V",
+                        "videoID": "fb1MR85XFOc",
                         "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/s0moeyvaasjdhtzlzqjm.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/cgqoxefpdoljhk7etaqz.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/jfy3ju7dwgwjwjuyqs5b.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/gujamu6mgufkf8izkfpf.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/ub6bbsdznpv8rcmzlnmx.jpeg"
+                            "https://images.igdb.com/igdb/image/upload/t_original/rkp2kggnoid6bthpuv2n.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/oteswqhfmfxjcu41sug0.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/xdjjufkmte3ntonkigs5.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/cdlqzmwub64eokzm7cdt.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/lxeavjeryfvcj2jtzpu5.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/enrem5i1bj7kcgx0qx6n.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/pjqit6egebe8affgfxey.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/b8aivuwxxtgojaguczad.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/xokasjrbubfkqtnvy9p3.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/w3yuy5qbpbdhmbd4ggu1.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/pmozz7tpzfwiprzjzokc.jpeg"
                         ],
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/xzv586ab8qpehq4kslri.jpeg",
-                        "infoText1": "June 20th 2005",
-                        "infoText2": "ESRB 18<br />PGEI 16",
-                        "infoText3": "87.23",
+                        "infoText2": "N/A",
+                        "infoText1": "November 20th 2018",
+                        "skillLogo": "",
+                        "resultTotal": 5,
                         "infoText4": "Electronic Arts",
-                        "summarySSML": "<speak>In Battlefield 2, players will choose to fight for one of three military superpowers: the United States, the Chinese, or the newly formed Middle East Coalition. Armed with the latest modern weaponry, players can take control of any of the game’s 30+ vehicles to engage in major conflicts with over 64 players in some of the largest online battles on the PC. Additionally, persistent character growth allows players to rise through the ranks and attain the ultimate rank of General.</speak>",
-                        "videoName": "Trailer",
-                        "videoID": "sv1qbuNA1ys"
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "68.88"
                     },
                     {
-                        "gameTitle": "Battlefield 1",
-                        "resultNum": 4,
-                        "resultTotal": 10,
+                        "summarySSML": "<speak>In Battlefield 3, players step into the role of the elite U.S. Marines. As the first boots on the ground, players will experience heart-pounding missions across diverse locations including Paris, Tehran and New York. As a U.S. Marine in the field, periods of tension and anticipation are punctuated by moments of complete chaos. As bullets whiz by, as walls crumble, as explosions force players to the ground, the battlefield feels more alive and interactive than ever before.</speak>",
+                        "resultNum": 2,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/z84romyc73p8xoqgwt7c.jpeg",
+                        "gameTitle": "Battlefield 3",
+                        "videoID": "wi2tae2PmmU",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/wfj4uguuur5idlyw6o1r.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/hlu3aizx7iybhlbdgwwb.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/vp5xovezrke5ndk5c1tq.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/dmaijjdq8os2g50klrq8.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/fog4gznwpq1ea1qbe0ni.jpeg"
+                        ],
+                        "infoText2": "ESRB M<br />PEGI 16",
+                        "infoText1": "October 25th 2011",
                         "skillLogo": "",
+                        "resultTotal": 5,
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "83.34"
+                    },
+                    {
+                        "summarySSML": "<speak>Discover classic Battlefield gameplay with epic multiplayer and an adventure-filled campaign. Experience the Dawn of All-Out War, Only in Battlefield 1. </speak>",
+                        "resultNum": 3,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ts6ceuy9nu1sgwpeabmo.jpeg",
+                        "gameTitle": "Battlefield 1",
+                        "videoID": "ymwXbF1VTKU",
                         "screenshotImageUrls": [
                             "https://images.igdb.com/igdb/image/upload/t_original/ez6qfdwknjwshjkf5cvo.jpeg",
                             "https://images.igdb.com/igdb/image/upload/t_original/jm9kereghangms42rrp3.jpeg",
@@ -432,144 +441,55 @@
                             "https://images.igdb.com/igdb/image/upload/t_original/sc5ing.jpeg",
                             "https://images.igdb.com/igdb/image/upload/t_original/sc5inh.jpeg"
                         ],
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ts6ceuy9nu1sgwpeabmo.jpeg",
-                        "infoText1": "October 20th 2016",
-                        "infoText2": "ESRB RP<br />PGEI 18",
-                        "infoText3": "82.88",
+                        "infoText2": "ESRB M<br />PEGI 18",
+                        "infoText1": "October 21st 2016",
+                        "skillLogo": "",
+                        "resultTotal": 5,
                         "infoText4": "Electronic Arts",
-                        "summarySSML": "<speak>Discover classic Battlefield gameplay with epic multiplayer and an adventure-filled campaign. Experience the Dawn of All-Out War, Only in Battlefield 1. </speak>",
-                        "videoName": "Trailer",
-                        "videoID": "ymwXbF1VTKU"
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "82.96"
                     },
                     {
-                        "gameTitle": "Battlefield 3",
+                        "summarySSML": "<speak>Battlefield 4™ is the genre-defining action blockbuster created by DICE, and made from moments that blur the line between game and glory – moments found only in Battlefield. Go to Boot Camp to learn the basics of Battlefield 4's engaging single player and intense multiplayer mode. Here you'll also find intel on Levolution, Commander Mode, Naval Warfare and many more exciting game features.</speak>",
+                        "resultNum": 4,
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ejcbrblr9aj12b8ihgfj.jpeg",
+                        "gameTitle": "Battlefield 4",
+                        "videoID": "ZjSykcTGrNc",
+                        "screenshotImageUrls": [
+                            "https://images.igdb.com/igdb/image/upload/t_original/yq7owbqrj09mgfqg3ac3.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/gkvbblwscco4eaiquxfw.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/gvixjdrjylwi4kifgc4r.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/o80vh3ztviwbrkedbvjs.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/chkphyps9bwrxoau9hen.jpeg"
+                        ],
+                        "infoText2": "ESRB M<br />PEGI 18",
+                        "infoText1": "October 29th 2013",
+                        "skillLogo": "",
+                        "resultTotal": 5,
+                        "infoText4": "Electronic Arts",
+                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                        "infoText3": "78.31"
+                    },
+                    {
+                        "summarySSML": "<speak>In Battlefield 2, players will choose to fight for one of three military superpowers: the United States, the Chinese, or the newly formed Middle East Coalition. Armed with the latest modern weaponry, players can take control of any of the game’s 30+ vehicles to engage in major conflicts with over 64 players in some of the largest online battles on the PC. Additionally, persistent character growth allows players to rise through the ranks and attain the ultimate rank of General.</speak>",
                         "resultNum": 5,
-                        "resultTotal": 10,
-                        "skillLogo": "",
+                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/xzv586ab8qpehq4kslri.jpeg",
+                        "gameTitle": "Battlefield 2",
+                        "videoID": "sv1qbuNA1ys",
                         "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/wfj4uguuur5idlyw6o1r.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/hlu3aizx7iybhlbdgwwb.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/vp5xovezrke5ndk5c1tq.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/dmaijjdq8os2g50klrq8.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/fog4gznwpq1ea1qbe0ni.jpeg"
+                            "https://images.igdb.com/igdb/image/upload/t_original/s0moeyvaasjdhtzlzqjm.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/cgqoxefpdoljhk7etaqz.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/jfy3ju7dwgwjwjuyqs5b.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/gujamu6mgufkf8izkfpf.jpeg",
+                            "https://images.igdb.com/igdb/image/upload/t_original/ub6bbsdznpv8rcmzlnmx.jpeg"
                         ],
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/z84romyc73p8xoqgwt7c.jpeg",
-                        "infoText1": "October 24th 2011",
-                        "infoText2": "ESRB RP<br />PGEI 16",
-                        "infoText3": "83.34",
-                        "infoText4": "Electronic Arts",
-                        "summarySSML": "<speak>In Battlefield 3, players step into the role of the elite U.S. Marines. As the first boots on the ground, players will experience heart-pounding missions across diverse locations including Paris, Tehran and New York. As a U.S. Marine in the field, periods of tension and anticipation are punctuated by moments of complete chaos. As bullets whiz by, as walls crumble, as explosions force players to the ground, the battlefield feels more alive and interactive than ever before.</speak>",
-                        "videoName": "Trailer",
-                        "videoID": "wi2tae2PmmU"
-                    },
-                    {
-                        "gameTitle": "Battlefield 1942",
-                        "resultNum": 6,
-                        "resultTotal": 10,
+                        "infoText2": "ESRB T<br />PEGI 16",
+                        "infoText1": "June 21st 2005",
                         "skillLogo": "",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/sc5dvctnt695tqwiwfnb.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/ubvhxnmshoao287xvool.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/t8reggdvdnzhb4w95xkp.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/jotobwlm4bgaoa95hrqn.jpeg"
-                        ],
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/oyzjxd6h3jwabgakeffx.jpeg",
-                        "infoText1": "September 9th 2002",
-                        "infoText2": "ESRB 18<br />PGEI 16",
-                        "infoText3": "83.85",
+                        "resultTotal": 5,
                         "infoText4": "Electronic Arts",
-                        "summarySSML": "<speak>Building upon and vastly refining the ideas from Codename Eagle, Battlefield 1942 let players engage in infantry combat and get behind the wheel of a variety of vehicles from submarines to battleships and bombers. The game introduced the signature Battlefield rock-paper-scissors gameplay, as well as the exciting “Battlefield Moments” people refer to when talking about their unique and unscripted experiences within the multiplayer game.</speak>",
-                        "videoName": "Trailer",
-                        "videoID": "AjUGC2QkO9k"
-                    },
-                    {
-                        "gameTitle": "Battlefield 2142",
-                        "resultNum": 7,
-                        "resultTotal": 10,
-                        "skillLogo": "",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/ohmqa8lcyzfjrewwzaoa.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/yenk3jy37oh5eelqgdq9.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/bxe4cmpzugebdkod49ut.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/b67vj6myt6lryfnghfxh.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/vfcseimn1ywyn9zlcehv.jpeg"
-                        ],
                         "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ox05tdvjookghbqkgbsy.jpeg",
-                        "infoText1": "October 16th 2006",
-                        "infoText2": "ESRB 18<br />PGEI 16",
-                        "infoText3": "77.78",
-                        "infoText4": "Electronic Arts",
-                        "summarySSML": "<speak>Having placed their previous online shooters in WWII, the Vietnam War, and modern day settings, Battlefield 2142 took place in a future where a new ice age had thrown the world into a panic. </speak>",
-                        "videoName": "Trailer",
-                        "videoID": "_XNskEiShMA"
-                    },
-                    {
-                        "gameTitle": "Battlefield Heroes",
-                        "resultNum": 8,
-                        "resultTotal": 10,
-                        "skillLogo": "",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/acew48fzaytqqqqrbtkt.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/q2phc215jyop4ztyuy2l.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/v6tw7q2y0cv7p4otkmee.jpeg"
-                        ],
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/wvqhxyz7lmlsaa1uap6p.jpeg",
-                        "infoText1": "June 24th 2009",
-                        "infoText2": "ESRB 18<br />PGEI 16",
-                        "infoText3": "74.84",
-                        "infoText4": "Electronic Arts",
-                        "summarySSML": "<speak>A cartoon-style Play 4 Free shooter that brings classic Battlefield gameplay to an all new mass audience. Developed by DICE in Stockholm, the game's fun cartoon-style graphics and gameplay caters to players of all skill levels.</speak>",
-                        "videoName": "Trailer",
-                        "videoID": "_u9xG09Ejk0"
-                    },
-                    {
-                        "gameTitle": "Battlefield Vietnam",
-                        "resultNum": 9,
-                        "resultTotal": 10,
-                        "skillLogo": "",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/lllbxcbnjnwdtjxpa16n.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/iputhrachavaorhw95oi.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/nhpwrjyne8pqute0jbsh.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/xbqeunra9radrziwlan0.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/kglumupggmpm5kosbrjb.jpeg"
-                        ],
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/b5mr3to1pmmkdhwf6m39.jpeg",
-                        "infoText1": "March 13th 2004",
-                        "infoText2": "ESRB 18<br />PGEI 16",
-                        "infoText3": "75.05",
-                        "infoText4": "Electronic Arts",
-                        "summarySSML": "<speak>The Battlefield franchise entered a new era equipped with more firepower, modernized weaponry and vehicles, and a deeper infantry experience from the jungles to the beaches of Vietnam. In Battlefield Vietnam, players selected from a variety of characters within the different soldier classes. </speak>",
-                        "videoName": "Trailer",
-                        "videoID": "EVei65jUozc"
-                    },
-                    {
-                        "gameTitle": "Battlefield Hardline",
-                        "resultNum": 10,
-                        "resultTotal": 10,
-                        "skillLogo": "",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/szyh2jb0vrzkv7ppj9ao.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/x9lvwlci1vu4mpia5qrq.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/h6g4yiyc5rjaclidup4w.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/iz2kcgydb1xkq9wi6n0a.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/htkgytjxatmodetyayxp.jpeg"
-                        ],
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/u0avsydlgq1nsf7ordkp.jpeg",
-                        "infoText1": "March 16th 2015",
-                        "infoText2": "ESRB 18<br />PGEI RP",
-                        "infoText3": "69.72",
-                        "infoText4": "Electronic Arts",
-                        "summarySSML": "<speak>Battlefield: Hardline features a whole new variety of gameplay that breaks away from the traditional Battlefield game modes. The new game modes are Heist Mode, Rescue Mode, Hotwire Mode and Bloodmoney Mode. The focus of the game has been shifted to police rather than the millitary background that has spanned the whole series up to now. Players will have access to various millitary grade weapons and vehicles as well as having police equipment such as tasers and handcuffs.</speak>",
-                        "videoName": "E3 Multiplayer Trailer",
-                        "videoID": "gciurrO3eI0"
+                        "infoText3": "87.23"
                     }
                 ],
                 "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg"

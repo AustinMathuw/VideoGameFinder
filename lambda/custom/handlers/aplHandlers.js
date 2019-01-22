@@ -139,10 +139,10 @@ const aplHandlers = {
             if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
                 logger.debug('APL.NavigateToItem tap: handle: ' + requestEnvelope.request.arguments[0]);
                 if(requestEnvelope.request.arguments[0] === 'GoToNextItem') {
-                    sessionAttributes.currentItem = sessionAttributes.currentItem + 1;
+                    sessionAttributes.currentItem = parseInt(sessionAttributes.currentItem) + 1;
                     Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem);
                 } else if(requestEnvelope.request.arguments[0] === 'GoToPrevItem') {
-                    sessionAttributes.currentItem = sessionAttributes.currentItem - 1;
+                    sessionAttributes.currentItem = parseInt(sessionAttributes.currentItem) - 1;
                     Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemScreenshots') {
                     await Finder.changeGameInfoView(handlerInput, 0, results[sessionAttributes.currentItem - 1]);
@@ -154,10 +154,10 @@ const aplHandlers = {
             } else {
                 logger.debug('APL.NavigateToItem no tap: handle: ' + sessionAttributes.item);
                 if(handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent') {
-                    sessionAttributes.currentItem = sessionAttributes.currentItem + 1;
+                    sessionAttributes.currentItem = parseInt(sessionAttributes.currentItem) + 1;
                     Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem);
                 } else if(handlerInput.requestEnvelope.request.intent.name === 'AMAZON.PreviousIntent') {
-                    sessionAttributes.currentItem = sessionAttributes.currentItem - 1;
+                    sessionAttributes.currentItem = parseInt(sessionAttributes.currentItem) - 1;
                     Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem);
                 } else if (handlerInput.requestEnvelope.request.intent.name === 'NavigateDetailsIntent') {
                     const filledSlots = handlerInput.requestEnvelope.request.intent.slots;

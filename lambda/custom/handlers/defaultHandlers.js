@@ -18,7 +18,8 @@ const defaultHandlers = {
       logger.debug('Global.RequestInterceptor: pre-processing response');
       let {
         attributesManager,
-        requestEnvelope
+        requestEnvelope,
+        responseBuilder
       } = handlerInput;
       let ctx = attributesManager.getRequestAttributes();
       let persistentAtttributes = await attributesManager.getPersistentAttributes();
@@ -55,6 +56,7 @@ const defaultHandlers = {
       ctx.directives = [];
       ctx.outputSpeech = [];
       ctx.reprompt = [];
+      ctx.card = {};
 
       ctx.APLCommands = [];
 
@@ -93,6 +95,16 @@ const defaultHandlers = {
         commands.forEach(command => {
           ctx.APLCommands.push(command);
         });
+      }
+      ctx.setCard = function(isSimple, title, cardContent, image = {
+        "smallImageUrl": settings.IMAGES.LOGO,
+        "largeImageUrl": settings.IMAGES.LOGO
+      }) {
+        if(isSimple) {
+          responseBuilder.withSimpleCard(title, cardContent);
+        } else {
+          responseBuilder.withStandardCard(title, cardContent, image.smallImageUrl, image.largeImageUrl);
+        }
       }
       logger.debug('Global.RequestInterceptor: pre-processing response complete');
     }
@@ -269,8 +281,10 @@ const defaultHandlers = {
       let responseMessage = ctx.t(messageKey);
       if(display.isAPLCapatable(handlerInput)) {
         ctx.renderDefault(handlerInput, responseMessage);
+        ctx.outputSpeech.push(responseMessage.outputSpeechDisplay);
+      } else {
+        ctx.outputSpeech.push(responseMessage.outputSpeech);
       }
-      ctx.outputSpeech.push(responseMessage.outputSpeech);
       ctx.reprompt.push(responseMessage.reprompt);
       ctx.openMicrophone = true;
 
