@@ -3,10 +3,88 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "name": "Video Game Finder"
+          "summary": "Video Game Finder is a skill that will help you find the perfect video game!",
+          "examplePhrases": [
+            "Alexa, open video game finder",
+            "Alexa, tell video game finder search battlefield",
+            "Alexa, search battlefield"
+          ],
+          "keywords": [
+            "video",
+            "games"
+          ],
+          "name": "Video Game Finder",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/2148/3dc77f337c184fb5811089f7ae8b135d/APP_ICON?versionId=qL0OVbfHTel4g7emW8EgTVkxQTXgRFx2&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548276816&Signature=Z0aYW2Z%2BmFOSb%2Fq1fJmLQX2diZE%3D",
+          "description": "As a freshman in college, I am always running around and I cherish my downtime. When I do have downtime, I love to play story driven games and get really immersed in their stories.\n\nHowever, because of my lack of time, I often find myself replaying games for one simple reason. It is hard to discover new games when you don't have time to research them. This reason is what lead me to create \"Video Game Finder\".",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/4592/6b1e41b901f54cecabf61caa7fc9d8bd/APP_ICON_LARGE?versionId=U2jz.kqXGxfvxN0Uq_BSOV9oyFuu7dog&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548276816&Signature=ZtD6D7TzmaM7SBZ7IqjIua4y5RQ%3D"
+        },
+        "en-CA": {
+          "summary": "Video Game Finder is a skill that will help you find the perfect video game!",
+          "examplePhrases": [
+            "Alexa, open video game finder",
+            "Alexa, tell video game finder search battlefield",
+            "Alexa, search battlefield"
+          ],
+          "keywords": [
+            "video",
+            "games"
+          ],
+          "name": "Video Game Finder",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/2148/3dc77f337c184fb5811089f7ae8b135d/APP_ICON?versionId=qL0OVbfHTel4g7emW8EgTVkxQTXgRFx2&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548276816&Signature=Z0aYW2Z%2BmFOSb%2Fq1fJmLQX2diZE%3D",
+          "description": "As a freshman in college, I am always running around and I cherish my downtime. When I do have downtime, I love to play story driven games and get really immersed in their stories.\n\nHowever, because of my lack of time, I often find myself replaying games for one simple reason. It is hard to discover new games when you don't have time to research them. This reason is what lead me to create \"Video Game Finder\".",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/4592/6b1e41b901f54cecabf61caa7fc9d8bd/APP_ICON_LARGE?versionId=U2jz.kqXGxfvxN0Uq_BSOV9oyFuu7dog&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548276816&Signature=ZtD6D7TzmaM7SBZ7IqjIua4y5RQ%3D"
+        },
+        "en-IN": {
+          "summary": "Video Game Finder is a skill that will help you find the perfect video game!",
+          "examplePhrases": [
+            "Alexa, open video game finder",
+            "Alexa, tell video game finder search battlefield",
+            "Alexa, search battlefield"
+          ],
+          "keywords": [
+            "video",
+            "games"
+          ],
+          "name": "Video Game Finder",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/2148/3dc77f337c184fb5811089f7ae8b135d/APP_ICON?versionId=qL0OVbfHTel4g7emW8EgTVkxQTXgRFx2&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548276816&Signature=Z0aYW2Z%2BmFOSb%2Fq1fJmLQX2diZE%3D",
+          "description": "As a freshman in college, I am always running around and I cherish my downtime. When I do have downtime, I love to play story driven games and get really immersed in their stories.\n\nHowever, because of my lack of time, I often find myself replaying games for one simple reason. It is hard to discover new games when you don't have time to research them. This reason is what lead me to create \"Video Game Finder\".",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/4592/6b1e41b901f54cecabf61caa7fc9d8bd/APP_ICON_LARGE?versionId=U2jz.kqXGxfvxN0Uq_BSOV9oyFuu7dog&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548276816&Signature=ZtD6D7TzmaM7SBZ7IqjIua4y5RQ%3D"
+        },
+        "en-AU": {
+          "summary": "Video Game Finder is a skill that will help you find the perfect video game!",
+          "examplePhrases": [
+            "Alexa, open video game finder",
+            "Alexa, tell video game finder search battlefield",
+            "Alexa, search battlefield"
+          ],
+          "keywords": [
+            "video",
+            "games"
+          ],
+          "name": "Video Game Finder",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/2148/3dc77f337c184fb5811089f7ae8b135d/APP_ICON?versionId=qL0OVbfHTel4g7emW8EgTVkxQTXgRFx2&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548276816&Signature=Z0aYW2Z%2BmFOSb%2Fq1fJmLQX2diZE%3D",
+          "description": "As a freshman in college, I am always running around and I cherish my downtime. When I do have downtime, I love to play story driven games and get really immersed in their stories.\n\nHowever, because of my lack of time, I often find myself replaying games for one simple reason. It is hard to discover new games when you don't have time to research them. This reason is what lead me to create \"Video Game Finder\".",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/4592/6b1e41b901f54cecabf61caa7fc9d8bd/APP_ICON_LARGE?versionId=U2jz.kqXGxfvxN0Uq_BSOV9oyFuu7dog&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548276816&Signature=ZtD6D7TzmaM7SBZ7IqjIua4y5RQ%3D"
+        },
+        "en-GB": {
+          "summary": "Video Game Finder is a skill that will help you find the perfect video game!",
+          "examplePhrases": [
+            "Alexa, open video game finder",
+            "Alexa, tell video game finder search battlefield",
+            "Alexa, search battlefield"
+          ],
+          "keywords": [
+            "video",
+            "games"
+          ],
+          "name": "Video Game Finder",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/2148/3dc77f337c184fb5811089f7ae8b135d/APP_ICON?versionId=qL0OVbfHTel4g7emW8EgTVkxQTXgRFx2&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548276816&Signature=Z0aYW2Z%2BmFOSb%2Fq1fJmLQX2diZE%3D",
+          "description": "As a freshman in college, I am always running around and I cherish my downtime. When I do have downtime, I love to play story driven games and get really immersed in their stories.\n\nHowever, because of my lack of time, I often find myself replaying games for one simple reason. It is hard to discover new games when you don't have time to research them. This reason is what lead me to create \"Video Game Finder\".",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/4592/6b1e41b901f54cecabf61caa7fc9d8bd/APP_ICON_LARGE?versionId=U2jz.kqXGxfvxN0Uq_BSOV9oyFuu7dog&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1548276816&Signature=ZtD6D7TzmaM7SBZ7IqjIua4y5RQ%3D"
         }
       },
       "isAvailableWorldwide": true,
+      "category": "EDUCATION_AND_REFERENCE",
       "distributionCountries": []
     },
     "apis": {
@@ -21,6 +99,13 @@
         ]
       }
     },
-    "manifestVersion": "1.0"
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "isChildDirected": false,
+      "usesPersonalInfo": false
+    }
   }
 }
