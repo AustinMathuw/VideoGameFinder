@@ -194,6 +194,7 @@ const helpers = {
             element.game.screenshots.forEach(screenshot => {
                 data.screenshotImageUrls.push("https://images.igdb.com/igdb/image/upload/t_original/" + screenshot.image_id + ".jpeg");
             });
+            data.screenshotImageUrls = data.screenshotImageUrls.slice(0, 9);
             
             data.skillLogo = "";
             if(element.game.summary.indexOf("\n") > -1){
@@ -399,14 +400,16 @@ const Finder = {
                 });
                 ctx.renderSearchResultsOverall(handlerInput, resultsToDisplay, outputSpeech.pageTitleSearch, gameToSearch);
                 ctx.outputSpeech.push(outputSpeech.speechWithDisplay);
-                ctx.openMicrophone = true;
+                ctx.openMicrophone = false;
             } else {
                 ctx.outputSpeech.push(outputSpeech.speech);
                 var cardContent = "";
+                var index = 1;
                 results.forEach(result => {
-                    cardContent = cardContent + result.gameTitle + "\n";
+                    cardContent = cardContent + index + ": " + result.gameTitle + "\n";
+                    index++;
                 });
-                ctx.setCard(false, settings.SKILL_TITLE, cardContent);
+                ctx.setCard(false, outputSpeech.cardTitleSearch, cardContent);
                 ctx.openMicrophone = false;
             }
         }).catch(err => {
@@ -465,9 +468,17 @@ const Finder = {
                 ctx.outputSpeech.push(outputSpeech.speechWithDisplay);
             } else {
                 ctx.outputSpeech.push(outputSpeech.speech);
+                var cardContent = "";
+                var index = 1;
+                results.forEach(result => {
+                    cardContent = cardContent + index + ": " + result.gameTitle + "\n";
+                    index++;
+                });
+                ctx.setCard(false, outputSpeech.cardTitleDiscover, cardContent);
+                ctx.openMicrophone = false;
             }
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         }).catch(err => {
             outputSpeech = ctx.t('API_CALL_ERROR');
             logger.debug(err);
@@ -513,10 +524,12 @@ const Finder = {
         if(ctx.isAPLCapatable(handlerInput)) {
             ctx.renderSearchResultsInfo(handlerInput, results);
             ctx.addAPLCommands(commands);
-            outputSpeech = ctx.t('GENERAL_REPROMPT');
+            outputSpeech = ctx.t('GENERAL_REPROMPT', {
+                gameTitle: results[itemPosition - 1].gameTitle
+            });
             ctx.reprompt.push(outputSpeech.reprompt);
             ctx.outputSpeech.push(outputSpeech.speech);
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -558,7 +571,7 @@ const Finder = {
         if(ctx.isAPLCapatable(handlerInput)) {
             ctx.addAPLCommands(commands);
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -584,7 +597,7 @@ const Finder = {
         if(ctx.isAPLCapatable(handlerInput)) {
             ctx.addAPLCommands(commands);
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -611,7 +624,7 @@ const Finder = {
             }
             ctx.outputSpeech.push(outputSpeech.speech);
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -637,7 +650,7 @@ const Finder = {
                 }
             ];
             ctx.addAPLCommands(commands);
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         }).catch(err => {
             outputSpeech = ctx.t('API_CALL_ERROR');
             logger.debug(err);
@@ -660,7 +673,7 @@ const Finder = {
             }  
         ];
         ctx.addAPLCommands(commands);
-        ctx.openMicrophone = true;
+        ctx.openMicrophone = false;
     },
     changeGameInfoView: async function (handlerInput, index, result, playVideo = false) {
         let {
@@ -702,7 +715,7 @@ const Finder = {
             } else {
                 await Finder.stopVideo(handlerInput, result);
             }
-            ctx.openMicrophone = true;
+            ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);

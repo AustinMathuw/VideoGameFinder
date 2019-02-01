@@ -28,11 +28,12 @@ const messages = {
         displayText: 'What would you like to do?'
       },
       'GENERAL_HELP': {
-        outputSpeech: 'Try asking me to find you a game, or say "search" to search for a game. ' +
-          'What would you like to do? ',
+        outputSpeech: 'Try asking me to find you a game, or say "search" to search for a game. ',
+        outputSpeechNoDisplay: 'For a better experience, switch to a screened device such as an Echo Show or a fire TV. ',
+        outputSpeechEnd: 'What would you like to do? ',
         reprompt: "Sorry, I didn't catch that, what would you like to do next?",
         displayTitle: SKILL_TITLE + ' - Help',
-        displayText: 'I can tell you expected arrivals of transit for a specific station on a route.'
+        displayText: 'I can help you find games that might intrest you.'
       },
       'UNHANDLED_REQUEST': {
         outputSpeech: "Sorry, I didn't get that. Please say again!",
@@ -59,14 +60,17 @@ const messages = {
         'select option 1'
       ],
       'GENERAL_REPROMPT': {
+        speech: "Here's {{gameTitle}}",
         reprompt: "Sorry, I didn't catch that, what would you like to do next?"
       },
       'SEARCH_RESULTS': {
-        speech: "I have sent a list of games I found to your Alexa App...",
+        speech: "I have sent a list of games I found to the Activity section of your Alexa App...",
         speechWithDisplay: "Here are some games I found...",
         reprompt: 'What\'s next?',
         pageTitleDiscover: SKILL_TITLE + ' - Discover',
-        pageTitleSearch: SKILL_TITLE + ' - Search: {{keyword}}'
+        pageTitleSearch: SKILL_TITLE + ' - Search: {{keyword}}',
+        cardTitleDiscover: 'Discover',
+        cardTitleSearch: 'Search: {{keyword}}'
       },
       'NO_SEARCH_RESULTS': {
         outputSpeech: 'I\'m sorry, but I cannot find any games matching that criteria.',

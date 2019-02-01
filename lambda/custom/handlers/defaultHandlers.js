@@ -250,7 +250,7 @@ const defaultHandlers = {
   },
 
   /**
-   * Default Help
+   * Default Launch
    */
   LaunchHandler: {
     canHandle(handlerInput) {
@@ -330,8 +330,13 @@ const defaultHandlers = {
       let messageKey = 'GENERAL_HELP';
 
       let responseMessage = ctx.t(messageKey);
-      ctx.renderDefault(handlerInput, responseMessage);
       ctx.outputSpeech.push(responseMessage.outputSpeech);
+      if(display.isAPLCapatable(handlerInput)) {
+        ctx.renderDefault(handlerInput, responseMessage);
+      } else {
+        ctx.outputSpeech.push(responseMessage.outputSpeechNoDisplay);
+      }
+      ctx.outputSpeech.push(responseMessage.outputSpeechEnd);
       ctx.reprompt.push(responseMessage.reprompt);
       ctx.openMicrophone = true;
 
