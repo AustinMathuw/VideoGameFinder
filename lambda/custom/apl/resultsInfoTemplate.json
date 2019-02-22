@@ -190,13 +190,12 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToItemInfo",
-                                                    "onPress": {
+                                                    "onPress": [{
                                                         "type": "SendEvent",
                                                         "arguments": [
-                                                            "GoToItemInfo",
-                                                            "${result}"
+                                                            "GoToItemInfo"
                                                         ]
-                                                    },
+                                                    }],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -254,12 +253,12 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoBackToResults",
-                                                    "onPress": {
+                                                    "onPress": [{
                                                         "type": "SendEvent",
                                                         "arguments": [
                                                             "GoBackToResults"
                                                         ]
-                                                    },
+                                                    }],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -365,14 +364,12 @@
                                                     {
                                                         "type": "TouchWrapper",
                                                         "id": "ItemView",
-                                                        "onPress": {
+                                                        "onPress": [{
                                                             "type": "SendEvent",
                                                             "arguments": [
-                                                                "ItemView",
-                                                                "${result}",
-                                                                "${result.resultNum}"
+                                                                "ItemView"
                                                             ]
-                                                        },
+                                                        }],
                                                         "item": [
                                                             {
                                                                 "type": "ScrollView",
@@ -403,14 +400,12 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToPrevItem",
-                                                    "onPress": {
+                                                    "onPress": [{
                                                         "type": "SendEvent",
                                                         "arguments": [
-                                                            "GoToPrevItem",
-                                                            "${result}",
-                                                            "${result.resultNum - 1}"
+                                                            "GoToPrevItem"
                                                         ]
-                                                    },
+                                                    }],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -436,14 +431,12 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToNextItem",
-                                                    "onPress": {
+                                                    "onPress": [{
                                                         "type": "SendEvent",
                                                         "arguments": [
-                                                            "GoToNextItem",
-                                                            "${result}",
-                                                            "${result.resultNum + 1}"
+                                                            "GoToNextItem"
                                                         ]
-                                                    },
+                                                    }],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -467,13 +460,12 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToItemScreenshots",
-                                                    "onPress": {
+                                                    "onPress": [{
                                                         "type": "SendEvent",
                                                         "arguments": [
-                                                            "GoToItemScreenshots",
-                                                            "${result}"
+                                                            "GoToItemScreenshots"
                                                         ]
-                                                    },
+                                                    }],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -497,13 +489,12 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToItemVideo",
-                                                    "onPress": {
+                                                    "onPress": [{
                                                         "type": "SendEvent",
                                                         "arguments": [
-                                                            "GoToItemVideo",
-                                                            "${result}"
+                                                            "GoToItemVideo"
                                                         ]
-                                                    },
+                                                    }],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -528,13 +519,12 @@
                                             {
                                                 "type": "TouchWrapper",
                                                 "id": "StopVideo",
-                                                "onPress": {
+                                                "onPress": [{
                                                     "type": "SendEvent",
                                                     "arguments": [
-                                                        "StopVideo",
-                                                        "${result}"
+                                                        "StopVideo"
                                                     ]
-                                                },
+                                                }],
                                                 "item": [
                                                     {
                                                         "type": "Video",
@@ -562,13 +552,12 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToItemInfo",
-                                                    "onPress": {
+                                                    "onPress": [{
                                                         "type": "SendEvent",
                                                         "arguments": [
-                                                            "GoToItemInfo",
-                                                            "${result}"
+                                                            "GoToItemInfo"
                                                         ]
-                                                    },
+                                                    }],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -644,7 +633,6 @@
             ],
             "type": "object",
             "properties": {
-                "type": "resultsPager",
                 "results": [
                     {
                         "summarySSML": "<speak>A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.</speak>",

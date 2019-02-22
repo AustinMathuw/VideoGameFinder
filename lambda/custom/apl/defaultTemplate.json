@@ -147,12 +147,15 @@
                             "justifyContent": "${viewport.shape == 'round' ? 'center' : 'end'}",
                             "items": [
                                 {
-                                    "paddingLeft": "@marginLeft",
-                                    "paddingRight": "@marginRight",
-                                    "type": "Text",
-                                    "text": "${payload.data.properties.message}",
-                                    "style": "textStyleBody",
-                                    "align": "${viewport.shape == 'round' ? 'center' : 'left'}"
+                                    "type": "ScrollView",
+                                        "item": {
+                                        "paddingLeft": "@marginLeft",
+                                        "paddingRight": "@marginRight",
+                                        "type": "Text",
+                                        "text": "${payload.data.properties.message}",
+                                        "style": "textStyleBody",
+                                        "align": "${viewport.shape == 'round' ? 'center' : 'left'}"
+                                    }
                                 }
                             ]
                         },

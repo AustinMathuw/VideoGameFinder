@@ -493,6 +493,7 @@ const Finder = {
         } = handlerInput;
         let sessionAttributes = attributesManager.getSessionAttributes();
         sessionAttributes.state = settings.SKILL_STATES.DETAILED_RESULTS_STATE;
+        logger.debug(itemPosition);
 
         let ctx = attributesManager.getRequestAttributes();
         var commands = [
@@ -529,7 +530,7 @@ const Finder = {
             });
             ctx.reprompt.push(outputSpeech.reprompt);
             ctx.outputSpeech.push(outputSpeech.speech);
-            ctx.openMicrophone = false;
+            ctx.openMicrophone = true;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);

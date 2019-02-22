@@ -33,7 +33,7 @@ const messages = {
         outputSpeechEnd: 'What would you like to do? ',
         reprompt: "Sorry, I didn't catch that, what would you like to do next?",
         displayTitle: SKILL_TITLE + ' - Help',
-        displayText: 'I can help you find games that might intrest you.'
+        displayText: 'I can help you find games that might interest you.'
       },
       'UNHANDLED_REQUEST': {
         outputSpeech: "Sorry, I didn't get that. Please say again!",

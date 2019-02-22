@@ -218,12 +218,13 @@ const aplHandlers = {
                 requestEnvelope
             } = handlerInput;
             let sessionAttributes = attributesManager.getSessionAttributes();
+            var results = sessionAttributes.results;
             if(sessionAttributes.state != settings.SKILL_STATES.DETAILED_RESULTS_STATE){
                 Finder.invalidInteraction(handlerInput, settings.SKILL_INTERACTIONS.PLAY_VIDEO)
                 return handlerInput.responseBuilder.getResponse();
             }
             logger.debug('APL.PlayVideo: handle');
-            await Finder.playVideo(handlerInput);
+            await Finder.playVideo(handlerInput, results[sessionAttributes.currentItem - 1]);
             return handlerInput.responseBuilder.getResponse();
         },
     },
@@ -242,12 +243,13 @@ const aplHandlers = {
                 requestEnvelope
             } = handlerInput;
             let sessionAttributes = attributesManager.getSessionAttributes();
+            var results = sessionAttributes.results;
             if(sessionAttributes.state != settings.SKILL_STATES.DETAILED_RESULTS_STATE){
                 Finder.invalidInteraction(handlerInput, settings.SKILL_INTERACTIONS.STOP_VIDEO)
                 return handlerInput.responseBuilder.getResponse();
             }
             logger.debug('APL.StopVideo: handle');
-            Finder.stopVideo(handlerInput);
+            Finder.stopVideo(handlerInput, results[sessionAttributes.currentItem - 1]);
             return handlerInput.responseBuilder.getResponse();
         },
     },

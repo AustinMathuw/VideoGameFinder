@@ -148,13 +148,13 @@
                     {
                         "type": "TouchWrapper",
                         "id": "SearchItem",
-                        "onPress": {
+                        "onPress": [{
                             "type": "SendEvent",
                             "arguments": [
                                 "SearchItem",
                                 "${ordinal}"
                             ]
-                        },
+                        }],
                         "item": [
                             {
                                 "type": "Container",
@@ -208,13 +208,13 @@
                     {
                         "type": "TouchWrapper",
                         "id": "SearchItem",
-                        "onPress": {
+                        "onPress": [{
                             "type": "SendEvent",
                             "arguments": [
                                 "SearchItem",
                                 "${ordinal}"
                             ]
-                        },
+                        }],
                         "item": {
                             "type": "Container",
                             "maxWidth": 528,

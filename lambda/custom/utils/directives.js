@@ -16,13 +16,12 @@ const APL = {
   // returns a APL directive for game search w/ results (OVERALL)
   setSearchOverallDisplay: function (games, searchedGame, backgroundImage, pageTitle, logoUrl, hintText) {
     let payload = {
-      "type": "resultsDisplay",
       "searchedGame": searchedGame,
       "backgroundImageUrl": backgroundImage,
       "pageTitle": pageTitle,
       "skillLogo": logoUrl,
-      "hintText": hintText,
-      "results": games
+      "results": games,
+      "hintText": hintText
     }
     let data = {
       "type": "object",
@@ -46,7 +45,6 @@ const APL = {
   // returns a APL directive for game search w/ results (INFO)
   setSearchInfoDisplay: function (games) {
     let payload = {
-      "type": "resultsPager",
       "results": games
     }
     let data = {
