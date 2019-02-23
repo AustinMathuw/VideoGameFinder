@@ -85,12 +85,12 @@ const Display = {
 
   renderSearchResultsInfo: function (
     /* The Alexa request and attributes */
-    handlerInput, games) {
+    handlerInput, game) {
     let ctx = handlerInput.attributesManager.getRequestAttributes();
     let sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
 
     ctx.directives.push(directives.APL.setSearchInfoDisplay(
-      games
+      game
     ));
   },
 
