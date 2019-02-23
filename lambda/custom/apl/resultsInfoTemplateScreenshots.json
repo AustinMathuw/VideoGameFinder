@@ -160,7 +160,7 @@
                                     {
                                         "type": "Image",
                                         "source": "${data}",
-                                        "scale": "${((viewport.shape != 'round') ? 'fill' : 'best-fit')}",
+                                        "scale": "${((viewport.shape != 'round') ? 'best-fit' : 'best-fit')}",
                                         "width": "100vw",
                                         "height": "100vh"
                                     }
@@ -523,7 +523,7 @@
                                 "onPress": [{
                                     "type": "SendEvent",
                                     "arguments": [
-                                        "StopVideo"
+                                        "ToggleVideo"
                                     ]
                                 }],
                                 "item": [
@@ -532,11 +532,17 @@
                                         "id": "${result.videoID}",
                                         "height": "100vh",
                                         "width": "100vw",
-                                        "source": "",
+                                        "source": "${result.videoURL}",
                                         "onPause": {
                                             "type": "SetPage",
                                             "componentId": "${result.resultNum}",
                                             "value": 1
+                                        },
+                                        "onEnd" : {
+                                            "type": "SendEvent",
+                                            "arguments": [
+                                                "GoToItemInfo"
+                                            ]
                                         },
                                         "autoplay": false
                                     }

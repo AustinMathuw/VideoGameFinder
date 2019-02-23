@@ -8,8 +8,11 @@
 
 // Require our APL templates
 var resultsOverallTemplate = require('../apl/resultsOverallTemplate.json');
-var resultsInfoTemplate = require('../apl/resultsInfoTemplate.json');
+var resultsInfoTemplateScreenshots = require('../apl/resultsInfoTemplateScreenshots.json');
+var resultsInfoTemplateMain = require('../apl/resultsInfoTemplateMain.json');
+var resultsInfoTemplateVideo = require('../apl/resultsInfoTemplateVideo.json');
 var defaultTemplate = require('../apl/defaultTemplate.json');
+var settings = require('../config/settings.js')
 
 // Alexa Presentation Language (APL) Directives
 const APL = {
@@ -43,7 +46,7 @@ const APL = {
   },
 
   // returns a APL directive for game search w/ results (INFO)
-  setSearchInfoDisplay: function (game) {
+  setSearchInfoDisplay: function (game, scheme) {
     let payload = {
       "result": game
     }
@@ -63,11 +66,26 @@ const APL = {
         }
       ]
     }
+    var document;
+    switch(scheme) {
+      case settings.INFO_SCHEME.MAIN:
+        document = resultsInfoTemplateMain.document;
+        console.log("Render Main view");
+        break;
+      case settings.INFO_SCHEME.SCREENSHOTS:
+        document = resultsInfoTemplateScreenshots.document;
+        console.log("Render Main screenshots");
+        break;
+      case settings.INFO_SCHEME.VIDEO:
+        document = resultsInfoTemplateVideo.document;
+        console.log("Render Main video");
+        break;
+    }
     return {
       "type": 'Alexa.Presentation.APL.RenderDocument',
       "version": '1.0',
       "token": "token",
-      "document": resultsInfoTemplate.document,
+      "document": document,
       "datasources": {data}
     };
   },

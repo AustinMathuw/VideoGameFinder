@@ -513,7 +513,7 @@ const Finder = {
         sessionAttributes.currentItem = parseInt(itemPosition);
         var outputSpeech = ctx.t('GENERAL_REPROMPT');
         if(ctx.isAPLCapatable(handlerInput)) {
-            ctx.renderSearchResultsInfo(handlerInput, results[itemPosition - 1]);
+            ctx.renderSearchResultsInfo(handlerInput, results[itemPosition - 1], settings.INFO_SCHEME.MAIN);
             ctx.addAPLCommands(commands);
             outputSpeech = ctx.t('GENERAL_REPROMPT', {
                 gameTitle: results[itemPosition - 1].gameTitle
@@ -550,7 +550,7 @@ const Finder = {
         ];
         var outputSpeech = ctx.t('SEARCH_RESULT_ITEM_INFO');
         if(ctx.isAPLCapatable(handlerInput)) {
-            ctx.renderSearchResultsInfo(handlerInput, results[itemPosition - 1]);
+            ctx.renderSearchResultsInfo(handlerInput, results[itemPosition - 1], settings.INFO_SCHEME.MAIN);
             ctx.addAPLCommands(commands);
             ctx.reprompt.push(outputSpeech.reprompt);
             ctx.openMicrophone = false;
@@ -626,9 +626,9 @@ const Finder = {
             logger.log(videoURL);
             var commands = [
                 {
-                    "type": "PlayMedia",
+                    "type": "ControlMedia",
                     "componentId": itemToShowOn,
-                    "source": videoURL
+                    "command": "play"
                 }
             ];
             ctx.addAPLCommands(commands);
@@ -677,26 +677,49 @@ const Finder = {
             }
         ];
 
-        if(index == 0){
-            commands.push({
-                "type": "AutoPage",
-                "componentId": result.resultNum + "-Screenshots-Pager",
-                "duration": 5000
-            });
-        }
-
-        ctx.addAPLCommands(commands);
-
         var outputSpeech;
         if(ctx.isAPLCapatable(handlerInput)) {
             outputSpeech = ctx.t('GENERAL_REPROMPT');
             ctx.reprompt.push(outputSpeech.reprompt);
-
-            if(playVideo) {
-                await Finder.playVideo(handlerInput, result);
-            } else {
-                await Finder.stopVideo(handlerInput, result);
+            switch(index) {
+                case 0:
+                    sessionAttributes.videoState = "stopped";
+                    commands.push({
+                        "type": "AutoPage",
+                        "componentId": result.resultNum + "-Screenshots-Pager",
+                        "duration": 5000
+                    });
+                    ctx.renderSearchResultsInfo(handlerInput, result, settings.INFO_SCHEME.SCREENSHOTS);
+                    break;
+                case 1:
+                    sessionAttributes.videoState = "stopped";
+                    ctx.renderSearchResultsInfo(handlerInput, result, settings.INFO_SCHEME.MAIN);
+                    break;
+                case 2:
+                    var itemToShowOn = result.videoID;
+                    await helpers.getVideoURL(itemToShowOn).then(videoURL => {
+                        sessionAttributes.videoState = "playing";
+                        logger.log(itemToShowOn);
+                        logger.log(videoURL);
+                        var commands = [
+                            {
+                                "type": "PlayMedia",
+                                "componentId": itemToShowOn,
+                                "source": videoURL
+                            }
+                        ];
+                        ctx.addAPLCommands(commands);
+                        ctx.openMicrophone = false;
+                        ctx.renderSearchResultsInfo(handlerInput, result, settings.INFO_SCHEME.VIDEO);
+                    }).catch(err => {
+                        outputSpeech = ctx.t('API_CALL_ERROR');
+                        logger.debug(err);
+                        ctx.outputSpeech.push(outputSpeech);
+                        ctx.openMicrophone = false;
+                    });
+                    break;
             }
+            ctx.addAPLCommands(commands);
             ctx.openMicrophone = false;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');

@@ -354,7 +354,7 @@
                     "skillLogo": "${payload.data.properties.skillLogo}",
                     "type": "resultsDisplay",
                     "results":   "${payload.data.properties.results}"
-                    }
+                }
             ]
         }
     },

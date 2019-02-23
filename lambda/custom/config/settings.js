@@ -46,6 +46,12 @@ module.exports = (function () {
     DETAILED_RESULTS_STATE: '_DETAILED_RESULTS_STATE'
   };
 
+  const INFO_SCHEME = {
+    MAIN: '_MAIN',
+    SCREENSHOTS: '_SCREENSHOTS',
+    VIDEO: '_VIDEO'
+  };
+
   const SKILL_INTERACTIONS = {
     GO_BACK: 'GO_BACK',
     STOP_VIDEO: 'STOP_VIDEO',
@@ -74,6 +80,7 @@ module.exports = (function () {
   return Object.freeze({
     SKILL_TITLE: 'Video Game Finder',
     VIDEO_CONVERTER_URL: VIDEO_CONVERTER_URL,
+    INFO_SCHEME: INFO_SCHEME,
     VIDEO_NAME: VIDEO_NAME,
     SKILL_STATES: SKILL_STATES,
     SKILL_INTERACTIONS: SKILL_INTERACTIONS,

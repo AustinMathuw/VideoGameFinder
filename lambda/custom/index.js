@@ -24,10 +24,9 @@ exports.handler = function (event, context) {
     .addRequestHandlers(
       APLHandlers.InProgressNavigateToItem,
       APLHandlers.NavigateToItem,
-      APLHandlers.PlayVideo,
       APLHandlers.SearchItemSelected,
       APLHandlers.ItemViewSelected,
-      APLHandlers.StopVideo,
+      APLHandlers.ToggleVideo,
       APLHandlers.GoBackToResults,
       CustomHandlers.InProgressSearchIntent,
       CustomHandlers.CompletedSearchIntent,

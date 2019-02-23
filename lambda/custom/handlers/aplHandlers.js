@@ -135,6 +135,7 @@ const aplHandlers = {
             }
             
             var results = sessionAttributes.results;
+            await Finder.stopVideo(handlerInput, results[sessionAttributes.currentItem - 1]);
 
             if(requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent') {
                 logger.debug('APL.NavigateToItem tap: handle: ' + requestEnvelope.request.arguments[0]);
@@ -203,39 +204,14 @@ const aplHandlers = {
             return handlerInput.responseBuilder.getResponse();
         },
     },
-    PlayVideo: {
+    ToggleVideo: {
         canHandle(handlerInput) {
-            logger.debug('APL.PlayVideo: canHandle');
+            logger.debug('APL.ToggleVideo: canHandle');
             let {
                 requestEnvelope
             } = handlerInput;
             return (requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent'
-                && requestEnvelope.request.arguments[0] === 'PlayVideo');
-        },
-        async handle(handlerInput) {
-            let {
-                attributesManager,
-                requestEnvelope
-            } = handlerInput;
-            let sessionAttributes = attributesManager.getSessionAttributes();
-            var results = sessionAttributes.results;
-            if(sessionAttributes.state != settings.SKILL_STATES.DETAILED_RESULTS_STATE){
-                Finder.invalidInteraction(handlerInput, settings.SKILL_INTERACTIONS.PLAY_VIDEO)
-                return handlerInput.responseBuilder.getResponse();
-            }
-            logger.debug('APL.PlayVideo: handle');
-            await Finder.playVideo(handlerInput, results[sessionAttributes.currentItem - 1]);
-            return handlerInput.responseBuilder.getResponse();
-        },
-    },
-    StopVideo: {
-        canHandle(handlerInput) {
-            logger.debug('APL.StopVideo: canHandle');
-            let {
-                requestEnvelope
-            } = handlerInput;
-            return (requestEnvelope.request.type === 'Alexa.Presentation.APL.UserEvent'
-                && requestEnvelope.request.arguments[0] === 'StopVideo');
+                && requestEnvelope.request.arguments[0] === 'ToggleVideo');
         },
         async handle(handlerInput) {
             let {
@@ -248,8 +224,14 @@ const aplHandlers = {
                 Finder.invalidInteraction(handlerInput, settings.SKILL_INTERACTIONS.STOP_VIDEO)
                 return handlerInput.responseBuilder.getResponse();
             }
-            logger.debug('APL.StopVideo: handle');
-            Finder.stopVideo(handlerInput, results[sessionAttributes.currentItem - 1]);
+            logger.debug('APL.ToggleVideo: handle');
+            if(sessionAttributes.videoState != "playing") {
+                sessionAttributes.videoState = "playing";
+                await Finder.playVideo(handlerInput, results[sessionAttributes.currentItem - 1]);
+            } else {
+                sessionAttributes.videoState = "stopped";
+                await Finder.stopVideo(handlerInput, results[sessionAttributes.currentItem - 1]);
+            }
             return handlerInput.responseBuilder.getResponse();
         },
     },
