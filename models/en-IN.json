@@ -1,1145 +1,1137 @@
 {
   "interactionModel": {
-    "languageModel": {
-      "invocationName": "video game finder",
-      "intents": [
-        {
-          "name": "AMAZON.CancelIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.HelpIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.StopIntent",
-          "samples": []
-        },
-        {
-          "name": "DiscoverIntent",
-          "slots": [
-            {
-              "name": "platform",
-              "type": "Platforms"
-            },
-            {
-              "name": "genre",
-              "type": "Genres"
-            },
-            {
-              "name": "theme",
-              "type": "Themes"
-            },
-            {
-              "name": "gamemode",
-              "type": "Gamemodes"
-            },
-            {
-              "name": "perspective",
-              "type": "Perspectives"
-            },
-            {
-              "name": "ageRating",
-              "type": "AgeRating"
-            },
-            {
-              "name": "rating",
-              "type": "AMAZON.NUMBER"
-            }
+      "languageModel": {
+          "invocationName": "video game finder",
+          "intents": [
+              {
+                  "name": "AMAZON.CancelIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.HelpIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.StopIntent",
+                  "samples": []
+              },
+              {
+                  "name": "DiscoverIntent",
+                  "slots": [
+                      {
+                          "name": "platform",
+                          "type": "Platforms"
+                      },
+                      {
+                          "name": "genre",
+                          "type": "Genres"
+                      },
+                      {
+                          "name": "theme",
+                          "type": "Themes"
+                      },
+                      {
+                          "name": "gamemode",
+                          "type": "Gamemodes"
+                      },
+                      {
+                          "name": "perspective",
+                          "type": "Perspectives"
+                      },
+                      {
+                          "name": "ageRating",
+                          "type": "AgeRating"
+                      },
+                      {
+                          "name": "rating",
+                          "type": "AMAZON.NUMBER"
+                      }
+                  ],
+                  "samples": [
+                      "I want a {genre} game",
+                      "I want a rated {ageRating} game on {platform}",
+                      "I want a {theme} game on {platform}",
+                      "Find me a {theme} game on {platform}",
+                      "I want a game with an overall rating over {rating}",
+                      "I want a {ageRating} game",
+                      "I want a rated {ageRating} game",
+                      "I want a game with {perspective}",
+                      "I want a game with {gamemode}",
+                      "I want a {theme} game",
+                      "I want a game about {genre}",
+                      "I want a game for {platform}"
+                  ]
+              },
+              {
+                  "name": "SearchIntent",
+                  "slots": [
+                      {
+                          "name": "videogame",
+                          "type": "AMAZON.VideoGame",
+                          "samples": [
+                              "Show results for {videogame}",
+                              "I am looking for {videogame}",
+                              "{videogame}"
+                          ]
+                      }
+                  ],
+                  "samples": [
+                      "Search",
+                      "Search for a video game",
+                      "Search a video game",
+                      "Search for a game",
+                      "Search a game",
+                      "What do you have on {videogame}",
+                      "Search {videogame}",
+                      "Search for {videogame}"
+                  ]
+              },
+              {
+                  "name": "AMAZON.NavigateHomeIntent",
+                  "samples": []
+              },
+              {
+                  "name": "SelectIntent",
+                  "slots": [
+                      {
+                          "name": "item",
+                          "type": "AMAZON.Ordinal"
+                      }
+                  ],
+                  "samples": [
+                      "display {item}",
+                      "display item {item}",
+                      "show me item {item}",
+                      "show me {item}",
+                      "item {item}",
+                      "select item {item}",
+                      "select {item}",
+                      "option {item}",
+                      "select option {item}"
+                  ]
+              },
+              {
+                  "name": "NavigateDetailsIntent",
+                  "slots": [
+                      {
+                          "name": "navigation",
+                          "type": "NavgationTypes",
+                          "samples": [
+                              "{navigation}"
+                          ]
+                      }
+                  ],
+                  "samples": [
+                      "{navigation}",
+                      "display {navigation}",
+                      "show me {navigation}",
+                      "go to {navigation}",
+                      "play {navigation}"
+                  ]
+              },
+              {
+                  "name": "ShowResultsIntent",
+                  "slots": [],
+                  "samples": [
+                      "show results",
+                      "show me results",
+                      "display results",
+                      "results",
+                      "show me the results",
+                      "go back"
+                  ]
+              },
+              {
+                  "name": "ReadTextIntent",
+                  "slots": [],
+                  "samples": [
+                      "play summary",
+                      "speak summary",
+                      "read summary out",
+                      "read summary out load",
+                      "summary",
+                      "read summary"
+                  ]
+              }
           ],
-          "samples": [
-            "I want a {genre} game",
-            "I want a rated {ageRating} game on {platform}",
-            "I want a {theme} game on {platform}",
-            "Find me a {theme} game on {platform}",
-            "I want a game with an overall rating over {rating}",
-            "I want a {ageRating} game",
-            "I want a rated {ageRating} game",
-            "I want a game with {perspective}",
-            "I want a game with {gamemode}",
-            "I want a {theme} game",
-            "I want a game about {genre}",
-            "I want a game for {platform}"
+          "types": [
+              {
+                  "name": "Platforms",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "playstation three",
+                              "synonyms": [
+                                  "play station 3",
+                                  "play station three",
+                                  "playstation 3"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "xbox three sixty",
+                              "synonyms": [
+                                  "xbox",
+                                  "x box three sixty",
+                                  "x box 360"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "xbox one",
+                              "synonyms": [
+                                  "xbox",
+                                  "xbox 1",
+                                  "x box 1",
+                                  "x box one"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "playstation four",
+                              "synonyms": [
+                                  "play station four",
+                                  "playstation 4",
+                                  "play station 4"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "nitendo switch",
+                              "synonyms": [
+                                  "switch"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "pc",
+                              "synonyms": [
+                                  "windows"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "mac",
+                              "synonyms": [
+                                  "mac o s",
+                                  "mac os",
+                                  "osx",
+                                  "o s x"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "linux"
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "Genres",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "arcade"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "indie"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "adventure"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "pinball"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "trivia"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "hack and slash"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "tactical"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "turn based strategy"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "sport"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "strategy"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "simulator"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "role playing"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "real time strategy",
+                              "synonyms": [
+                                  "r t s",
+                                  "rts"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "racing"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "puzzle"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "platform"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "music"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "shooter"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "fighting"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "point and click"
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "Themes",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "mystery"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "erotic"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "party"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "warfare"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "open world"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "kids"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "educational"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "sandbox"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "non fiction",
+                              "synonyms": [
+                                  "non-fiction",
+                                  "nonfiction"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "drama"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "business"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "comedy"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "stealth"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "historical"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "survival"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "thriller"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "horror"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "science fiction",
+                              "synonyms": [
+                                  "science-fiction",
+                                  "sciencefiction"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "fantasy"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "action"
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "Gamemodes",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "split screen",
+                              "synonyms": [
+                                  "split-screen",
+                                  "splitscreen"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "single player",
+                              "synonyms": [
+                                  "singleplayer",
+                                  "single-player"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "multiplayer"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "massively muiltiplayer",
+                              "synonyms": [
+                                  "m m o",
+                                  "mmo"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "co-operative",
+                              "synonyms": [
+                                  "co-op",
+                                  "cooperative"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "Perspectives",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "virtual reality",
+                              "synonyms": [
+                                  "hmd",
+                                  "h m d",
+                                  "head mounted display",
+                                  "vr",
+                                  "v r"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "third person",
+                              "synonyms": [
+                                  "3rd person view",
+                                  "third person view",
+                                  "3rd person"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "text",
+                              "synonyms": [
+                                  "text-based",
+                                  "text based",
+                                  "console view",
+                                  "text view",
+                                  "console"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "side view",
+                              "synonyms": [
+                                  "side",
+                                  "scroll",
+                                  "scrolling"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "first person",
+                              "synonyms": [
+                                  "1st person",
+                                  "1st person view",
+                                  "first person view"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "bird view",
+                              "synonyms": [
+                                  "birds eye view",
+                                  "birds eye",
+                                  "top",
+                                  "top view"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "aural",
+                              "synonyms": [
+                                  "hearing"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "AgeRating",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "pegi 18",
+                              "synonyms": [
+                                  "pegi eight teen",
+                                  "pegi eighteen",
+                                  "eight teen",
+                                  "eighteen",
+                                  "18"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "pegi 16",
+                              "synonyms": [
+                                  "pegi sixteen",
+                                  "pegi six teen",
+                                  "16",
+                                  "six teen",
+                                  "sixteen"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "pegi 12",
+                              "synonyms": [
+                                  "pegi twelve",
+                                  "12",
+                                  "twelve"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "pegi 7",
+                              "synonyms": [
+                                  "pegi seven",
+                                  "7",
+                                  "seven"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "pegi 3",
+                              "synonyms": [
+                                  "any",
+                                  "pegi three",
+                                  "3",
+                                  "three"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "adults only",
+                              "synonyms": [
+                                  "a",
+                                  "A"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "mature",
+                              "synonyms": [
+                                  "m",
+                                  "M"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "teen",
+                              "synonyms": [
+                                  "t",
+                                  "T"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "everyone ten and up",
+                              "synonyms": [
+                                  "E ten",
+                                  "E 10 and up",
+                                  "E 10",
+                                  "E ten",
+                                  "10 and up",
+                                  "ten",
+                                  "10",
+                                  "everyone 10",
+                                  "everyone 10 and up",
+                                  "ten and up",
+                                  "everyone ten",
+                                  "everyone ten",
+                                  "e ten",
+                                  "e ten and up"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "everyone",
+                              "synonyms": [
+                                  "E",
+                                  "e"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "early childhood",
+                              "synonyms": [
+                                  "early child",
+                                  "early age",
+                                  "childhood",
+                                  "child",
+                                  "ec",
+                                  "e c",
+                                  "EC",
+                                  "E C"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "rating pending",
+                              "synonyms": [
+                                  "any",
+                                  "RP",
+                                  "R P",
+                                  "r p",
+                                  "rp",
+                                  "pending"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "Attributes",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "summary",
+                              "synonyms": [
+                                  "synopsis"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "storyline",
+                              "synonyms": [
+                                  "story"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "rating"
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "publishers",
+                              "synonyms": [
+                                  "publisher"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "developers",
+                              "synonyms": [
+                                  "developer"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "videos",
+                              "synonyms": [
+                                  "video"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "screenshots",
+                              "synonyms": [
+                                  "screenshot",
+                                  "screen shot",
+                                  "screen shots"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "pegi",
+                              "synonyms": [
+                                  "p e g i rating",
+                                  "peggy",
+                                  "peggy rating",
+                                  "pegi rating",
+                                  "p e g i",
+                                  "rated"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "esrb",
+                              "synonyms": [
+                                  "esrb rating",
+                                  "e s r b rating",
+                                  "e s r b",
+                                  "rated"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "player_perspectives",
+                              "synonyms": [
+                                  "player perspectives",
+                                  "perspectives",
+                                  "perspective",
+                                  "player perspective"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "game_modes",
+                              "synonyms": [
+                                  "game modes",
+                                  "gamemodes",
+                                  "modes",
+                                  "mode",
+                                  "gamemode",
+                                  "game mode"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "themes",
+                              "synonyms": [
+                                  "themes"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "genres",
+                              "synonyms": [
+                                  "categories",
+                                  "category",
+                                  "genres"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "platforms",
+                              "synonyms": [
+                                  "platforms"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "NavgationTypes",
+                  "values": [
+                      {
+                          "name": {
+                              "value": "summary",
+                              "synonyms": [
+                                  "general info",
+                                  "info"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "screenshots",
+                              "synonyms": [
+                                  "screen shots",
+                                  "slideshow",
+                                  "pictures",
+                                  "pics",
+                                  "images",
+                                  "slide show"
+                              ]
+                          }
+                      },
+                      {
+                          "name": {
+                              "value": "video",
+                              "synonyms": [
+                                  "teaser",
+                                  "trailer",
+                                  "trailers",
+                                  "videos"
+                              ]
+                          }
+                      }
+                  ]
+              }
           ]
-        },
-        {
-          "name": "SearchIntent",
-          "slots": [
-            {
-              "name": "videogame",
-              "type": "AMAZON.VideoGame",
-              "samples": [
-                "Show results for {videogame}",
-                "I am looking for {videogame}",
-                "{videogame}"
+      },
+      "dialog": {
+          "intents": [
+              {
+                  "name": "DiscoverIntent",
+                  "confirmationRequired": false,
+                  "prompts": {},
+                  "slots": [
+                      {
+                          "name": "platform",
+                          "type": "Platforms",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      },
+                      {
+                          "name": "genre",
+                          "type": "Genres",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      },
+                      {
+                          "name": "theme",
+                          "type": "Themes",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      },
+                      {
+                          "name": "gamemode",
+                          "type": "Gamemodes",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      },
+                      {
+                          "name": "perspective",
+                          "type": "Perspectives",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      },
+                      {
+                          "name": "ageRating",
+                          "type": "AgeRating",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      },
+                      {
+                          "name": "rating",
+                          "type": "AMAZON.NUMBER",
+                          "confirmationRequired": false,
+                          "elicitationRequired": false,
+                          "prompts": {}
+                      }
+                  ]
+              },
+              {
+                  "name": "SearchIntent",
+                  "confirmationRequired": false,
+                  "prompts": {},
+                  "slots": [
+                      {
+                          "name": "videogame",
+                          "type": "AMAZON.VideoGame",
+                          "confirmationRequired": false,
+                          "elicitationRequired": true,
+                          "prompts": {
+                              "elicitation": "Elicit.Slot.1413746775661.1395982134988"
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "NavigateDetailsIntent",
+                  "confirmationRequired": false,
+                  "prompts": {},
+                  "slots": [
+                      {
+                          "name": "navigation",
+                          "type": "NavgationTypes",
+                          "confirmationRequired": false,
+                          "elicitationRequired": true,
+                          "prompts": {
+                              "elicitation": "Elicit.Slot.1332151229750.1299329262963"
+                          }
+                      }
+                  ]
+              }
+          ],
+          "delegationStrategy": "SKILL_RESPONSE"
+      },
+      "prompts": [
+          {
+              "id": "Elicit.Slot.221855356193.602381477714",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What E S R B rating?"
+                  },
+                  {
+                      "type": "PlainText",
+                      "value": "What E S R B rating do you prefer?"
+                  }
               ]
-            }
-          ],
-          "samples": [
-            "Search",
-            "Search for a video game",
-            "Search a video game",
-            "Search for a game",
-            "Search a game",
-            "What do you have on {videogame}",
-            "Search {videogame}",
-            "Search for {videogame}"
-          ]
-        },
-        {
-          "name": "AMAZON.NavigateHomeIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.NextIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.PreviousIntent",
-          "samples": []
-        },
-        {
-          "name": "SelectIntent",
-          "slots": [
-            {
-              "name": "item",
-              "type": "AMAZON.Ordinal"
-            }
-          ],
-          "samples": [
-            "display {item}",
-            "display item {item}",
-            "show me item {item}",
-            "show me {item}",
-            "item {item}",
-            "select item {item}",
-            "select {item}",
-            "option {item}",
-            "select option {item}"
-          ]
-        },
-        {
-          "name": "NavigateDetailsIntent",
-          "slots": [
-            {
-              "name": "navigation",
-              "type": "NavgationTypes",
-              "samples": [
-                "{navigation}"
+          },
+          {
+              "id": "Elicit.Slot.221855356193.277658681871",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What PEGI rating do you prefer?"
+                  },
+                  {
+                      "type": "PlainText",
+                      "value": "What PEGI rating?"
+                  }
               ]
-            }
-          ],
-          "samples": [
-            "{navigation}",
-            "display {navigation}",
-            "show me {navigation}",
-            "go to {navigation}",
-            "play {navigation}"
-          ]
-        },
-        {
-          "name": "ShowResultsIntent",
-          "slots": [],
-          "samples": [
-            "show results",
-            "show me results",
-            "display results",
-            "results",
-            "show me the results",
-            "go back"
-          ]
-        },
-        {
-          "name": "ReadTextIntent",
-          "slots": [],
-          "samples": [
-            "play summary",
-            "speak summary",
-            "read summary out",
-            "read summary out load",
-            "summary",
-            "read summary"
-          ]
-        }
-      ],
-      "types": [
-        {
-          "values": [
-            {
-              "name": {
-                "value": "playstation three",
-                "synonyms": [
-                  "play station 3",
-                  "play station three",
-                  "playstation 3"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "xbox three sixty",
-                "synonyms": [
-                  "xbox",
-                  "x box three sixty",
-                  "x box 360"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "xbox one",
-                "synonyms": [
-                  "xbox",
-                  "xbox 1",
-                  "x box 1",
-                  "x box one"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "playstation four",
-                "synonyms": [
-                  "play station four",
-                  "playstation 4",
-                  "play station 4"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "nitendo switch",
-                "synonyms": [
-                  "switch"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "pc",
-                "synonyms": [
-                  "windows"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "mac",
-                "synonyms": [
-                  "mac o s",
-                  "mac os",
-                  "osx",
-                  "o s x"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "linux"
-              }
-            }
-          ],
-          "name": "Platforms"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "arcade"
-              }
-            },
-            {
-              "name": {
-                "value": "indie"
-              }
-            },
-            {
-              "name": {
-                "value": "adventure"
-              }
-            },
-            {
-              "name": {
-                "value": "pinball"
-              }
-            },
-            {
-              "name": {
-                "value": "trivia"
-              }
-            },
-            {
-              "name": {
-                "value": "hack and slash"
-              }
-            },
-            {
-              "name": {
-                "value": "tactical"
-              }
-            },
-            {
-              "name": {
-                "value": "turn based strategy"
-              }
-            },
-            {
-              "name": {
-                "value": "sport"
-              }
-            },
-            {
-              "name": {
-                "value": "strategy"
-              }
-            },
-            {
-              "name": {
-                "value": "simulator"
-              }
-            },
-            {
-              "name": {
-                "value": "role playing"
-              }
-            },
-            {
-              "name": {
-                "value": "real time strategy",
-                "synonyms": [
-                  "r t s",
-                  "rts"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "racing"
-              }
-            },
-            {
-              "name": {
-                "value": "puzzle"
-              }
-            },
-            {
-              "name": {
-                "value": "platform"
-              }
-            },
-            {
-              "name": {
-                "value": "music"
-              }
-            },
-            {
-              "name": {
-                "value": "shooter"
-              }
-            },
-            {
-              "name": {
-                "value": "fighting"
-              }
-            },
-            {
-              "name": {
-                "value": "point and click"
-              }
-            }
-          ],
-          "name": "Genres"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "mystery"
-              }
-            },
-            {
-              "name": {
-                "value": "erotic"
-              }
-            },
-            {
-              "name": {
-                "value": "party"
-              }
-            },
-            {
-              "name": {
-                "value": "warfare"
-              }
-            },
-            {
-              "name": {
-                "value": "open world"
-              }
-            },
-            {
-              "name": {
-                "value": "kids"
-              }
-            },
-            {
-              "name": {
-                "value": "educational"
-              }
-            },
-            {
-              "name": {
-                "value": "sandbox"
-              }
-            },
-            {
-              "name": {
-                "value": "non fiction",
-                "synonyms": [
-                  "non-fiction",
-                  "nonfiction"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "drama"
-              }
-            },
-            {
-              "name": {
-                "value": "business"
-              }
-            },
-            {
-              "name": {
-                "value": "comedy"
-              }
-            },
-            {
-              "name": {
-                "value": "stealth"
-              }
-            },
-            {
-              "name": {
-                "value": "historical"
-              }
-            },
-            {
-              "name": {
-                "value": "survival"
-              }
-            },
-            {
-              "name": {
-                "value": "thriller"
-              }
-            },
-            {
-              "name": {
-                "value": "horror"
-              }
-            },
-            {
-              "name": {
-                "value": "science fiction",
-                "synonyms": [
-                  "science-fiction",
-                  "sciencefiction"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "fantasy"
-              }
-            },
-            {
-              "name": {
-                "value": "action"
-              }
-            }
-          ],
-          "name": "Themes"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "split screen",
-                "synonyms": [
-                  "split-screen",
-                  "splitscreen"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "single player",
-                "synonyms": [
-                  "singleplayer",
-                  "single-player"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "multiplayer"
-              }
-            },
-            {
-              "name": {
-                "value": "massively muiltiplayer",
-                "synonyms": [
-                  "m m o",
-                  "mmo"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "co-operative",
-                "synonyms": [
-                  "co-op",
-                  "cooperative"
-                ]
-              }
-            }
-          ],
-          "name": "Gamemodes"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "virtual reality",
-                "synonyms": [
-                  "hmd",
-                  "h m d",
-                  "head mounted display",
-                  "vr",
-                  "v r"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "third person",
-                "synonyms": [
-                  "3rd person view",
-                  "third person view",
-                  "3rd person"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "text",
-                "synonyms": [
-                  "text-based",
-                  "text based",
-                  "console view",
-                  "text view",
-                  "console"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "side view",
-                "synonyms": [
-                  "side",
-                  "scroll",
-                  "scrolling"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "first person",
-                "synonyms": [
-                  "1st person",
-                  "1st person view",
-                  "first person view"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "bird view",
-                "synonyms": [
-                  "birds eye view",
-                  "birds eye",
-                  "top",
-                  "top view"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "aural",
-                "synonyms": [
-                  "hearing"
-                ]
-              }
-            }
-          ],
-          "name": "Perspectives"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "pegi 18",
-                "synonyms": [
-                  "pegi eight teen",
-                  "pegi eighteen",
-                  "eight teen",
-                  "eighteen",
-                  "18"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "pegi 16",
-                "synonyms": [
-                  "pegi sixteen",
-                  "pegi six teen",
-                  "16",
-                  "six teen",
-                  "sixteen"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "pegi 12",
-                "synonyms": [
-                  "pegi twelve",
-                  "12",
-                  "twelve"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "pegi 7",
-                "synonyms": [
-                  "pegi seven",
-                  "7",
-                  "seven"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "pegi 3",
-                "synonyms": [
-                  "any",
-                  "pegi three",
-                  "3",
-                  "three"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "adults only",
-                "synonyms": [
-                  "a",
-                  "A"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "mature",
-                "synonyms": [
-                  "m",
-                  "M"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "teen",
-                "synonyms": [
-                  "t",
-                  "T"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "everyone ten and up",
-                "synonyms": [
-                  "E ten",
-                  "E 10 and up",
-                  "E 10",
-                  "E ten",
-                  "10 and up",
-                  "ten",
-                  "10",
-                  "everyone 10",
-                  "everyone 10 and up",
-                  "ten and up",
-                  "everyone ten",
-                  "everyone ten",
-                  "e ten",
-                  "e ten and up"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "everyone",
-                "synonyms": [
-                  "E",
-                  "e"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "early childhood",
-                "synonyms": [
-                  "early child",
-                  "early age",
-                  "childhood",
-                  "child",
-                  "ec",
-                  "e c",
-                  "EC",
-                  "E C"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "rating pending",
-                "synonyms": [
-                  "any",
-                  "RP",
-                  "R P",
-                  "r p",
-                  "rp",
-                  "pending"
-                ]
-              }
-            }
-          ],
-          "name": "AgeRating"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "summary",
-                "synonyms": [
-                  "synopsis"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "storyline",
-                "synonyms": [
-                  "story"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "rating"
-              }
-            },
-            {
-              "name": {
-                "value": "publishers",
-                "synonyms": [
-                  "publisher"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "developers",
-                "synonyms": [
-                  "developer"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "videos",
-                "synonyms": [
-                  "video"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "screenshots",
-                "synonyms": [
-                  "screenshot",
-                  "screen shot",
-                  "screen shots"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "pegi",
-                "synonyms": [
-                  "p e g i rating",
-                  "peggy",
-                  "peggy rating",
-                  "pegi rating",
-                  "p e g i",
-                  "rated"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "esrb",
-                "synonyms": [
-                  "esrb rating",
-                  "e s r b rating",
-                  "e s r b",
-                  "rated"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "player_perspectives",
-                "synonyms": [
-                  "player perspectives",
-                  "perspectives",
-                  "perspective",
-                  "player perspective"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "game_modes",
-                "synonyms": [
-                  "game modes",
-                  "gamemodes",
-                  "modes",
-                  "mode",
-                  "gamemode",
-                  "game mode"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "themes",
-                "synonyms": [
-                  "themes"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "genres",
-                "synonyms": [
-                  "categories",
-                  "category",
-                  "genres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "platforms",
-                "synonyms": [
-                  "platforms"
-                ]
-              }
-            }
-          ],
-          "name": "Attributes"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "summary",
-                "synonyms": [
-                  "general info",
-                  "info"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "screenshots",
-                "synonyms": [
-                  "screen shots",
-                  "slideshow",
-                  "pictures",
-                  "pics",
-                  "images",
-                  "slide show"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "video",
-                "synonyms": [
-                  "teaser",
-                  "trailer",
-                  "trailers",
-                  "videos"
-                ]
-              }
-            }
-          ],
-          "name": "NavgationTypes"
-        }
+          },
+          {
+              "id": "Elicit.Slot.1413746775661.1395982134988",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What video game?"
+                  },
+                  {
+                      "type": "PlainText",
+                      "value": "What game?"
+                  },
+                  {
+                      "type": "PlainText",
+                      "value": "For what video game?"
+                  },
+                  {
+                      "type": "PlainText",
+                      "value": "What video game were you thinking?"
+                  },
+                  {
+                      "type": "PlainText",
+                      "value": "What video game would you like me to search for?"
+                  },
+                  {
+                      "type": "PlainText",
+                      "value": "For what game?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.1396770270512.1184099237477",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What would you like to know?"
+                  },
+                  {
+                      "type": "PlainText",
+                      "value": "What would you like to know about {videogame}?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.1359566485882.737886489847",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What minimal overall rating would you prefer?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.1359566485882.1470531850622",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What perspective do you prefer?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.1359566485882.886173669451",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What gamemode do you prefer?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.1359566485882.1497015459818",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What theme do you prefer?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.1359566485882.1421870434314",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What genre do you prefer?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.1359566485882.946226273687",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What platform do you prefer?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.672807583174.1275271206378",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What would you like me to show?"
+                  }
+              ]
+          },
+          {
+              "id": "Elicit.Slot.1332151229750.1299329262963",
+              "variations": [
+                  {
+                      "type": "PlainText",
+                      "value": "What would you like to see?"
+                  }
+              ]
+          }
       ]
-    },
-    "dialog": {
-      "intents": [
-        {
-          "name": "DiscoverIntent",
-          "confirmationRequired": false,
-          "prompts": {},
-          "slots": [
-            {
-              "name": "platform",
-              "type": "Platforms",
-              "elicitationRequired": false,
-              "confirmationRequired": false,
-              "prompts": {}
-            },
-            {
-              "name": "genre",
-              "type": "Genres",
-              "elicitationRequired": false,
-              "confirmationRequired": false,
-              "prompts": {}
-            },
-            {
-              "name": "theme",
-              "type": "Themes",
-              "elicitationRequired": false,
-              "confirmationRequired": false,
-              "prompts": {}
-            },
-            {
-              "name": "gamemode",
-              "type": "Gamemodes",
-              "elicitationRequired": false,
-              "confirmationRequired": false,
-              "prompts": {}
-            },
-            {
-              "name": "perspective",
-              "type": "Perspectives",
-              "elicitationRequired": false,
-              "confirmationRequired": false,
-              "prompts": {}
-            },
-            {
-              "name": "ageRating",
-              "type": "AgeRating",
-              "elicitationRequired": false,
-              "confirmationRequired": false,
-              "prompts": {}
-            },
-            {
-              "name": "rating",
-              "type": "AMAZON.NUMBER",
-              "elicitationRequired": false,
-              "confirmationRequired": false,
-              "prompts": {}
-            }
-          ]
-        },
-        {
-          "name": "SearchIntent",
-          "confirmationRequired": false,
-          "prompts": {},
-          "slots": [
-            {
-              "name": "videogame",
-              "type": "AMAZON.VideoGame",
-              "elicitationRequired": true,
-              "confirmationRequired": false,
-              "prompts": {
-                "elicitation": "Elicit.Slot.1413746775661.1395982134988"
-              }
-            }
-          ]
-        },
-        {
-          "name": "NavigateDetailsIntent",
-          "confirmationRequired": false,
-          "prompts": {},
-          "slots": [
-            {
-              "name": "navigation",
-              "type": "NavgationTypes",
-              "elicitationRequired": true,
-              "confirmationRequired": false,
-              "prompts": {
-                "elicitation": "Elicit.Slot.1332151229750.1299329262963"
-              }
-            }
-          ]
-        }
-      ],
-      "delegationStrategy": "SKILL_RESPONSE"
-    },
-    "prompts": [
-      {
-        "id": "Elicit.Slot.221855356193.602381477714",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What E S R B rating?"
-          },
-          {
-            "type": "PlainText",
-            "value": "What E S R B rating do you prefer?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.221855356193.277658681871",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What PEGI rating do you prefer?"
-          },
-          {
-            "type": "PlainText",
-            "value": "What PEGI rating?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.1413746775661.1395982134988",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What video game?"
-          },
-          {
-            "type": "PlainText",
-            "value": "What game?"
-          },
-          {
-            "type": "PlainText",
-            "value": "For what video game?"
-          },
-          {
-            "type": "PlainText",
-            "value": "What video game were you thinking?"
-          },
-          {
-            "type": "PlainText",
-            "value": "What video game would you like me to search for?"
-          },
-          {
-            "type": "PlainText",
-            "value": "For what game?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.1396770270512.1184099237477",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What would you like to know?"
-          },
-          {
-            "type": "PlainText",
-            "value": "What would you like to know about {videogame}?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.1359566485882.737886489847",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What minimal overall rating would you prefer?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.1359566485882.1470531850622",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What perspective do you prefer?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.1359566485882.886173669451",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What gamemode do you prefer?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.1359566485882.1497015459818",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What theme do you prefer?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.1359566485882.1421870434314",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What genre do you prefer?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.1359566485882.946226273687",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What platform do you prefer?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.672807583174.1275271206378",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What would you like me to show?"
-          }
-        ]
-      },
-      {
-        "id": "Elicit.Slot.1332151229750.1299329262963",
-        "variations": [
-          {
-            "type": "PlainText",
-            "value": "What would you like to see?"
-          }
-        ]
-      }
-    ]
   }
 }

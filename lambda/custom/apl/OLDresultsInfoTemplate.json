@@ -190,12 +190,14 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToItemInfo",
-                                                    "onPress": [{
-                                                        "type": "SendEvent",
-                                                        "arguments": [
-                                                            "GoToItemInfo"
-                                                        ]
-                                                    }],
+                                                    "onPress": [
+                                                        {
+                                                            "type": "SendEvent",
+                                                            "arguments": [
+                                                                "GoToItemInfo"
+                                                            ]
+                                                        }
+                                                    ],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -253,12 +255,14 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoBackToResults",
-                                                    "onPress": [{
-                                                        "type": "SendEvent",
-                                                        "arguments": [
-                                                            "GoBackToResults"
-                                                        ]
-                                                    }],
+                                                    "onPress": [
+                                                        {
+                                                            "type": "SendEvent",
+                                                            "arguments": [
+                                                                "GoBackToResults"
+                                                            ]
+                                                        }
+                                                    ],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -364,12 +368,14 @@
                                                     {
                                                         "type": "TouchWrapper",
                                                         "id": "ItemView",
-                                                        "onPress": [{
-                                                            "type": "SendEvent",
-                                                            "arguments": [
-                                                                "ItemView"
-                                                            ]
-                                                        }],
+                                                        "onPress": [
+                                                            {
+                                                                "type": "SendEvent",
+                                                                "arguments": [
+                                                                    "ItemView"
+                                                                ]
+                                                            }
+                                                        ],
                                                         "item": [
                                                             {
                                                                 "type": "ScrollView",
@@ -400,12 +406,14 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToPrevItem",
-                                                    "onPress": [{
-                                                        "type": "SendEvent",
-                                                        "arguments": [
-                                                            "GoToPrevItem"
-                                                        ]
-                                                    }],
+                                                    "onPress": [
+                                                        {
+                                                            "type": "SendEvent",
+                                                            "arguments": [
+                                                                "GoToPrevItem"
+                                                            ]
+                                                        }
+                                                    ],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -431,12 +439,14 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToNextItem",
-                                                    "onPress": [{
-                                                        "type": "SendEvent",
-                                                        "arguments": [
-                                                            "GoToNextItem"
-                                                        ]
-                                                    }],
+                                                    "onPress": [
+                                                        {
+                                                            "type": "SendEvent",
+                                                            "arguments": [
+                                                                "GoToNextItem"
+                                                            ]
+                                                        }
+                                                    ],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -460,12 +470,14 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToItemScreenshots",
-                                                    "onPress": [{
-                                                        "type": "SendEvent",
-                                                        "arguments": [
-                                                            "GoToItemScreenshots"
-                                                        ]
-                                                    }],
+                                                    "onPress": [
+                                                        {
+                                                            "type": "SendEvent",
+                                                            "arguments": [
+                                                                "GoToItemScreenshots"
+                                                            ]
+                                                        }
+                                                    ],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -489,12 +501,14 @@
                                                 "item": {
                                                     "type": "TouchWrapper",
                                                     "id": "GoToItemVideo",
-                                                    "onPress": [{
-                                                        "type": "SendEvent",
-                                                        "arguments": [
-                                                            "GoToItemVideo"
-                                                        ]
-                                                    }],
+                                                    "onPress": [
+                                                        {
+                                                            "type": "SendEvent",
+                                                            "arguments": [
+                                                                "GoToItemVideo"
+                                                            ]
+                                                        }
+                                                    ],
                                                     "item": [
                                                         {
                                                             "type": "Text",
@@ -509,94 +523,8 @@
                                                 }
                                             }
                                         ]
-                                    },
-                                    {
-                                        "type": "Container",
-                                        "width": "100vw",
-                                        "height": "100vh",
-                                        "id": "${result.gameTitle}-Video",
-                                        "items": [
-                                            {
-                                                "type": "TouchWrapper",
-                                                "id": "StopVideo",
-                                                "onPress": [{
-                                                    "type": "SendEvent",
-                                                    "arguments": [
-                                                        "StopVideo"
-                                                    ]
-                                                }],
-                                                "item": [
-                                                    {
-                                                        "type": "Video",
-                                                        "id": "${result.videoID}",
-                                                        "height": "100vh",
-                                                        "width": "100vw",
-                                                        "source": "",
-                                                        "onPause": {
-                                                            "type": "SetPage",
-                                                            "componentId": "${result.resultNum}",
-                                                            "value": 1
-                                                        },
-                                                        "autoplay": false
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "type": "Frame",
-                                                "position": "absolute",
-                                                "bottom": "${((viewport.shape != 'round') ? '25' : '-25')}",
-                                                "left": "${((viewport.shape != 'round') ? '25' : '40vw')}",
-                                                "right": "${((viewport.shape != 'round') ? '' : '40vw')}",
-                                                "borderRadius": 25,
-                                                "backgroundColor": "grey",
-                                                "item": {
-                                                    "type": "TouchWrapper",
-                                                    "id": "GoToItemInfo",
-                                                    "onPress": [{
-                                                        "type": "SendEvent",
-                                                        "arguments": [
-                                                            "GoToItemInfo"
-                                                        ]
-                                                    }],
-                                                    "item": [
-                                                        {
-                                                            "type": "Text",
-                                                            "text": "Info${((viewport.shape != 'round') ? '' : '<br />.')}",
-                                                            "fontSize": "20dp",
-                                                            "width": "${((viewport.shape != 'round') ? '60dp' : '100%')}",
-                                                            "height": "50",
-                                                            "textAlign": "center",
-                                                            "textAlignVertical": "center"
-                                                        }
-                                                    ]
-                                                }
-                                            }
-                                        ]
                                     }
                                 ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            "resultsPager": {
-                "parameters": [
-                    "results"
-                ],
-                "items": [
-                    {
-                        "type": "Pager",
-                        "id": "resultsPager",
-                        "initialPage": 0,
-                        "navigation": "none",
-                        "height": "100vh",
-                        "width": "100vw",
-                        "data": "${results}",
-                        "item": [
-                            {
-                                "type": "gameInfo",
-                                "id": "${data.gameTitle}-Page",
-                                "result": "${data}"
                             }
                         ]
                     }
@@ -609,160 +537,55 @@
             ],
             "item": [
                 {
-                    "type": "resultsPager",
-                    "results": "${payload.data.properties.results}",
-                    "width": "100vw",
-                    "height": "100vh"
+                    "type": "gameInfo",
+                    "id": "${payload.data.properties.result.gameTitle}-Page",
+                    "result": "${payload.data.properties.result}"
                 }
             ]
         }
     },
-    "dataSources": {
+    "datasources": {
         "data": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "gameTitle": "Battlefield V",
+                    "resultNum": 1,
+                    "resultTotal": 5,
+                    "screenshotImageUrls": [
+                        "https://images.igdb.com/igdb/image/upload/t_original/rkp2kggnoid6bthpuv2n.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/oteswqhfmfxjcu41sug0.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/xdjjufkmte3ntonkigs5.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/cdlqzmwub64eokzm7cdt.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/lxeavjeryfvcj2jtzpu5.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/enrem5i1bj7kcgx0qx6n.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/pjqit6egebe8affgfxey.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/b8aivuwxxtgojaguczad.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/xokasjrbubfkqtnvy9p3.jpeg"
+                    ],
+                    "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                    "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/vkdea0wwyn0zx8fjs1kt.jpeg",
+                    "infoText1": "November 20th 2018",
+                    "infoText2": "N/A",
+                    "infoText3": "72.28",
+                    "infoText4": "Electronic Arts",
+                    "summarySSML": "<speak>A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.</speak>",
+                    "videoID": "fb1MR85XFOc",
+                    "skillLogo": ""
+                }
+            },
             "transformers": [
                 {
-                    "inputPath": "results[*].summarySSML",
+                    "inputPath": "results.summarySSML",
                     "outputName": "summarySpeech",
                     "transformer": "ssmlToSpeech"
                 },
                 {
-                    "inputPath": "results[*].summarySSML",
+                    "inputPath": "results.summarySSML",
                     "outputName": "summaryText",
                     "transformer": "ssmlToText"
                 }
-            ],
-            "type": "object",
-            "properties": {
-                "results": [
-                    {
-                        "summarySSML": "<speak>A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.</speak>",
-                        "resultNum": 1,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/vkdea0wwyn0zx8fjs1kt.jpeg",
-                        "gameTitle": "Battlefield V",
-                        "videoID": "fb1MR85XFOc",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/rkp2kggnoid6bthpuv2n.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/oteswqhfmfxjcu41sug0.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/xdjjufkmte3ntonkigs5.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/cdlqzmwub64eokzm7cdt.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/lxeavjeryfvcj2jtzpu5.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/enrem5i1bj7kcgx0qx6n.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/pjqit6egebe8affgfxey.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/b8aivuwxxtgojaguczad.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/xokasjrbubfkqtnvy9p3.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/w3yuy5qbpbdhmbd4ggu1.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/pmozz7tpzfwiprzjzokc.jpeg"
-                        ],
-                        "infoText2": "N/A",
-                        "infoText1": "November 20th 2018",
-                        "summaryText": "A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.",
-                        "skillLogo": "",
-                        "resultTotal": 5,
-                        "summarySpeech": "https://kopytko.amazon.com/3/6962e958-1d5b-11e9-b3a4-11d53fc93b8c-1566af/8/1548147805892/910e1e596afa547c97e5a5694de70f95b241c4779ae6245c53d620623aa0f6e0/resource.mp3",
-                        "infoText4": "Electronic Arts",
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "68.88"
-                    },
-                    {
-                        "summarySSML": "<speak>In Battlefield 3, players step into the role of the elite U.S. Marines. As the first boots on the ground, players will experience heart-pounding missions across diverse locations including Paris, Tehran and New York. As a U.S. Marine in the field, periods of tension and anticipation are punctuated by moments of complete chaos. As bullets whiz by, as walls crumble, as explosions force players to the ground, the battlefield feels more alive and interactive than ever before.</speak>",
-                        "resultNum": 2,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/z84romyc73p8xoqgwt7c.jpeg",
-                        "gameTitle": "Battlefield 3",
-                        "videoID": "wi2tae2PmmU",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/wfj4uguuur5idlyw6o1r.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/hlu3aizx7iybhlbdgwwb.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/vp5xovezrke5ndk5c1tq.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/dmaijjdq8os2g50klrq8.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/fog4gznwpq1ea1qbe0ni.jpeg"
-                        ],
-                        "infoText2": "ESRB M<br />PEGI 16",
-                        "infoText1": "October 25th 2011",
-                        "summaryText": "In Battlefield 3, players step into the role of the elite U.S. Marines. As the first boots on the ground, players will experience heart-pounding missions across diverse locations including Paris, Tehran and New York. As a U.S. Marine in the field, periods of tension and anticipation are punctuated by moments of complete chaos. As bullets whiz by, as walls crumble, as explosions force players to the ground, the battlefield feels more alive and interactive than ever before.",
-                        "skillLogo": "",
-                        "resultTotal": 5,
-                        "summarySpeech": "https://kopytko.amazon.com/3/6965a85d-1d5b-11e9-8d50-712511c30ac7-044d91/8/1548147805903/de51d6edcde91c242384441b51a9ef200c8171b5317ad0c0a3d43f9811f8ece4/resource.mp3",
-                        "infoText4": "Electronic Arts",
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "83.34"
-                    },
-                    {
-                        "summarySSML": "<speak>Discover classic Battlefield gameplay with epic multiplayer and an adventure-filled campaign. Experience the Dawn of All-Out War, Only in Battlefield 1. </speak>",
-                        "resultNum": 3,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ts6ceuy9nu1sgwpeabmo.jpeg",
-                        "gameTitle": "Battlefield 1",
-                        "videoID": "ymwXbF1VTKU",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/ez6qfdwknjwshjkf5cvo.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/jm9kereghangms42rrp3.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/fsgtjoqvpwpcb7kbdayb.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/qtw7wt4lzftyuadu7h8j.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/njrtwbrbluzscozfzsac.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/sc5inc.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/sc5ind.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/sc5ine.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/sc5inf.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/sc5ing.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/sc5inh.jpeg"
-                        ],
-                        "infoText2": "ESRB M<br />PEGI 18",
-                        "infoText1": "October 21st 2016",
-                        "summaryText": "Discover classic Battlefield gameplay with epic multiplayer and an adventure-filled campaign. Experience the Dawn of All-Out War, Only in Battlefield 1.",
-                        "skillLogo": "",
-                        "resultTotal": 5,
-                        "summarySpeech": "https://kopytko.amazon.com/3/69675644-1d5b-11e9-9c5c-ab90aff8e9b9-00fdf3/8/1548147805912/c60a01f5b2db4bdf4491f1a6a1c054bac842783c7b569b9d0b90c2eff6e9f427/resource.mp3",
-                        "infoText4": "Electronic Arts",
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "82.96"
-                    },
-                    {
-                        "summarySSML": "<speak>Battlefield 4™ is the genre-defining action blockbuster created by DICE, and made from moments that blur the line between game and glory – moments found only in Battlefield. Go to Boot Camp to learn the basics of Battlefield 4's engaging single player and intense multiplayer mode. Here you'll also find intel on Levolution, Commander Mode, Naval Warfare and many more exciting game features.</speak>",
-                        "resultNum": 4,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/ejcbrblr9aj12b8ihgfj.jpeg",
-                        "gameTitle": "Battlefield 4",
-                        "videoID": "ZjSykcTGrNc",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/yq7owbqrj09mgfqg3ac3.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/gkvbblwscco4eaiquxfw.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/gvixjdrjylwi4kifgc4r.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/o80vh3ztviwbrkedbvjs.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/chkphyps9bwrxoau9hen.jpeg"
-                        ],
-                        "infoText2": "ESRB M<br />PEGI 18",
-                        "infoText1": "October 29th 2013",
-                        "summaryText": "Battlefield 4™ is the genre-defining action blockbuster created by DICE, and made from moments that blur the line between game and glory – moments found only in Battlefield. Go to Boot Camp to learn the basics of Battlefield 4's engaging single player and intense multiplayer mode. Here you'll also find intel on Levolution, Commander Mode, Naval Warfare and many more exciting game features.",
-                        "skillLogo": "",
-                        "resultTotal": 5,
-                        "summarySpeech": "https://kopytko.amazon.com/3/69684064-1d5b-11e9-896e-bf34a4d474f5-0984af/8/1548147805924/9fb13fc5a990ebda8c21a5f1053d70be6a639331cb468dbee6b50278051a07a3/resource.mp3",
-                        "infoText4": "Electronic Arts",
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "78.31"
-                    },
-                    {
-                        "summarySSML": "<speak>In Battlefield 2, players will choose to fight for one of three military superpowers: the United States, the Chinese, or the newly formed Middle East Coalition. Armed with the latest modern weaponry, players can take control of any of the game’s 30+ vehicles to engage in major conflicts with over 64 players in some of the largest online battles on the PC. Additionally, persistent character growth allows players to rise through the ranks and attain the ultimate rank of General.</speak>",
-                        "resultNum": 5,
-                        "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/xzv586ab8qpehq4kslri.jpeg",
-                        "gameTitle": "Battlefield 2",
-                        "videoID": "sv1qbuNA1ys",
-                        "screenshotImageUrls": [
-                            "https://images.igdb.com/igdb/image/upload/t_original/s0moeyvaasjdhtzlzqjm.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/cgqoxefpdoljhk7etaqz.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/jfy3ju7dwgwjwjuyqs5b.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/gujamu6mgufkf8izkfpf.jpeg",
-                            "https://images.igdb.com/igdb/image/upload/t_original/ub6bbsdznpv8rcmzlnmx.jpeg"
-                        ],
-                        "infoText2": "ESRB T<br />PEGI 16",
-                        "infoText1": "June 21st 2005",
-                        "summaryText": "In Battlefield 2, players will choose to fight for one of three military superpowers: the United States, the Chinese, or the newly formed Middle East Coalition. Armed with the latest modern weaponry, players can take control of any of the game’s 30+ vehicles to engage in major conflicts with over 64 players in some of the largest online battles on the PC. Additionally, persistent character growth allows players to rise through the ranks and attain the ultimate rank of General.",
-                        "skillLogo": "",
-                        "resultTotal": 5,
-                        "summarySpeech": "https://kopytko.amazon.com/3/696ad881-1d5b-11e9-bc3a-8153af9f8424-6c13fd/8/1548147805935/10049d8f45a4d3083d0f07b0a2b85ac7cef48cbc07ab69abb21f7124fa9b541a/resource.mp3",
-                        "infoText4": "Electronic Arts",
-                        "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
-                        "infoText3": "87.23"
-                    }
-                ]
-            }
+            ]
         }
     }
 }

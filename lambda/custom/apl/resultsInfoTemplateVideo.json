@@ -1,0 +1,643 @@
+{
+    "document": {
+        "type": "APL",
+        "version": "1.0",
+        "theme": "dark",
+        "import": [
+            {
+                "name": "alexa-layouts",
+                "version": "1.0.0"
+            }
+        ],
+        "resources": [
+            {
+                "description": "Stock color for the light theme",
+                "colors": {
+                    "colorTextPrimary": "#151920"
+                }
+            },
+            {
+                "description": "Stock color for the dark theme",
+                "when": "${viewport.theme == 'dark'}",
+                "colors": {
+                    "colorTextPrimary": "#f0f1ef"
+                }
+            },
+            {
+                "description": "Standard font sizes",
+                "dimensions": {
+                    "textSizeBody": 48,
+                    "textSizePrimary": 27,
+                    "textSizeSecondary": 23,
+                    "textSizeDetails": 20,
+                    "textSizeSecondaryHint": 25
+                }
+            },
+            {
+                "description": "Common spacing values",
+                "dimensions": {
+                    "spacingThin": 6,
+                    "spacingSmall": 12,
+                    "spacingMedium": 24,
+                    "spacingLarge": 48,
+                    "spacingExtraLarge": 72
+                }
+            },
+            {
+                "description": "Common margins and padding",
+                "dimensions": {
+                    "marginTop": 40,
+                    "marginLeft": 60,
+                    "marginRight": 60,
+                    "marginBottom": 40
+                }
+            }
+        ],
+        "styles": {
+            "textStyleBase": {
+                "description": "Base font description; set color and core font family",
+                "values": [
+                    {
+                        "color": "@colorTextPrimary",
+                        "fontFamily": "Amazon Ember"
+                    }
+                ]
+            },
+            "textStyleBase0": {
+                "description": "Thin version of basic font",
+                "extend": "textStyleBase",
+                "values": {
+                    "fontWeight": "100"
+                }
+            },
+            "textStyleBase1": {
+                "description": "Light version of basic font",
+                "extend": "textStyleBase",
+                "values": {
+                    "fontWeight": "300"
+                }
+            },
+            "textStyleBase2": {
+                "description": "Regular version of basic font",
+                "extend": "textStyleBase",
+                "values": {
+                    "fontWeight": "500"
+                }
+            },
+            "mixinBody": {
+                "values": {
+                    "fontSize": "@textSizeBody"
+                }
+            },
+            "mixinPrimary": {
+                "values": {
+                    "fontSize": "@textSizePrimary"
+                }
+            },
+            "mixinDetails": {
+                "values": {
+                    "fontSize": "@textSizeDetails"
+                }
+            },
+            "mixinSecondary": {
+                "values": {
+                    "fontSize": "@textSizeSecondary"
+                }
+            },
+            "textStylePrimary": {
+                "extend": [
+                    "textStyleBase1",
+                    "mixinPrimary"
+                ]
+            },
+            "textStyleSecondary": {
+                "extend": [
+                    "textStyleBase0",
+                    "mixinSecondary"
+                ]
+            },
+            "textStyleBody": {
+                "extend": [
+                    "textStyleBase1",
+                    "mixinBody"
+                ]
+            },
+            "textStyleSecondaryHint": {
+                "values": {
+                    "fontFamily": "Bookerly",
+                    "fontStyle": "italic",
+                    "fontSize": "@textSizeSecondaryHint",
+                    "color": "@colorTextPrimary"
+                }
+            },
+            "textStyleDetails": {
+                "extend": [
+                    "textStyleBase2",
+                    "mixinDetails"
+                ]
+            }
+        },
+        "layouts": {
+            "screenShots": {
+                "parameters": [
+                    "result"
+                ],
+                "items": [
+                    {
+                        "type": "Container",
+                        "width": "100vw",
+                        "height": "100vh",
+                        "id": "${result.resultNum}-Screenshots",
+                        "items": [
+                            {
+                                "type": "Pager",
+                                "id": "${result.resultNum}-Screenshots-Pager",
+                                "width": "100vw",
+                                "height": "100vh",
+                                "data": "${result.screenshotImageUrls}",
+                                "navigation": "wrap",
+                                "items": [
+                                    {
+                                        "type": "Image",
+                                        "source": "${data}",
+                                        "scale": "${((viewport.shape != 'round') ? 'fill' : 'best-fit')}",
+                                        "width": "100vw",
+                                        "height": "100vh"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Frame",
+                                "position": "absolute",
+                                "bottom": "${((viewport.shape != 'round') ? '25' : '-25')}",
+                                "right": "${((viewport.shape != 'round') ? '25' : '40vw')}",
+                                "left": "${((viewport.shape != 'round') ? '' : '40vw')}",
+                                "borderRadius": 25,
+                                "backgroundColor": "grey",
+                                "item": {
+                                    "type": "TouchWrapper",
+                                    "id": "GoToItemInfo",
+                                    "onPress": [{
+                                        "type": "SendEvent",
+                                        "arguments": [
+                                            "GoToItemInfo"
+                                        ]
+                                    }],
+                                    "item": [
+                                        {
+                                            "type": "Text",
+                                            "text": "Info${((viewport.shape != 'round') ? '' : '<br />.')}",
+                                            "fontSize": "20dp",
+                                            "width": "${((viewport.shape != 'round') ? '60dp' : '100%')}",
+                                            "height": "50",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "main": {
+                "parameters": [
+                    "result"
+                ],
+                "items": [
+                    {
+                        "type": "Container",
+                        "width": "100vw",
+                        "height": "100vh",
+                        "alignItems": "${((viewport.shape != 'round') ? 'stretch' : 'center')}",
+                        "id": "${result.gameTitle}-Info",
+                        "items": [
+                            {
+                                "type": "Container",
+                                "when": "${viewport.shape != 'round'}",
+                                "direction": "column",
+                                "width": "100vw",
+                                "height": "100vh",
+                                "position": "absolute",
+                                "items": [
+                                    {
+                                        "type": "Image",
+                                        "source": "${result.screenshotImageUrls[0]}",
+                                        "scale": "best-fill",
+                                        "width": "100vw",
+                                        "height": "35vh"
+                                    },
+                                    {
+                                        "type": "Image",
+                                        "source": "${result.backgroundImageUrl}",
+                                        "scale": "best-fill",
+                                        "width": "100vw",
+                                        "height": "70vh"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Frame",
+                                "when": "${viewport.shape != 'round'}",
+                                "position": "absolute",
+                                "top": 25,
+                                "right": 25,
+                                "borderRadius": 25,
+                                "backgroundColor": "grey",
+                                "item": {
+                                    "type": "TouchWrapper",
+                                    "id": "GoBackToResults",
+                                    "onPress": [{
+                                        "type": "SendEvent",
+                                        "arguments": [
+                                            "GoBackToResults"
+                                        ]
+                                    }],
+                                    "item": [
+                                        {
+                                            "type": "Text",
+                                            "text": "Show Results",
+                                            "fontSize": "20dp",
+                                            "width": "150",
+                                            "height": "40",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "AlexaHeader",
+                                "headerTitle": "${result.resultNum}. ${result.gameTitle}"
+                            },
+                            {
+                                "type": "Image",
+                                "when": "${viewport.shape == 'round'}",
+                                "source": "${result.coverImageUrl}",
+                                "width": "20vw",
+                                "height": "40vh",
+                                "scale": "best-fit"
+                            },
+                            {
+                                "type": "Container",
+                                "when": "${viewport.shape != 'round'}",
+                                "position": "absolute",
+                                "direction": "row",
+                                "paddingTop": "10vh",
+                                "width": "100vw",
+                                "height": "100vh",
+                                "grow": 1,
+                                "items": [
+                                    {
+                                        "paddingTop": "30vh",
+                                        "paddingLeft": "5vh",
+                                        "paddingRight": "5vh",
+                                        "width": "20vw",
+                                        "height": "100vh",
+                                        "type": "Text",
+                                        "text": "<b>Release:</b><br />${result.infoText1}",
+                                        "style": "textStylePrimary",
+                                        "textAlign": "center"
+                                    },
+                                    {
+                                        "paddingTop": "30vh",
+                                        "paddingLeft": "5vh",
+                                        "paddingRight": "5vh",
+                                        "width": "20vw",
+                                        "height": "100vh",
+                                        "type": "Text",
+                                        "text": "<b>Ratings:</b><br />${result.infoText2}",
+                                        "style": "textStylePrimary",
+                                        "textAlign": "center"
+                                    },
+                                    {
+                                        "type": "Image",
+                                        "source": "${result.coverImageUrl}",
+                                        "width": "20vw",
+                                        "height": "40vh",
+                                        "scale": "best-fit",
+                                        "align": "center"
+                                    },
+                                    {
+                                        "paddingTop": "30vh",
+                                        "paddingLeft": "5vh",
+                                        "paddingRight": "5vh",
+                                        "width": "20vw",
+                                        "height": "100vh",
+                                        "type": "Text",
+                                        "text": "<b>Critic Score:</b><br />${result.infoText3}",
+                                        "style": "textStylePrimary",
+                                        "textAlign": "center"
+                                    },
+                                    {
+                                        "paddingTop": "30vh",
+                                        "paddingLeft": "5vh",
+                                        "paddingRight": "5vh",
+                                        "width": "20vw",
+                                        "height": "100vh",
+                                        "type": "Text",
+                                        "text": "<b>Company:</b><br />${result.infoText4}",
+                                        "style": "textStylePrimary",
+                                        "textAlign": "center"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Container",
+                                "position": "absolute",
+                                "direction": "row",
+                                "paddingTop": "70vh",
+                                "paddingBottom": "10vh",
+                                "paddingRight": "10vw",
+                                "paddingLeft": "10vw",
+                                "width": "100vw",
+                                "height": "100vh",
+                                "alignItems": "center",
+                                "grow": 1,
+                                "items": [
+                                    {
+                                        "type": "TouchWrapper",
+                                        "id": "ItemView",
+                                        "onPress": [{
+                                            "type": "SendEvent",
+                                            "arguments": [
+                                                "ItemView"
+                                            ]
+                                        }],
+                                        "item": [
+                                            {
+                                                "type": "ScrollView",
+                                                "width": "80vw",
+                                                "height": "${((viewport.shape != 'round') ? '30vh' : '30vh')}",
+                                                "item": {
+                                                    "type": "Text",
+                                                    "id": "${result.resultNum}-summary",
+                                                    "text": "${result.summaryText}",
+                                                    "speech": "${result.summarySpeech}",
+                                                    "style": "textStylePrimary",
+                                                    "textAlign": "center"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Frame",
+                                "when": "${result.resultNum != 1}",
+                                "position": "absolute",
+                                "top": -25,
+                                "left": "40vw",
+                                "right": "40vw",
+                                "borderRadius": 25,
+                                "backgroundColor": "grey",
+                                "item": {
+                                    "type": "TouchWrapper",
+                                    "id": "GoToPrevItem",
+                                    "onPress": [{
+                                        "type": "SendEvent",
+                                        "arguments": [
+                                            "GoToPrevItem"
+                                        ]
+                                    }],
+                                    "item": [
+                                        {
+                                            "type": "Text",
+                                            "text": "<br />Previous Game",
+                                            "fontSize": "20dp",
+                                            "width": "100%",
+                                            "height": "50",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "Frame",
+                                "when": "${result.resultNum != result.resultTotal}",
+                                "position": "absolute",
+                                "bottom": -25,
+                                "left": "40vw",
+                                "right": "40vw",
+                                "borderRadius": 25,
+                                "backgroundColor": "grey",
+                                "item": {
+                                    "type": "TouchWrapper",
+                                    "id": "GoToNextItem",
+                                    "onPress": [{
+                                        "type": "SendEvent",
+                                        "arguments": [
+                                            "GoToNextItem"
+                                        ]
+                                    }],
+                                    "item": [
+                                        {
+                                            "type": "Text",
+                                            "text": "Next Game<br />.",
+                                            "fontSize": "20dp",
+                                            "width": "100%",
+                                            "height": "50",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "Frame",
+                                "position": "absolute",
+                                "bottom": "${((viewport.shape != 'round') ? '25' : '50vh')}",
+                                "left": 25,
+                                "borderRadius": 25,
+                                "backgroundColor": "grey",
+                                "item": {
+                                    "type": "TouchWrapper",
+                                    "id": "GoToItemScreenshots",
+                                    "onPress": [{
+                                        "type": "SendEvent",
+                                        "arguments": [
+                                            "GoToItemScreenshots"
+                                        ]
+                                    }],
+                                    "item": [
+                                        {
+                                            "type": "Text",
+                                            "text": "Screenshots",
+                                            "fontSize": "20dp",
+                                            "width": "120",
+                                            "height": "50",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "type": "Frame",
+                                "position": "absolute",
+                                "bottom": "${((viewport.shape != 'round') ? '25' : '50vh')}",
+                                "right": 25,
+                                "borderRadius": 25,
+                                "backgroundColor": "grey",
+                                "item": {
+                                    "type": "TouchWrapper",
+                                    "id": "GoToItemVideo",
+                                    "onPress": [{
+                                        "type": "SendEvent",
+                                        "arguments": [
+                                            "GoToItemVideo"
+                                        ]
+                                    }],
+                                    "item": [
+                                        {
+                                            "type": "Text",
+                                            "text": "Video",
+                                            "fontSize": "20dp",
+                                            "width": "120",
+                                            "height": "50",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "video": {
+                "parameters": [
+                    "result"
+                ],
+                "items": [
+                    {
+                        "type": "Container",
+                        "width": "100vw",
+                        "height": "100vh",
+                        "id": "${result.gameTitle}-Video",
+                        "items": [
+                            {
+                                "type": "TouchWrapper",
+                                "id": "StopVideo",
+                                "onPress": [{
+                                    "type": "SendEvent",
+                                    "arguments": [
+                                        "StopVideo"
+                                    ]
+                                }],
+                                "item": [
+                                    {
+                                        "type": "Video",
+                                        "id": "${result.videoID}",
+                                        "height": "100vh",
+                                        "width": "100vw",
+                                        "source": "",
+                                        "onPause": {
+                                            "type": "SetPage",
+                                            "componentId": "${result.resultNum}",
+                                            "value": 1
+                                        },
+                                        "autoplay": false
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Frame",
+                                "position": "absolute",
+                                "bottom": "${((viewport.shape != 'round') ? '25' : '-25')}",
+                                "left": "${((viewport.shape != 'round') ? '25' : '40vw')}",
+                                "right": "${((viewport.shape != 'round') ? '' : '40vw')}",
+                                "borderRadius": 25,
+                                "backgroundColor": "grey",
+                                "item": {
+                                    "type": "TouchWrapper",
+                                    "id": "GoToItemInfo",
+                                    "onPress": [{
+                                        "type": "SendEvent",
+                                        "arguments": [
+                                            "GoToItemInfo"
+                                        ]
+                                    }],
+                                    "item": [
+                                        {
+                                            "type": "Text",
+                                            "text": "Info${((viewport.shape != 'round') ? '' : '<br />.')}",
+                                            "fontSize": "20dp",
+                                            "width": "${((viewport.shape != 'round') ? '60dp' : '100%')}",
+                                            "height": "50",
+                                            "textAlign": "center",
+                                            "textAlignVertical": "center"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "mainTemplate": {
+            "parameters": [
+                "payload"
+            ],
+            "item": [
+                {
+                    "type": "Container",
+                    "height": "100vh",
+                    "width": "100vw",
+                    "items": [
+                        {
+                            "type": "video",
+                            "result": "${payload.data.properties.result}"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "datasources": {
+        "data": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "gameTitle": "Battlefield V",
+                    "resultNum": 1,
+                    "resultTotal": 5,
+                    "screenshotImageUrls": [
+                        "https://images.igdb.com/igdb/image/upload/t_original/rkp2kggnoid6bthpuv2n.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/oteswqhfmfxjcu41sug0.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/xdjjufkmte3ntonkigs5.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/cdlqzmwub64eokzm7cdt.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/lxeavjeryfvcj2jtzpu5.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/enrem5i1bj7kcgx0qx6n.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/pjqit6egebe8affgfxey.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/b8aivuwxxtgojaguczad.jpeg",
+                        "https://images.igdb.com/igdb/image/upload/t_original/xokasjrbubfkqtnvy9p3.jpeg"
+                    ],
+                    "backgroundImageUrl": "https://s3.amazonaws.com/austinmatthuw/WhatsThatSong/resources/background.jpg",
+                    "coverImageUrl": "https://images.igdb.com/igdb/image/upload/t_cover_big/vkdea0wwyn0zx8fjs1kt.jpeg",
+                    "infoText1": "November 20th 2018",
+                    "infoText2": "N/A",
+                    "infoText3": "72.28",
+                    "infoText4": "Electronic Arts",
+                    "summarySSML": "<speak>A new Battlefield in a new setting, with unseen multiplayer moments, unmatched sights/sounds and with new modes and experiences.</speak>",
+                    "videoID": "fb1MR85XFOc",
+                    "skillLogo": ""
+                }
+            },
+            "transformers": [
+                {
+                    "inputPath": "results.summarySSML",
+                    "outputName": "summarySpeech",
+                    "transformer": "ssmlToSpeech"
+                },
+                {
+                    "inputPath": "results.summarySSML",
+                    "outputName": "summaryText",
+                    "transformer": "ssmlToText"
+                }
+            ]
+        }
+    }
+}
