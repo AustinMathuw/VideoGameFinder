@@ -140,10 +140,10 @@ const aplHandlers = {
                 logger.debug('APL.NavigateToItem tap: handle: ' + requestEnvelope.request.arguments[0]);
                 if(requestEnvelope.request.arguments[0] === 'GoToNextItem') {
                     sessionAttributes.currentItem = parseInt(sessionAttributes.currentItem) + 1;
-                    Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem);
+                    Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem, results);
                 } else if(requestEnvelope.request.arguments[0] === 'GoToPrevItem') {
                     sessionAttributes.currentItem = parseInt(sessionAttributes.currentItem) - 1;
-                    Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem);
+                    Finder.getGameInfoFromOtherItem(handlerInput, sessionAttributes.currentItem, results);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemScreenshots') {
                     await Finder.changeGameInfoView(handlerInput, 0, results[sessionAttributes.currentItem - 1]);
                 } else if (requestEnvelope.request.arguments[0] === 'GoToItemVideo') {

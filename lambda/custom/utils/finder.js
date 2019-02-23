@@ -501,16 +501,6 @@ const Finder = {
                 "type": "Sequential",
                 "commands": [
                     {
-                        "type": "SetPage",
-                        "componentId": "resultsPager",
-                        "value": itemPosition - 1
-                    },
-                    {
-                        "type": "SetPage",
-                        "componentId": itemPosition,
-                        "value": 1
-                    },
-                    {
                         "type": "SpeakItem",
                         "componentId": itemPosition + "-summary",
                         "highlightMode": "line",
@@ -523,7 +513,7 @@ const Finder = {
         sessionAttributes.currentItem = parseInt(itemPosition);
         var outputSpeech = ctx.t('GENERAL_REPROMPT');
         if(ctx.isAPLCapatable(handlerInput)) {
-            ctx.renderSearchResultsInfo(handlerInput, results);
+            ctx.renderSearchResultsInfo(handlerInput, results[itemPosition - 1]);
             ctx.addAPLCommands(commands);
             outputSpeech = ctx.t('GENERAL_REPROMPT', {
                 gameTitle: results[itemPosition - 1].gameTitle
@@ -538,7 +528,7 @@ const Finder = {
         }
         
     },
-    getGameInfoFromOtherItem: function (handlerInput, itemPosition) {
+    getGameInfoFromOtherItem: function (handlerInput, itemPosition, results) {
         let {
             requestEnvelope,
             attributesManager
@@ -550,16 +540,6 @@ const Finder = {
                 "type": "Sequential",
                 "commands": [
                     {
-                        "type": "SetPage",
-                        "componentId": "resultsPager",
-                        "value": itemPosition - 1
-                    },
-                    {
-                        "type": "SetPage",
-                        "componentId": itemPosition,
-                        "value": 1
-                    },
-                    {
                         "type": "SpeakItem",
                         "componentId": itemPosition + "-summary",
                         "highlightMode": "line",
@@ -570,6 +550,7 @@ const Finder = {
         ];
         var outputSpeech = ctx.t('SEARCH_RESULT_ITEM_INFO');
         if(ctx.isAPLCapatable(handlerInput)) {
+            ctx.renderSearchResultsInfo(handlerInput, results[itemPosition - 1]);
             ctx.addAPLCommands(commands);
             ctx.reprompt.push(outputSpeech.reprompt);
             ctx.openMicrophone = false;

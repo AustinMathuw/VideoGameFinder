@@ -274,7 +274,7 @@ const defaultHandlers = {
         responseBuilder,
         requestEnvelope
       } = handlerInput;
-
+      let sessionAttributes = attributesManager.getSessionAttributes();
       let ctx = attributesManager.getRequestAttributes();
       let messageKey = "";
       messageKey = 'WELCOME';
