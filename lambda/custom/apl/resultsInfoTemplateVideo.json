@@ -533,17 +533,14 @@
                                         "height": "100vh",
                                         "width": "100vw",
                                         "source": "${result.videoURL}",
-                                        "onPause": {
-                                            "type": "SetPage",
-                                            "componentId": "${result.resultNum}",
-                                            "value": 1
-                                        },
-                                        "onEnd" : {
-                                            "type": "SendEvent",
-                                            "arguments": [
-                                                "GoToItemInfo"
-                                            ]
-                                        },
+                                        "onEnd" : [
+                                            {
+                                                "type": "SendEvent",
+                                                "arguments": [
+                                                    "GoToItemInfo"
+                                                ]
+                                            }
+                                        ],
                                         "autoplay": false
                                     }
                                 ]

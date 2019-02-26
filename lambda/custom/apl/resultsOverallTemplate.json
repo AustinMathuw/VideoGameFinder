@@ -249,95 +249,56 @@
             },
             "resultsList": {
                 "parameters": [
-                    "backgroundImageUrl",
-                    "pageTitle",
-                    "skillLogo",
-                    "hintText",
-                    "results"
+                    "payload"
                 ],
                 "items": [
                     {
-                        "when": "${viewport.shape == 'round'}",
-                        "type": "Container",
-                        "height": "100%",
-                        "width": "100%",
-                        "items": [
-                            {
-                                "type": "Sequence",
-                                "scrollDirection": "horizontal",
-                                "data": "${results}",
-                                "height": "100%",
-                                "width": "100%",
-                                "numbered": true,
-                                "item": [
-                                    {
-                                        "type": "fullResultsListItem",
-                                        "result": "${data}",
-                                        "listLength": "${results.length}"
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
                         "type": "Container",
                         "height": "100vh",
-                        "width": "100vw",
                         "items": [
                             {
                                 "type": "Image",
-                                "source": "${backgroundImageUrl}",
+                                "source": "${payload.data.properties.backgroundImageUrl}",
                                 "scale": "best-fill",
                                 "width": "100vw",
                                 "height": "100vh",
                                 "position": "absolute"
                             },
                             {
+                                "when": "${viewport.shape != 'round'}",
                                 "type": "AlexaHeader",
-                                "headerTitle": "${pageTitle}",
-                                "headerAttributionImage": "${skillLogo}"
+                                "headerTitle": "${payload.data.properties.pageTitle}",
+                                "headerAttributionImage": "${payload.data.properties.skillLogo}"
                             },
                             {
                                 "type": "Sequence",
                                 "scrollDirection": "horizontal",
                                 "paddingLeft": "@marginLeft",
                                 "paddingRight": "@marginRight",
-                                "data": "${results}",
+                                "data": "${payload.data.properties.results}",
                                 "height": "70vh",
                                 "width": "100%",
                                 "numbered": true,
                                 "item": [
                                     {
+                                        "when": "${viewport.shape == 'round'}",
+                                        "type": "fullResultsListItem",
+                                        "result": "${data}",
+                                        "listLength": "${payload.data.properties.results.length}"
+                                    },
+                                    {
+                                        "when": "${viewport.shape != 'round'}",
                                         "type": "resultsListItem",
                                         "result": "${data}"
                                     }
                                 ]
                             },
                             {
+                                "when": "${viewport.shape != 'round'}",
                                 "type": "AlexaFooter",
-                                "footerHint": "${hintText}"
+                                "footerHint": "${payload.data.properties.hintText}"
                             }
                         ]
-                    }
-                ]
-            },
-            "resultsDisplay": {
-                "parameters": [
-                    "searchedGame",
-                    "backgroundImageUrl",
-                    "pageTitle",
-                    "skillLogo",
-                    "hintText",
-                    "results"
-                ],
-                "items": [
-                    {
-                        "type": "resultsList",
-                        "backgroundImageUrl": "${backgroundImageUrl}",
-                        "pageTitle": "${pageTitle}",
-                        "skillLogo": "${skillLogo}",
-                        "hintText": "${hintText}",
-                        "results": "${results}"
                     }
                 ]
             }
@@ -348,12 +309,8 @@
             ],
             "item": [
                 {
-                    "searchedGame": "${payload.data.properties.searchedGame}",
-                    "hintText": "${payload.data.properties.hintText}",
-                    "pageTitle": "${payload.data.properties.pageTitle}",
-                    "skillLogo": "${payload.data.properties.skillLogo}",
-                    "type": "resultsDisplay",
-                    "results":   "${payload.data.properties.results}"
+                    "type": "resultsList",
+                    "payload": "${payload}"
                 }
             ]
         }

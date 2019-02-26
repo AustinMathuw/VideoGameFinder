@@ -54,7 +54,7 @@ const messages = {
         reprompt: ''
       },
       'GENERAL_HINT': [
-          'find me a game'
+        'find me a game'
       ],
       'SEARCH_HINT': [
         'select option 1'

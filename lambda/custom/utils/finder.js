@@ -606,7 +606,7 @@ const Finder = {
             }
             ctx.outputSpeech.push(outputSpeech.speech);
             ctx.reprompt.push(outputSpeech.reprompt);
-            ctx.openMicrophone = false;
+            ctx.openMicrophone = true;
         } else {
             outputSpeech = ctx.t('NO_DISPLAY');
             ctx.outputSpeech.push(outputSpeech.speech);
@@ -708,7 +708,6 @@ const Finder = {
                                 "source": videoURL
                             }
                         ];
-                        ctx.addAPLCommands(commands);
                         ctx.openMicrophone = false;
                         ctx.renderSearchResultsInfo(handlerInput, result, settings.INFO_SCHEME.VIDEO);
                     }).catch(err => {
